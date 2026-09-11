@@ -50,21 +50,24 @@ Natural-language-inference: given a Tamil premise and hypothesis, the model pick
 whether the hypothesis is entailed (A), contradicts (B), or is neutral (C) —
 3-way chance = 33%. Same 9-model cohort as the other papers.
 
-| Model | IndicXNLI acc |
-| --- | --- |
-| google/gemini-3.8-flash | **0.750** |
-| z-ai/glm-5.3-flash | 0.715 |
-| qwen/qwen3.8-flash | 0.630 |
-| google/gemma-4-26b-a4b-it | 0.625 |
-| deepseek/deepseek-v4.1-flash | 0.620 |
-| openai/gpt-5.6-luna | 0.610 |
-| xiaomi/mimo-v2.5 | 0.605 |
-| inclusionai/ling-3.0-flash-vl | 0.000 — refused A/B/C format |
-| nvidia/nemotron-3.5-lightning | 0.000 — timeout/refused |
+| Model | IndicXNLI acc | valid n |
+| --- | --- | --- |
+| google/gemini-3.8-flash | **0.758** | 198/200 |
+| z-ai/glm-5.3-flash | 0.715 | 200/200 |
+| google/gemma-4-26b-a4b-it | 0.648 | 193/200 |
+| qwen/qwen3.8-flash | 0.630 | 200/200 |
+| deepseek/deepseek-v4.1-flash | 0.620 | 200/200 |
+| openai/gpt-5.6-luna | 0.610 | 200/200 |
+| xiaomi/mimo-v2.5 | 0.605 | 200/200 |
+| inclusionai/ling-3.0-flash-vl | parked | 0/200 |
+| nvidia/nemotron-3.5-lightning | parked | 0/200 |
 
 As with MILU, Gemini 3.8 Flash leads. XNLI tests a different skill from IndicQA:
-entailment logic in Tamil is separate from quoting a passage. Ling/Nemotron
-scored 0 by refusing the strict A/B/C format, not by being wrong.
+entailment logic in Tamil is separate from quoting a passage. Accuracy is
+computed over valid responses only; failed API calls are excluded, not counted
+as wrong. Ling and Nemotron returned no responses on XNLI day (OpenRouter
+endpoint failures after retries — Ling had scored normally on MILU/IndicQA
+earlier), so they are parked on this table rather than shown as 0%.
 
 ## Known gaps
 

@@ -68,35 +68,54 @@ def load():
         out[task][model].append((n, rows))
     return out
 
+def valid_rows(rows):
+    """Rows with an actual model answer -- drops API failures so they never
+    masquerade as 0% accuracy."""
+    out = []
+    for r in rows:
+        pred = (r.get("prediction") or "").strip()
+        if not pred or pred.startswith("__ERROR__") or str(r.get("raw", "")).startswith("__ERROR__"):
+            continue
+        out.append(r)
+    return out
+
 def compute(data):
     scores = {"milu": {}, "indicqa": {}, "xnli": {}}
     for model, runs in data["milu"].items():
         n, rows = max(runs, key=lambda r: r[0])
-        k = sum(1 for r in rows if r.get("correct"))
-        errs = sum(1 for r in rows if str(r.get("prediction", "")).startswith("__ERROR__"))
-        lo, hi = wilson(k / n, n)
+        valid = valid_rows(rows)
+        if not valid:
+            continue
+        m = len(valid)
+        k = sum(1 for r in valid if r.get("correct"))
+        lo, hi = wilson(k / m, m)
         scores["milu"][model] = {
-            "n": n, "n_errors": errs, "accuracy": round(100 * k / n, 1),
+            "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)],
         }
     for model, runs in data["indicqa"].items():
         n, rows = max(runs, key=lambda r: r[0])
-        ems = [float(r["em"]) for r in rows]
-        em = sum(ems) / n
-        f1 = 100 * sum(float(r["f1"]) for r in rows) / n
-        errs = sum(1 for r in rows if str(r.get("prediction", "")).startswith("__ERROR__"))
-        lo, hi = wilson(em, n)
+        valid = valid_rows(rows)
+        if not valid:
+            continue
+        m = len(valid)
+        em = sum(float(r["em"]) for r in valid) / m
+        f1 = 100 * sum(float(r["f1"]) for r in valid) / m
+        lo, hi = wilson(em, m)
         scores["indicqa"][model] = {
-            "n": n, "n_errors": errs, "em": round(100 * em, 1), "f1": round(f1, 1),
+            "n": m, "n_errors": len(rows) - m, "em": round(100 * em, 1), "f1": round(f1, 1),
             "em_ci": [round(100 * lo, 1), round(100 * hi, 1)],
         }
     for model, runs in data.get("xnli", {}).items():
         n, rows = max(runs, key=lambda r: r[0])
-        k = sum(1 for r in rows if r.get("correct"))
-        errs = sum(1 for r in rows if str(r.get("prediction", "")).startswith("__ERROR__"))
-        lo, hi = wilson(k / n, n)
+        valid = valid_rows(rows)
+        if not valid:
+            continue
+        m = len(valid)
+        k = sum(1 for r in valid if r.get("correct"))
+        lo, hi = wilson(k / m, m)
         scores["xnli"][model] = {
-            "n": n, "n_errors": errs, "accuracy": round(100 * k / n, 1),
+            "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)],
         }
     return scores
@@ -153,10 +172,14 @@ def xnli_scores(data):
     scores = {}
     for model, runs in data.get("xnli", {}).items():
         n, rows = max(runs, key=lambda r: r[0])
-        k = sum(1 for r in rows if r.get("correct"))
-        lo, hi = wilson(k / n, n)
+        valid = valid_rows(rows)
+        if not valid:
+            continue
+        m = len(valid)
+        k = sum(1 for r in valid if r.get("correct"))
+        lo, hi = wilson(k / m, m)
         scores[model] = {
-            "n": n, "accuracy": round(100 * k / n, 1),
+            "n": m, "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)],
         }
     return scores
@@ -186,7 +209,10 @@ def row_html(task, rank, model, s):
     return (f'<tr{cls}><td class="rank">{rank}</td>'
             f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>{cells}</tr>')
 
-PARKED = {"nvidia/nemotron-3.5-lightning:free"}
+PARKED = {
+    "nvidia/nemotron-3.5-lightning:free",
+    "inclusionai/ling-3.0-flash-vl:free",
+}
 
 def pending_row(model):
     name = MODELS[model]

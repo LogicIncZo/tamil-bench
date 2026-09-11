@@ -41,15 +41,6 @@
             70.6
           ]
         },
-        "nvidia/nemotron-3.5-lightning:free": {
-          "n": 199,
-          "n_errors": 199,
-          "accuracy": 0.0,
-          "ci": [
-            0.0,
-            1.9
-          ]
-        },
         "openai/gpt-5.6-luna": {
           "n": 199,
           "n_errors": 0,
@@ -60,12 +51,12 @@
           ]
         },
         "poolside/laguna-s-2.1:free": {
-          "n": 199,
+          "n": 185,
           "n_errors": 14,
-          "accuracy": 49.7,
+          "accuracy": 53.5,
           "ci": [
-            42.9,
-            56.6
+            46.3,
+            60.6
           ]
         },
         "qwen/qwen3.8-flash": {
@@ -121,13 +112,13 @@
           ]
         },
         "google/gemma-4-26b-a4b-it:free": {
-          "n": 100,
+          "n": 94,
           "n_errors": 6,
-          "em": 19.0,
-          "f1": 36.9,
+          "em": 20.2,
+          "f1": 39.3,
           "em_ci": [
-            12.5,
-            27.8
+            13.3,
+            29.4
           ]
         },
         "inclusionai/ling-3.0-flash-vl:free": {
@@ -138,16 +129,6 @@
           "em_ci": [
             8.5,
             22.1
-          ]
-        },
-        "nvidia/nemotron-3.5-lightning:free": {
-          "n": 100,
-          "n_errors": 100,
-          "em": 0.0,
-          "f1": 0.0,
-          "em_ci": [
-            0.0,
-            3.7
           ]
         },
         "openai/gpt-5.6-luna": {
@@ -161,13 +142,13 @@
           ]
         },
         "poolside/laguna-s-2.1:free": {
-          "n": 100,
+          "n": 91,
           "n_errors": 9,
-          "em": 14.0,
-          "f1": 29.1,
+          "em": 15.4,
+          "f1": 32.0,
           "em_ci": [
-            8.5,
-            22.1
+            9.4,
+            24.2
           ]
         },
         "qwen/qwen3.8-flash": {
@@ -215,39 +196,21 @@
           ]
         },
         "google/gemini-3.8-flash": {
-          "n": 200,
-          "n_errors": 0,
-          "accuracy": 75.0,
+          "n": 198,
+          "n_errors": 2,
+          "accuracy": 75.8,
           "ci": [
-            68.6,
-            80.5
+            69.3,
+            81.2
           ]
         },
         "google/gemma-4-26b-a4b-it:free": {
-          "n": 200,
-          "n_errors": 0,
-          "accuracy": 62.5,
+          "n": 193,
+          "n_errors": 7,
+          "accuracy": 64.8,
           "ci": [
-            55.6,
-            68.9
-          ]
-        },
-        "inclusionai/ling-3.0-flash-vl:free": {
-          "n": 200,
-          "n_errors": 0,
-          "accuracy": 0.0,
-          "ci": [
-            0.0,
-            1.9
-          ]
-        },
-        "nvidia/nemotron-3.5-lightning:free": {
-          "n": 200,
-          "n_errors": 0,
-          "accuracy": 0.0,
-          "ci": [
-            0.0,
-            1.9
+            57.8,
+            71.2
           ]
         },
         "openai/gpt-5.6-luna": {
@@ -344,5 +307,7 @@
       }
     }
   },
-  "pending": []
+  "pending": [
+    "nvidia/nemotron-3.5-lightning:free"
+  ]
 }
