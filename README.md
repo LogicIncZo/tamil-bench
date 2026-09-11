@@ -40,3 +40,25 @@ Gemini 3.8 Flash breaks the earlier flash-tier tie decisively (+8pp over Luna on
 - No Tamil in Global-MMLU (repo verified 2026-09-11 — no `ta` config).
 - OpenAI IndQA: dataset never released (github.com/openai/indqa → 404); headroom signal only (GPT-5 best = 34.9%).
 - SEA-HELM: cite the leaderboard (SEA-LION v4 tops Tamil at 68.47); don't run its harness on API models.
+
+## Refresh pipeline
+
+`python3 build_site.py [--no-push]` is the single repeatable refresh command:
+it rescans `results/*.jsonl`, recomputes scores (identical math to `bench.py` —
+errors count as wrong and stay in the denominator), rewrites
+`results/summary.json`, regenerates the comparison charts in `assets/`, and
+patches the scoreboard tables in `index.html` between the
+`<!--ROWS:TASK:TIER-->` markers, then commits/pushes unless `--no-push`.
+
+## Data sources & attribution
+
+- **MILU** — AI4Bharat + IBM Research India, "MILU: A Multi-task Indic Language
+  Understanding Benchmark" (arXiv:2411.02538), CC-BY-4.0, gated on HF
+  (github.com/AI4Bharat/MILU). Tamil split: 6,372 MCQs from UPSC/state-PSC
+  exams, 41 subjects, 8 domains (1,524 machine-translated, rest curated).
+  This bench samples 199 questions stratified by subject (seed 42).
+- **IndicQA** — AI4Bharat, "Towards Leaving No Indic Language Behind" (ACL 2023),
+  CC-BY-SA-4.0 (github.com/AI4Bharat/IndicQA). Tamil: 1,804 questions
+  (1,276 answerable) over 253 Wikipedia-derived articles; we use the
+  answerable subset sample of 100 (seed 42), SQuAD-style EM/F1 scoring.
+- Charts are CC-BY-SA too — attribute "tamil-bench" and share freely.
