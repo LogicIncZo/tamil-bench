@@ -111,11 +111,14 @@ def row_html(task, rank, model, s):
     return (f'<tr{cls}><td class="rank">{rank}</td>'
             f'<td class="model">{model}<small>{name}</small></td>{cells}</tr>')
 
+PARKED = {"nvidia/nemotron-3.5-lightning:free"}
+
 def pending_row(model):
     name, _ = MODELS[model]
+    label = "parked — free endpoint congested" if model in PARKED else "running\u2026"
     return (f'<tr class="pending"><td class="rank">·</td>'
             f'<td class="model">{model}<small>{name}</small></td>'
-            f'<td class="num score" colspan="3">running…</td></tr>')
+            f'<td class="num score" colspan="3">{label}</td></tr>')
 
 def tier_rows(task, scores, tier):
     have = {m: s for m, s in scores[task].items() if MODELS.get(m, ("", "paid"))[1] == tier}

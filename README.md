@@ -34,8 +34,8 @@ python3 bench.py milu --model deepseek/deepseek-v4.1-flash --n 200   # after gat
 | xiaomi/mimo-v2.5 | 0.759 | 0.200 | 0.401 |
 | qwen/qwen3.8-flash | 0.688 | **0.220** | 0.381 |
 | inclusionai/ling-3.0-flash-vl (free) | 0.643 | 0.140 | 0.374 |
-| google/gemma-4-26b-a4b-it (free) | 0.583 | 0.202 | 0.393 |
-| poolside/laguna-s-2.1 (free) | 0.497 | 0.154 | 0.320 |
+| google/gemma-4-26b-a4b-it (free) | 0.583 | 0.190 | 0.369 |
+| poolside/laguna-s-2.1 (free) | 0.497 | 0.140 | 0.291 |
 
 95% CIs and per-question records in `results/` (errors count as wrong, in-denominator). Nemotron 3.5 Lightning (free) parked — free-tier endpoint too congested to finish (40+ min per task, read-timeout retries).
 
