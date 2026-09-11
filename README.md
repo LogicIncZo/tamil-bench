@@ -2,7 +2,7 @@
 
 Zero-setup generative eval runner for OpenAI-compatible chat endpoints (OpenRouter default). Built because lm-eval MCQ tasks need loglikelihood (chat APIs don't return it) and SEA-HELM's harness needs vLLM/GPU.
 
-**Live scoreboard (ELI5 + scores):** https://logicinczo.github.io/tamil-bench/ — served from `index.html` via GitHub Pages.
+**Live scoreboard (bilingual English + Tamil, ELI5 + scores):** https://logicinczo.github.io/tamil-bench/ — served from `index.html` via GitHub Pages.
 
 ## Benchmarks
 

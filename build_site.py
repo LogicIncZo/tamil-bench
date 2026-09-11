@@ -20,10 +20,10 @@ MODELS = {
     "z-ai/glm-5.3-flash": ("GLM 5.3 Flash", "paid"),
     "qwen/qwen3.8-flash": ("Qwen 3.8 Flash", "paid"),
     "xiaomi/mimo-v2.5": ("Xiaomi MiMo v2.5", "value"),
-    "google/gemma-4-26b-a4b-it:free": ("Gemma 4 26B A4B (free)", "value"),
-    "inclusionai/ling-3.0-flash-vl:free": ("Ling 3.0 Flash VL (free)", "value"),
-    "nvidia/nemotron-3.5-lightning:free": ("Nemotron 3.5 Lightning (free)", "value"),
-    "poolside/laguna-s-2.1:free": ("Poolside Laguna-S 2.1 (free)", "value"),
+    "google/gemma-4-26b-a4b-it:free": ("Gemma 4 26B A4B", "value"),
+    "inclusionai/ling-3.0-flash-vl:free": ("Ling 3.0 Flash VL", "value"),
+    "nvidia/nemotron-3.5-lightning:free": ("Nemotron 3.5 Lightning", "value"),
+    "poolside/laguna-s-2.1:free": ("Poolside Laguna-S 2.1", "value"),
 }
 
 def parse_stem(stem):
@@ -109,15 +109,15 @@ def row_html(task, rank, model, s):
             f'<td class="num ci">{s["em_ci"][0]}–{s["em_ci"][1]}</td>'
         )
     return (f'<tr{cls}><td class="rank">{rank}</td>'
-            f'<td class="model">{model}<small>{name}</small></td>{cells}</tr>')
+            f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>{cells}</tr>')
 
 PARKED = {"nvidia/nemotron-3.5-lightning:free"}
 
 def pending_row(model):
     name, _ = MODELS[model]
-    label = "parked — free endpoint congested" if model in PARKED else "running\u2026"
+    label = "parked — endpoint congested" if model in PARKED else "running\u2026"
     return (f'<tr class="pending"><td class="rank">·</td>'
-            f'<td class="model">{model}<small>{name}</small></td>'
+            f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>'
             f'<td class="num score" colspan="3">{label}</td></tr>')
 
 def rows(task, scores):
