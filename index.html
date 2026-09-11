@@ -290,6 +290,12 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
         <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
         <tbody>
           <!--ROWS:MILU:paid-->
+          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">94.5%</td><td class="barcell"><span class="bar"><i style="width:94.5%"></i></span></td><td class="num ci">90.4–96.9</td></tr>
+          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">86.4%</td><td class="barcell"><span class="bar"><i style="width:86.4%"></i></span></td><td class="num ci">81.0–90.5</td></tr>
+          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">80.9%</td><td class="barcell"><span class="bar"><i style="width:80.9%"></i></span></td><td class="num ci">74.9–85.8</td></tr>
+          <tr><td class="rank">4</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">79.9%</td><td class="barcell"><span class="bar"><i style="width:79.9%"></i></span></td><td class="num ci">73.8–84.9</td></tr>
+          <tr><td class="rank">5</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">68.8%</td><td class="barcell"><span class="bar"><i style="width:68.8%"></i></span></td><td class="num ci">62.1–74.9</td></tr>
+          <!--/ROWS:MILU:paid-->
         </tbody>
       </table>
       <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
@@ -297,6 +303,12 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
         <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
         <tbody>
           <!--ROWS:MILU:value-->
+          <tr class="top"><td class="rank">1</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">75.9%</td><td class="barcell"><span class="bar"><i style="width:75.9%"></i></span></td><td class="num ci">69.5–81.3</td></tr>
+          <tr><td class="rank">2</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">64.3%</td><td class="barcell"><span class="bar"><i style="width:64.3%"></i></span></td><td class="num ci">57.5–70.6</td></tr>
+          <tr><td class="rank">3</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">58.3%</td><td class="barcell"><span class="bar"><i style="width:58.3%"></i></span></td><td class="num ci">51.3–64.9</td></tr>
+          <tr><td class="rank">4</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">49.7%</td><td class="barcell"><span class="bar"><i style="width:49.7%"></i></span></td><td class="num ci">42.9–56.6</td></tr>
+          <tr class="pending"><td class="rank">·</td><td class="model">nvidia/nemotron-3.5-lightning:free<small>Nemotron 3.5 Lightning (free)</small></td><td class="num score" colspan="3">running…</td></tr>
+          <!--/ROWS:MILU:value-->
         </tbody>
       </table>
       <figure class="chart"><img src="assets/chart-milu.png" alt="MILU Tamil accuracy comparison chart" loading="lazy" /><figcaption>Report-card image · MILU Tamil accuracy with 95% CIs — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
@@ -313,6 +325,12 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
         <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
         <tbody>
           <!--ROWS:QA:paid-->
+          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">20.0%</td><td class="num">42.4</td><td class="barcell"><span class="bar"><i style="width:42.4%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
+          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">17.0%</td><td class="num">40.7</td><td class="barcell"><span class="bar"><i style="width:40.7%"></i></span></td><td class="num ci">10.9–25.5</td></tr>
+          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">18.0%</td><td class="num">38.9</td><td class="barcell"><span class="bar"><i style="width:38.9%"></i></span></td><td class="num ci">11.7–26.7</td></tr>
+          <tr><td class="rank">4</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">22.0%</td><td class="num">38.1</td><td class="barcell"><span class="bar"><i style="width:38.1%"></i></span></td><td class="num ci">15.0–31.1</td></tr>
+          <tr><td class="rank">5</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">19.0%</td><td class="num">36.8</td><td class="barcell"><span class="bar"><i style="width:36.8%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+          <!--/ROWS:QA:paid-->
         </tbody>
       </table>
       <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
@@ -320,6 +338,12 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
         <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
         <tbody>
           <!--ROWS:QA:value-->
+          <tr class="top"><td class="rank">1</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">20.0%</td><td class="num">40.1</td><td class="barcell"><span class="bar"><i style="width:40.1%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
+          <tr><td class="rank">2</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">14.0%</td><td class="num">37.4</td><td class="barcell"><span class="bar"><i style="width:37.4%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
+          <tr><td class="rank">3</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">19.0%</td><td class="num">36.9</td><td class="barcell"><span class="bar"><i style="width:36.9%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+          <tr><td class="rank">4</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">14.0%</td><td class="num">29.1</td><td class="barcell"><span class="bar"><i style="width:29.1%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
+          <tr class="pending"><td class="rank">·</td><td class="model">nvidia/nemotron-3.5-lightning:free<small>Nemotron 3.5 Lightning (free)</small></td><td class="num score" colspan="3">running…</td></tr>
+          <!--/ROWS:QA:value-->
         </tbody>
       </table>
       <figure class="chart"><img src="assets/chart-indicqa.png" alt="IndicQA Tamil EM and F1 comparison chart" loading="lazy" /><figcaption>Report-card image · IndicQA Tamil exact-match vs F1 — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
