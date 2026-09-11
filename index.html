@@ -179,11 +179,6 @@ tr.top .bar i{background:var(--red-deep)}
   font-size:13px;color:var(--ink-soft);margin-top:14px;
   font-family:var(--mono);
 }
-.tierlabel{
-  margin:26px 0 2px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--ink-soft);font-family:var(--mono);display:flex;align-items:center;gap:10px;
-}
-.tierlabel:after{content:"";flex:1;border-top:1px dashed var(--rule)}
 tr.pending td{opacity:.55;font-style:italic}
 tr.pending .rank:after{content:"…"}
 .src{font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.55}
@@ -220,6 +215,16 @@ tr.pending .rank:after{content:"…"}
 .codebox .c{color:#8a8168}
 .codebox .p{color:#d99a3d}
 
+
+/* ---------- glossary + answer sheets ---------- */
+.gloss{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:20px;max-width:1020px}
+@media(max-width:900px){.gloss{grid-template-columns:1fr}}
+.g{background:var(--paper-deep);border:1px solid var(--line);padding:14px 16px;font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+.g b{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--red-deep);margin-bottom:5px}
+.sheet{border-left:4px solid var(--red);background:var(--paper-deep);max-width:780px;padding:14px 20px;margin:14px 0 0;font-size:14.5px;line-height:1.6}
+.sheet .lbl{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:7px}
+.sheet i{color:var(--ink-soft)}
+
 /* ---------- footer ---------- */
 footer{
   padding:50px 0 70px;
@@ -247,7 +252,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <span>Benchmark Series · Sept 2026</span>
     </div>
     <h1><span class="ta">தமிழ் பெஞ்ச்</span>Tamil Bench</h1>
-    <p class="deck">AI models are graded mostly on English. This is a mark sheet for <strong>how well frontier models actually handle Tamil</strong> — two open exams, nine models across two tiers, every score reproducible with one command.</p>
+    <p class="deck">AI models are graded mostly on English. This is a mark sheet for <strong>how well frontier models actually handle Tamil</strong> — two open exams, nine models, every score reproducible with one command.</p>
     <p class="byline">An open benchmark by <a href="https://cashlessconsumer.in">CashlessConsumer</a> · <a href="https://github.com/LogicIncZo/tamil-bench">github.com/LogicIncZo/tamil-bench</a></p>
   </div>
 </header>
@@ -261,7 +266,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
     </div>
     <div class="analogy">
       <span class="lbl">If you know nothing about AI</span>
-      Imagine ten students — five paid “flash” models and five free/open-weight endpoints — all claiming to know Tamil. We seat them for two papers: a multiple-choice general-knowledge exam, and a reading-comprehension test where they must underline the exact phrase in a passage that answers a question. Then we tally the marks and put the topper on the board. That's this website.
+      Imagine nine AI models — big names and small open-weight ones alike — all claiming to know Tamil. We seat them for two papers: a multiple-choice general-knowledge exam, and a reading-comprehension test where they must underline the exact phrase in a passage that answers a question. Then we tally the marks and put the topper on the board. That's this website.
     </div>
     <div class="twocol">
       <div class="examcard" data-max="Paper 1 · 199 Qs">
@@ -289,29 +294,20 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <table>
         <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
         <tbody>
-          <!--ROWS:MILU:paid-->
+          <!--ROWS:MILU-->
           <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">94.5%</td><td class="barcell"><span class="bar"><i style="width:94.5%"></i></span></td><td class="num ci">90.4–96.9</td></tr>
           <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">86.4%</td><td class="barcell"><span class="bar"><i style="width:86.4%"></i></span></td><td class="num ci">81.0–90.5</td></tr>
           <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">80.9%</td><td class="barcell"><span class="bar"><i style="width:80.9%"></i></span></td><td class="num ci">74.9–85.8</td></tr>
           <tr><td class="rank">4</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">79.9%</td><td class="barcell"><span class="bar"><i style="width:79.9%"></i></span></td><td class="num ci">73.8–84.9</td></tr>
-          <tr><td class="rank">5</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">68.8%</td><td class="barcell"><span class="bar"><i style="width:68.8%"></i></span></td><td class="num ci">62.1–74.9</td></tr>
-          <!--/ROWS:MILU:paid-->
-        </tbody>
-      </table>
-      <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
-      <table>
-        <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
-        <tbody>
-          <!--ROWS:MILU:value-->
-          <tr class="top"><td class="rank">1</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">75.9%</td><td class="barcell"><span class="bar"><i style="width:75.9%"></i></span></td><td class="num ci">69.5–81.3</td></tr>
-          <tr><td class="rank">2</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">64.3%</td><td class="barcell"><span class="bar"><i style="width:64.3%"></i></span></td><td class="num ci">57.5–70.6</td></tr>
-          <tr><td class="rank">3</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">58.3%</td><td class="barcell"><span class="bar"><i style="width:58.3%"></i></span></td><td class="num ci">51.3–64.9</td></tr>
-          <tr><td class="rank">4</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">49.7%</td><td class="barcell"><span class="bar"><i style="width:49.7%"></i></span></td><td class="num ci">42.9–56.6</td></tr>
+          <tr><td class="rank">5</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">75.9%</td><td class="barcell"><span class="bar"><i style="width:75.9%"></i></span></td><td class="num ci">69.5–81.3</td></tr>
+          <tr><td class="rank">6</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">68.8%</td><td class="barcell"><span class="bar"><i style="width:68.8%"></i></span></td><td class="num ci">62.1–74.9</td></tr>
+          <tr><td class="rank">7</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">64.3%</td><td class="barcell"><span class="bar"><i style="width:64.3%"></i></span></td><td class="num ci">57.5–70.6</td></tr>
+          <tr><td class="rank">8</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">58.3%</td><td class="barcell"><span class="bar"><i style="width:58.3%"></i></span></td><td class="num ci">51.3–64.9</td></tr>
+          <tr><td class="rank">9</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">49.7%</td><td class="barcell"><span class="bar"><i style="width:49.7%"></i></span></td><td class="num ci">42.9–56.6</td></tr>
           <tr class="pending"><td class="rank">·</td><td class="model">nvidia/nemotron-3.5-lightning:free<small>Nemotron 3.5 Lightning (free)</small></td><td class="num score" colspan="3">parked — free endpoint congested</td></tr>
-          <!--/ROWS:MILU:value-->
+          <!--/ROWS:MILU-->
         </tbody>
       </table>
-      <figure class="chart"><img src="assets/chart-milu.png" alt="MILU Tamil accuracy comparison chart" loading="lazy" /><figcaption>Report-card image · MILU Tamil accuracy with 95% CIs — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
       <p class="note">0-shot, temperature 0, letter-parse; 199 questions stratified by subject (seed 42); CI = Wilson interval. Machine-readable: <span style="font-family:var(--mono)">results/summary.json</span>. “Running” rows fill in as sweeps finish; parked rows await an off-peak retry.</p>
     </div>
   </div>
@@ -324,50 +320,74 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <table>
         <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
         <tbody>
-          <!--ROWS:QA:paid-->
+          <!--ROWS:QA-->
           <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">20.0%</td><td class="num">42.4</td><td class="barcell"><span class="bar"><i style="width:42.4%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
           <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">17.0%</td><td class="num">40.7</td><td class="barcell"><span class="bar"><i style="width:40.7%"></i></span></td><td class="num ci">10.9–25.5</td></tr>
-          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">18.0%</td><td class="num">38.9</td><td class="barcell"><span class="bar"><i style="width:38.9%"></i></span></td><td class="num ci">11.7–26.7</td></tr>
-          <tr><td class="rank">4</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">22.0%</td><td class="num">38.1</td><td class="barcell"><span class="bar"><i style="width:38.1%"></i></span></td><td class="num ci">15.0–31.1</td></tr>
-          <tr><td class="rank">5</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">19.0%</td><td class="num">36.8</td><td class="barcell"><span class="bar"><i style="width:36.8%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
-          <!--/ROWS:QA:paid-->
-        </tbody>
-      </table>
-      <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
-      <table>
-        <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
-        <tbody>
-          <!--ROWS:QA:value-->
-          <tr class="top"><td class="rank">1</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">20.0%</td><td class="num">40.1</td><td class="barcell"><span class="bar"><i style="width:40.1%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
-          <tr><td class="rank">2</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">14.0%</td><td class="num">37.4</td><td class="barcell"><span class="bar"><i style="width:37.4%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
-          <tr><td class="rank">3</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">19.0%</td><td class="num">36.9</td><td class="barcell"><span class="bar"><i style="width:36.9%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
-          <tr><td class="rank">4</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">14.0%</td><td class="num">29.1</td><td class="barcell"><span class="bar"><i style="width:29.1%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
+          <tr><td class="rank">3</td><td class="model">xiaomi/mimo-v2.5<small>Xiaomi MiMo v2.5</small></td><td class="num score">20.0%</td><td class="num">40.1</td><td class="barcell"><span class="bar"><i style="width:40.1%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
+          <tr><td class="rank">4</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">18.0%</td><td class="num">38.9</td><td class="barcell"><span class="bar"><i style="width:38.9%"></i></span></td><td class="num ci">11.7–26.7</td></tr>
+          <tr><td class="rank">5</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">22.0%</td><td class="num">38.1</td><td class="barcell"><span class="bar"><i style="width:38.1%"></i></span></td><td class="num ci">15.0–31.1</td></tr>
+          <tr><td class="rank">6</td><td class="model">inclusionai/ling-3.0-flash-vl:free<small>Ling 3.0 Flash VL (free)</small></td><td class="num score">14.0%</td><td class="num">37.4</td><td class="barcell"><span class="bar"><i style="width:37.4%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
+          <tr><td class="rank">7</td><td class="model">google/gemma-4-26b-a4b-it:free<small>Gemma 4 26B A4B (free)</small></td><td class="num score">19.0%</td><td class="num">36.9</td><td class="barcell"><span class="bar"><i style="width:36.9%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+          <tr><td class="rank">8</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">19.0%</td><td class="num">36.8</td><td class="barcell"><span class="bar"><i style="width:36.8%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+          <tr><td class="rank">9</td><td class="model">poolside/laguna-s-2.1:free<small>Poolside Laguna-S 2.1 (free)</small></td><td class="num score">14.0%</td><td class="num">29.1</td><td class="barcell"><span class="bar"><i style="width:29.1%"></i></span></td><td class="num ci">8.5–22.1</td></tr>
           <tr class="pending"><td class="rank">·</td><td class="model">nvidia/nemotron-3.5-lightning:free<small>Nemotron 3.5 Lightning (free)</small></td><td class="num score" colspan="3">parked — free endpoint congested</td></tr>
-          <!--/ROWS:QA:value-->
+          <!--/ROWS:QA-->
         </tbody>
       </table>
-      <figure class="chart"><img src="assets/chart-indicqa.png" alt="IndicQA Tamil EM and F1 comparison chart" loading="lazy" /><figcaption>Report-card image · IndicQA Tamil exact-match vs F1 — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
+      <figure class="chart"><img src="assets/chart-scores.png" alt="Tamil Bench comparison chart: 9 models across MILU accuracy, IndicQA exact match and F1" loading="lazy" /><figcaption>Report-card image · all three metrics side by side — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
       <p class="note">EM = answer matches the gold span exactly (after normalization); F1 = token overlap, 0–100. n=100 per model (seed 42).</p>
+    </div>
+  </div>
+</section>
+
+<section id="rubric">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 4</span><h2>How to read the marks — rubrics &amp; jargon in plain language</h2><span class="mark">[glossary]</span></div>
+    <div class="gloss">
+      <div class="g"><b>Accuracy</b>The share of exam questions answered correctly. 94.5% means roughly 188 of 199 questions right.</div>
+      <div class="g"><b>EM · Exact Match</b>Full marks only if the answer is word-for-word the official answer (ignoring capital letters, punctuation and extra spaces). Harsh but unambiguous.</div>
+      <div class="g"><b>F1</b>Partial credit: the share of words the model’s answer shares with the official answer. 100 = same words, 0 = no overlap. It catches “almost right” answers that EM fails.</div>
+      <div class="g"><b>95% CI</b>We grade a sample of questions, not the whole set. The CI is the range where the model’s true score would land in 95 of 100 re-samples. Non-overlapping ranges = a real gap, not luck.</div>
+      <div class="g"><b>0-shot</b>The model gets no worked examples before the exam — just the question, cold.</div>
+      <div class="g"><b>temperature 0</b>The model’s randomness dial is set to zero: same question in, same answer out. Grades are repeatable.</div>
+      <div class="g"><b>letter-parse</b>Models must answer A/B/C/D. Many write an essay first and bury the letter inside; the parser extracts the letter they committed to — or marks the answer wrong.</div>
+      <div class="g"><b>stratified sample · seed 42</b>Every subject appears in proportion, and the fixed random seed means anyone re-running the bench gets the identical question set.</div>
+      <div class="g"><b>n</b>The number of graded questions behind a score. Smaller n = wider confidence intervals.</div>
+    </div>
+    <p style="margin-top:26px;font-size:15.5px">Every score on this site is tallied from saved answer sheets (<span style="font-family:var(--mono)">results/*.jsonl</span>). Three extracts, exactly as recorded:</p>
+    <div class="sheet">
+      <span class="lbl">Paper 1 · MILU · Arts and Culture · gold: A · graded: correct <i>(sample-milu-gemini.json — fresh call, exact bench prompt, recorded 2026-09-11)</i></span>
+      <p><b>Q:</b> பின்வருபவர்களில் தாதா சாஹிப் பால்கே விருது 2013 பெற்ற நபர் யார்? <i>(Who received the Dadasaheb Phalke Award for 2013?)</i><br>
+      A. சம்பூரன் சிங்க் கல்ரா <i>(Sampooran Singh Kalra — the poet Gulzar's real name)</i> · B. விஜய ஷேசாஸ்திரி · C. ப்ரன் சிகந் · D. ரமேஷ் அகர்வால்<br>
+      The model's entire reply: <b>A</b> — nothing else. The parser reads A, the gold is A, one mark. That is the whole contract: answer with a bare letter. When a model writes an essay instead, letter-parse digs the letter out of it — or marks the question wrong.</p>
+    </div>
+    <div class="sheet">
+      <span class="lbl">Paper 2 · IndicQA · question 1019 · Exact Match = 100, F1 = 100 <i>(as recorded: results/indicqa_xiaomi_mimo-v2.5_n100.jsonl)</i></span>
+      <p><b>Passage:</b> கோல்கொண்டா கோட்டை இந்திய தொல்லியல் துறை பட்டியலில் இடம் பெற்றுள்ளது… <i>(The Golkonda fort features in the Archaeological Survey of India's list…)</i><br>
+      <b>Q:</b> வெற்றியின் வாயில் எப்படி அழைக்கப்பட்டது? <i>(What was the gate of victory called?)</i> → Official answer: <b>பதே தர்வாசா</b> · MiMo v2.5 answered: <b>“பதே தர்வாசா”</b> — same words, wrapped in quotation marks. Normalization strips the punctuation, so it still scores word-for-word: full marks.</p>
+    </div>
+    <div class="sheet">
+      <span class="lbl">Paper 2 · IndicQA · EM = 0, F1 = 50 · the near-miss that explains both metrics <i>(as recorded: results/indicqa_deepseek_deepseek-v4.1-flash_n100.jsonl)</i></span>
+      <p><b>Q:</b> அன்னை தெரேசா எப்போது தனது சேவையைத் தொடங்கினார்? <i>(When did Mother Teresa begin her service?)</i> → Official answer: <b>1948</b> · DeepSeek V4.1 answered: <b>1948 ஆம் ஆண்டில்</b> <i>(“in the year 1948”)</i>. The model knows the answer — but adds a grammatical flourish, so exact-match fails while F1 pays half. Best part: <b>all nine models</b> flunked this exact question the exact same way. Multiply it across the paper and you have the whole EM-vs-F1 gap.</p>
     </div>
   </div>
 </section>
 
 <section id="findings">
   <div class="wrap">
-    <div class="qnum"><span class="qta">வினா 4</span><h2>What the marks tell us</h2><span class="mark">[5 × 2 = 10 marks]</span></div>
+    <div class="qnum"><span class="qta">வினா 5</span><h2>What the marks tell us</h2><span class="mark">[4 × 2 = 8 marks]</span></div>
     <ul class="takeaways">
       <li><b>Gemini 3.8 Flash tops Tamil MCQs decisively</b> — 94.5%, with a confidence band that doesn't touch any other model. On exam-style knowledge in Tamil, it's a clear first.</li>
       <li><b>Comprehension is brutally hard for everyone.</b> Exact-match peaks at just 22%. Models clearly understand the passages — F1 scores near 40 confirm it — but they paraphrase instead of quoting the exact Tamil span, and Tamil's agglutinative endings make near-misses common.</li>
       <li><b>Qwen is the interesting outlier:</b> worst on MCQs (68.8%) but the best at exact-match quoting (22.0%). Knowing facts in Tamil and quoting them verbatim are different skills.</li>
-      <li><b>Rapid progress.</b> All five models beat GPT-4o's ~74% cross-language MILU average from 2024. Two years later, four of five mid-tier "flash" models cross 79% on Tamil exam MCQs — for reference, the SEA-HELM public leaderboard's Tamil topper (SEA-LION v4) sits at 68.5 on its own, differently-scored tasks.</li>
-      <li><b>The free tier has a topper now.</b> Xiaomi's MiMo v2.5 (75.9% MCQ) beats Qwen's paid flash outright, and on comprehension the gap is thin: MiMo's F1 (40.1) outscores three of the five paid models, while Gemma 4 (36.9) and Ling 3.0 (37.4) both edge past GLM 5.3 Flash (36.8). But the floor is real — Poolside Laguna-S manages just 49.7% on MCQs, and smoke tests show some free endpoints error out on Tamil entirely.</li>
+      <li><b>Open weights are at the table.</b> Xiaomi's MiMo v2.5 outscores Qwen 3.8 Flash on MCQs (75.9% vs 68.8%), and its comprehension F1 (40.1) trails only Gemini and GPT-5.6. The floor is real too — Poolside Laguna-S manages 49.7% on MCQs, and smoke tests show some small open endpoints error out on Tamil entirely.</li>
     </ul>
   </div>
 </section>
 
 <section id="run">
   <div class="wrap">
-    <div class="qnum"><span class="qta">வினா 5</span><h2>Run it yourself</h2><span class="mark">[practical]</span></div>
+    <div class="qnum"><span class="qta">வினா 6</span><h2>Run it yourself</h2><span class="mark">[practical]</span></div>
     <div class="prose">
       <p>The whole bench is one Python file, no GPU, no fine-tuning: it calls models through an OpenAI-compatible API exactly the way a normal user would. Set <span style="font-family:var(--mono)">OPENROUTER_API_KEY</span>, then:</p>
     </div>

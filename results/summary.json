@@ -184,18 +184,6 @@
       }
     }
   },
-  "tiers": {
-    "google/gemini-3.8-flash": "paid",
-    "openai/gpt-5.6-luna": "paid",
-    "deepseek/deepseek-v4.1-flash": "paid",
-    "z-ai/glm-5.3-flash": "paid",
-    "qwen/qwen3.8-flash": "paid",
-    "xiaomi/mimo-v2.5": "value",
-    "google/gemma-4-26b-a4b-it:free": "value",
-    "inclusionai/ling-3.0-flash-vl:free": "value",
-    "nvidia/nemotron-3.5-lightning:free": "value",
-    "poolside/laguna-s-2.1:free": "value"
-  },
   "pending": [
     "nvidia/nemotron-3.5-lightning:free"
   ]

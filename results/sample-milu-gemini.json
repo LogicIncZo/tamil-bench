@@ -1,0 +1,21 @@
+{
+  "task": "milu",
+  "model": "google/gemini-3.8-flash",
+  "recorded": "2026-09-11",
+  "note": "Fresh single-question call using the exact bench.py 0-shot prompt (temperature 0). Shown on the site as the sample answer sheet for Paper 1.",
+  "question": "பின்வருபவர்களில் தாதா சாஹிப் பால்கே விருது 2013 பெற்ற நபர் யார்?",
+  "question_en": "Who among the following received the Dadasaheb Phalke Award for 2013?",
+  "subject": "Arts and Culture",
+  "options": {
+    "A": "சம்பூரன் சிங்க் கல்ரா",
+    "B": "விஜய ஷேசாஸ்திரி",
+    "C": "ப்ரன் சிகந்",
+    "D": "ரமேஷ் அகர்வால்"
+  },
+  "option_A_en": "Sampooran Singh Kalra (Gulzar)",
+  "gold": "A",
+  "raw_response": "A",
+  "parsed_letter": "A",
+  "correct": 1,
+  "prompt_user": "The following are multiple choice questions (with answers) about an Indian exam. Reply ONLY with the letter of the correct option.\n\nபின்வருபவர்களில் தாதா சாஹிப் பால்கே விருது 2013 பெற்ற நபர் யார்?\nA. சம்பூரன் சிங்க் கல்ரா\nB. விஜய ஷேசாஸ்திரி\nC. ப்ரன் சிகந்\nD. ரமேஷ் அகர்வால்\nAnswer:"
+}

@@ -120,141 +120,98 @@ def pending_row(model):
             f'<td class="model">{model}<small>{name}</small></td>'
             f'<td class="num score" colspan="3">{label}</td></tr>')
 
-def tier_rows(task, scores, tier):
-    have = {m: s for m, s in scores[task].items() if MODELS.get(m, ("", "paid"))[1] == tier}
+def rows(task, scores):
     key = "accuracy" if task == "milu" else "f1"
-    ordered = sorted(have.items(), key=lambda kv: -kv[1][key])
-    rows = [row_html(task, i + 1, m, s) for i, (m, s) in enumerate(ordered)]
-    for m, (name, t) in MODELS.items():
-        if t == tier and m not in have:
-            rows.append(pending_row(m))
-    return "\n          ".join(rows)
+    have = [(m, s) for m, s in scores[task].items()]
+    have.sort(key=lambda kv: -kv[1][key])
+    out = [row_html(task, i + 1, m, s) for i, (m, s) in enumerate(have)]
+    out += [pending_row(m) for m in MODELS if m not in scores[task]]
+    return "\n          ".join(out)
 
 def patch_html(scores):
     html = (ROOT / "index.html").read_text()
     for task in ("milu", "indicqa"):
-        for tier in ("paid", "value"):
-            tag = "MILU" if task == "milu" else "QA"
-            html = re.sub(
-                rf"(<!--ROWS:{tag}:{tier}-->)(.*?)(<!--/ROWS:{tag}:{tier}-->)",
-                lambda m: m.group(1) + "\n          " + tier_rows(task, scores, tier) + "\n          " + m.group(3),
-                html, flags=re.S)
+        tag = "MILU" if task == "milu" else "QA"
+        html = re.sub(
+            rf"(<!--ROWS:{tag}-->)(.*?)(<!--/ROWS:{tag}-->)",
+            lambda m: m.group(1) + "\n          " + rows(task, scores) + "\n          " + m.group(3),
+            html, flags=re.S)
     (ROOT / "index.html").write_text(html)
 
 def charts(scores):
+    """Reference-style small-multiples comparison chart: one panel per metric,
+    one color per model, value labels on top. All-English on purpose --
+    matplotlib cannot shape Tamil script (no HarfBuzz), so Tamil stays on the
+    site where browsers shape it correctly."""
     import matplotlib
     matplotlib.use("Agg")
-    from matplotlib import font_manager as fm
     import matplotlib.pyplot as plt
-    for p in ("/usr/share/fonts/truetype/noto/NotoSerifTamil-Regular.ttf",
-              "/usr/share/fonts/truetype/noto/NotoSerifTamil-Bold.ttf"):
-        fm.fontManager.addfont(p)
+
+    ORDER = sorted(scores["milu"], key=lambda m: -scores["milu"][m]["accuracy"])
+    SHORT = {
+        "google/gemini-3.8-flash": "Gemini 3.8",
+        "openai/gpt-5.6-luna": "GPT-5.6 Luna",
+        "deepseek/deepseek-v4.1-flash": "DeepSeek V4.1",
+        "z-ai/glm-5.3-flash": "GLM 5.3",
+        "xiaomi/mimo-v2.5": "MiMo v2.5",
+        "qwen/qwen3.8-flash": "Qwen 3.8",
+        "inclusionai/ling-3.0-flash-vl:free": "Ling 3.0",
+        "google/gemma-4-26b-a4b-it:free": "Gemma 4 26B",
+        "poolside/laguna-s-2.1:free": "Laguna-S 2.1",
+        "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5",
+    }
+    PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
+               "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#a0cbe8"]
+    color = {m: PALETTE[i % len(PALETTE)] for i, m in enumerate(ORDER)}
+    BG, INK, SOFT = "#fbfbf8", "#26221b", "#8d8779"
     plt.rcParams.update({
-        "font.family": ["Noto Serif Tamil", "DejaVu Serif"],
-        "figure.facecolor": "#f7f2e7", "axes.facecolor": "#f7f2e7",
-        "text.color": "#2b2117", "axes.edgecolor": "#2b2117",
-        "axes.labelcolor": "#2b2117", "xtick.color": "#2b2117",
-        "ytick.color": "#2b2117", "svg.fonttype": "none",
+        "font.family": "DejaVu Sans",
+        "figure.facecolor": BG, "axes.facecolor": BG,
+        "text.color": INK, "axes.edgecolor": INK,
+        "xtick.color": INK, "ytick.color": SOFT,
     })
-    OUT = ROOT / "assets"; OUT.mkdir(exist_ok=True)
-    INK, RED, SOFT, RULE = "#2b2117", "#b3382c", "#6f6457", "#d9cfbd"
 
-    # Tamil titles: matplotlib cannot shape Indic scripts (no HarfBuzz), so we
-    # render the two title lines with Pillow+Raqm and composite them on top.
-    from PIL import Image, ImageDraw, ImageFont
-    import io as _io
-    TAMIL_FONT = "/usr/share/fonts/truetype/noto/NotoSerifTamil-Bold.ttf"
-    EN_FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf"
-    PAPER_RGB = (247, 242, 231)
-    INK_RGB = (43, 33, 23)
-
-    def compose(out_path, tamil, english, fig):
-        buf = _io.BytesIO()
-        fig.savefig(buf, format="png", bbox_inches="tight")
-        buf.seek(0)
-        chart = Image.open(buf).convert("RGBA")
-        W = chart.width
-        tf = ImageFont.truetype(TAMIL_FONT, max(28, round(W * .021)), layout_engine=ImageFont.Layout.RAQM)
-        ef = ImageFont.truetype(EN_FONT, max(18, round(W * .0125)))
-        tmp = ImageDraw.Draw(Image.new("RGBA", (8, 8)))
-        tb = tmp.textbbox((0, 0), tamil, font=tf)
-        eb = tmp.textbbox((0, 0), english, font=ef)
-        pad, gap = round(W * .012), round(W * .008)
-        th, eh = tb[3] - tb[1], eb[3] - eb[1]
-        H = pad + th + gap + eh + round(W * .01) + chart.height + pad
-        canvas = Image.new("RGBA", (W, H), PAPER_RGB + (255,))
-        d = ImageDraw.Draw(canvas)
-        y = pad - tb[1]
-        d.text(((W - (tb[2] - tb[0])) // 2 - tb[0], y), tamil, font=tf, fill=INK_RGB + (255,))
-        y += th + gap
-        d.text(((W - (eb[2] - eb[0])) // 2 - eb[0], y), english, font=ef, fill=INK_RGB + (255,))
-        y += eh + round(W * .01)
-        canvas.paste(chart, (0, y), chart)
-        canvas.convert("RGB").save(out_path)
+    panels = [
+        ("MILU \u00b7 exam MCQs", "accuracy", "{:.1f}", scores["milu"]),
+        ("IndicQA \u00b7 exact match", "em", "{:.0f}", scores["indicqa"]),
+        ("IndicQA \u00b7 F1 (word overlap)", "f1", "{:.1f}", scores["indicqa"]),
+    ]
+    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.9), dpi=150)
     today = date.today().isoformat()
-
-    def col_for(m):
-        return RED if MODELS.get(m, ("", "value"))[1] == "value" else INK
-
-    # Paper 1 — MILU bars with CI whiskers
-    milu = sorted(scores["milu"].items(), key=lambda kv: kv[1]["accuracy"])
-    fig, ax = plt.subplots(figsize=(11, 6.2), dpi=150)
-    ys = range(len(milu))
-    for y, (m, s) in zip(ys, milu):
-        ax.barh(y, s["accuracy"], height=.58, color=col_for(m), zorder=3)
-        ax.errorbar(s["accuracy"], y,
-                    xerr=[[s["accuracy"] - s["ci"][0]], [s["ci"][1] - s["accuracy"]]],
-                    fmt="none", ecolor=SOFT, elinewidth=1.4, capsize=4, zorder=4)
-        ax.text(s["accuracy"] + 2.6, y, f'{s["accuracy"]}%', va="center",
-                fontsize=11, fontweight="bold")
-    ax.set_yticks(list(ys))
-    ax.set_yticklabels([MODELS[m][0] for m, _ in milu], fontsize=11)
-    ax.set_xlim(0, 108); ax.set_xticks(range(0, 101, 20))
-    ax.set_xticklabels([f"{v}%" for v in range(0, 101, 20)])
-    for s in ("top", "right", "left"):
-        ax.spines[s].set_visible(False)
-    ax.spines["bottom"].set_color(RULE)
-    ax.tick_params(left=False)
-    ax.grid(axis="x", color=RULE, lw=.7, zorder=0)
-    import matplotlib.patches as mp
-    ax.legend(handles=[mp.Patch(color=INK, label="Paid flash tier"),
-                       mp.Patch(color=RED, label="Free / open-weight")],
-              loc="lower right", frameon=False, fontsize=10)
-    fig.text(.995, .01, f"tamil-bench · {today} · 0-shot, temp 0 · github.com/LogicIncZo/tamil-bench",
-             ha="right", fontsize=8, color=SOFT)
-    fig.tight_layout(rect=(0, .03, 1, 1))
-    compose(OUT / "chart-milu.png",
-            "தமிழ் பெஞ்ச் — பொது அறிவுத் தேர்வு",
-            "Paper 1 · MILU — Tamil exam-style MCQs, accuracy with 95% CI", fig)
+    for ax, (title, key, fmt, sc) in zip(axes, panels):
+        vals = [sc[m][key] for m in ORDER]
+        ax.bar(range(len(ORDER)), vals, color=[color[m] for m in ORDER],
+               width=.72, zorder=3)
+        for x, v in enumerate(vals):
+            ax.text(x, v + 2, fmt.format(v), ha="center", va="bottom",
+                    fontsize=8.6, fontweight="bold", color=INK, zorder=4)
+        ax.set_title(title, fontsize=11.5, fontweight="bold", loc="left", pad=10)
+        ax.set_ylim(0, 108)
+        ax.set_yticks([0, 25, 50, 75, 100])
+        ax.set_xticks(range(len(ORDER)))
+        ax.set_xticklabels([SHORT[m] for m in ORDER], rotation=32,
+                           ha="right", fontsize=8.2)
+        for side in ("top", "right", "left"):
+            ax.spines[side].set_visible(False)
+        ax.spines["bottom"].set_color("#d8d4c8")
+        ax.tick_params(left=False, bottom=False)
+        ax.grid(axis="y", color="#e7e4da", lw=.8, zorder=0)
+    fig.suptitle("Tamil Bench \u2014 how 9 AI models score on two exams written in Tamil",
+                 x=.02, y=.99, ha="left", fontsize=15, fontweight="bold")
+    fig.text(.02, .925, "Left: % of exam questions answered correctly. "
+             "Middle/right: reading comprehension \u2014 exact-match vs partial (word-overlap) credit. "
+             "0-shot, temp 0, " + today + ".",
+             ha="left", fontsize=9, color=SOFT)
+    fig.text(.02, .015, "MILU: 199 questions stratified by subject (seed 42) \u00b7 "
+             "IndicQA: 100 questions (seed 42) \u00b7 95% confidence intervals in the site tables \u00b7 "
+             "github.com/LogicIncZo/tamil-bench",
+             ha="left", fontsize=8, color=SOFT)
+    fig.tight_layout(rect=(0, .05, 1, .88))
+    OUT = ROOT / "assets"; OUT.mkdir(exist_ok=True)
+    fig.savefig(OUT / "chart-scores.png", facecolor=BG)
     plt.close(fig)
-
-    # Paper 2 — IndicQA EM↔F1 dumbbells
-    qa = sorted(scores["indicqa"].items(), key=lambda kv: kv[1]["f1"])
-    fig, ax = plt.subplots(figsize=(11, 6.2), dpi=150)
-    ys = range(len(qa))
-    for y, (m, s) in zip(ys, qa):
-        c = col_for(m)
-        ax.plot([s["em"], s["f1"]], [y, y], color=c, lw=2.4, alpha=.55, zorder=2)
-        ax.scatter([s["em"]], [y], s=64, color=c, zorder=3)
-        ax.scatter([s["f1"]], [y], s=110, facecolors="#f7f2e7", edgecolors=c, linewidths=2.2, zorder=3)
-        ax.text(s["f1"] + 1.8, y, f'F1 {s["f1"]}', va="center", fontsize=10, color=c, fontweight="bold")
-        ax.text(s["em"] - 1.8, y, f'EM {s["em"]}%', va="center", ha="right", fontsize=9.5, color=SOFT)
-    ax.set_yticks(list(ys))
-    ax.set_yticklabels([MODELS[m][0] for m, _ in qa], fontsize=11)
-    ax.set_xlim(-8, 100); ax.set_xticks(range(0, 101, 20))
-    ax.set_xticklabels([f"{v}%" for v in range(0, 101, 20)])
-    for s in ("top", "right", "left"):
-        ax.spines[s].set_visible(False)
-    ax.spines["bottom"].set_color(RULE)
-    ax.tick_params(left=False)
-    ax.grid(axis="x", color=RULE, lw=.7, zorder=0)
-    fig.text(.995, .01, f"tamil-bench · {today} · n=100, seed 42 · github.com/LogicIncZo/tamil-bench",
-             ha="right", fontsize=8, color=SOFT)
-    fig.tight_layout(rect=(0, .03, 1, 1))
-    compose(OUT / "chart-indicqa.png",
-            "வாசிப்புப் புரிதல் தேர்வு",
-            "Paper 2 · IndicQA — exact match (●) vs F1 (○): models read Tamil, but paraphrase", fig)
-    plt.close(fig)
+    for old in ("chart-milu.png", "chart-indicqa.png"):
+        (OUT / old).unlink(missing_ok=True)
 
 def main():
     push = "--no-push" not in sys.argv
@@ -267,7 +224,6 @@ def main():
             "milu": {"n_target": 199, "models": scores["milu"]},
             "indicqa": {"n_target": 100, "models": scores["indicqa"]},
         },
-        "tiers": {m: t for m, (_, t) in MODELS.items()},
         "pending": [m for m in MODELS if m not in scores["milu"] or m not in scores["indicqa"]],
     }
     (RESULTS / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
