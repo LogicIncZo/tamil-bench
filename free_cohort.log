@@ -1,0 +1,5 @@
+[14:19:23] MILU poolside/laguna-s-2.1:free (workers=4)
+Accuracy: 0.497 (95% CI 0.429-0.566)
+[14:45:17] IndicQA poolside/laguna-s-2.1:free
+EM: 0.140 (95% CI 0.085-0.221)   F1: 0.291
+[14:57:58] MILU nvidia/nemotron-3.5-lightning:free (workers=4)

@@ -1,0 +1,57 @@
+/home/workspace/ThamizhKanimai/nlp/tamil-bench/bench.py:274: DeprecationWarning: DataFrameGroupBy.apply operated on the grouping columns. This behavior is deprecated, and in a future version of pandas the grouping columns will be excluded from the operation. Either pass `include_groups=False` to exclude the groupings or explicitly select the grouping columns after groupby to silence this warning.
+  .apply(lambda g: g.head(max(1, round(args.n * len(g) / len(df)))))
+dev: not available (404). Gate: https://huggingface.co/datasets/ai4bharat/MILU
+MILU-Tamil: 199 questions, model=google/gemma-4-26b-a4b-it:free, shots=0
+  25/199
+  50/199
+  75/199
+  100/199
+  125/199
+  150/199
+  175/199
+
+MILU-Tamil  model=google/gemma-4-26b-a4b-it:free  n=199
+Accuracy: 0.583 (95% CI 0.513-0.649)
+By subject:
+  Agriculture: 2/3 = 0.667
+  Anthropology: 1/3 = 0.333
+  Architecture and Design: 2/3 = 0.667
+  Arts and Culture: 2/5 = 0.400
+  Astronomy and Astrophysics: 3/3 = 1.000
+  Biology: 6/10 = 0.600
+  Business and Management: 2/3 = 0.667
+  Chemistry: 8/11 = 0.727
+  Computer Science: 2/5 = 0.400
+  Defense and Security: 0/3 = 0.000
+  Earth Sciences: 3/3 = 1.000
+  Economics: 3/4 = 0.750
+  Education: 1/3 = 0.333
+  Energy and Power: 0/3 = 0.000
+  Engineering: 9/16 = 0.562
+  Environmental Science: 0/3 = 0.000
+  Ethics and Human Rights: 1/3 = 0.333
+  Finance and Investment: 3/6 = 0.500
+  Food Science: 3/3 = 1.000
+  Geography: 3/5 = 0.600
+  Health and Medicine: 1/4 = 0.250
+  History: 7/8 = 0.875
+  Information Technology: 3/3 = 1.000
+  International Relations: 1/3 = 0.333
+  Language Studies: 4/7 = 0.571
+  Law and Ethics: 3/4 = 0.750
+  Literature and Linguistics: 3/5 = 0.600
+  Logical Reasoning: 6/8 = 0.750
+  Materials Science: 2/3 = 0.667
+  Media and Communication: 2/3 = 0.667
+  Music and Performing Arts: 2/3 = 0.667
+  Physics: 8/16 = 0.500
+  Politics and Governance: 3/8 = 0.375
+  Psychology: 2/3 = 0.667
+  Public Administration: 1/3 = 0.333
+  Religion and Spirituality: 3/3 = 1.000
+  Social Welfare and Development: 3/3 = 1.000
+  Sociology: 2/3 = 0.667
+  Sports and Recreation: 3/5 = 0.600
+  Technology and Innovation: 2/3 = 0.667
+  Transportation and Logistics: 1/3 = 0.333
+saved: /home/workspace/ThamizhKanimai/nlp/tamil-bench/results/milu_google_gemma-4-26b-a4b-it:free_n199.jsonl

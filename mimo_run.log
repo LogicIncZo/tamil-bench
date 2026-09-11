@@ -1,0 +1,5 @@
+[mimo] 14:37:30 MILU xiaomi/mimo-v2.5 (workers=8)
+Accuracy: 0.759 (95% CI 0.695-0.813)
+[mimo] 14:43:36 IndicQA xiaomi/mimo-v2.5 (workers=8)
+EM: 0.200 (95% CI 0.133-0.289)   F1: 0.401
+[mimo] done 14:48:16

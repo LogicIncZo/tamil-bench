@@ -179,6 +179,22 @@ tr.top .bar i{background:var(--red-deep)}
   font-size:13px;color:var(--ink-soft);margin-top:14px;
   font-family:var(--mono);
 }
+.tierlabel{
+  margin:26px 0 2px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);font-family:var(--mono);display:flex;align-items:center;gap:10px;
+}
+.tierlabel:after{content:"";flex:1;border-top:1px dashed var(--rule)}
+tr.pending td{opacity:.55;font-style:italic}
+tr.pending .rank:after{content:"…"}
+.src{font-size:12.5px;color:var(--ink-soft);margin-top:10px;line-height:1.55}
+.src a{color:var(--blue)}
+.chart{margin:22px 0 0}
+.chart img{width:100%;height:auto;display:block;border:1px solid var(--rule)}
+.chart figcaption{font-size:12px;color:var(--ink-soft);margin-top:8px;font-family:var(--mono)}
+.attrib{margin-top:20px;padding-top:14px;border-top:1px solid var(--rule);
+  font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+.attrib .lbl{display:block;margin-bottom:6px}
+.attrib a{color:var(--blue)}
 .takeaways{margin-top:30px;max-width:680px}
 .takeaways li{
   margin:0 0 14px 0;padding-left:26px;position:relative;list-style:none;
@@ -252,12 +268,14 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
         <h3>MILU — the MCQ exam</h3>
         <div class="ta-sub">பொது அறிவுத் தேர்வு</div>
         <p>Multiple-choice questions drawn from real Indian competitive exams, in Tamil. Tests whether the model <em>knows things</em> in Tamil — history, law, science, agriculture.</p>
+        <p class="src">Data: <a href="https://huggingface.co/datasets/ai4bharat/MILU">MILU</a> by AI4Bharat (with IBM Research India) — a benchmark of ~80,000 MCQs across 11 Indian languages, built from actual UPSC and state Public Service Commission papers. The Tamil paper has <b>6,372 questions across 41 subjects</b> (8 domains, from Astronomy to Law); most were written for Tamil exams, not translated. We sit models for a 199-question stratified sample. License: CC-BY-4.0 (gated download on Hugging Face).</p>
         <div class="metric">Score = <b>% of questions answered correctly</b>, with 95% confidence intervals</div>
       </div>
       <div class="examcard" data-max="Paper 2 · 100 Qs">
         <h3>IndicQA — the comprehension exam</h3>
         <div class="ta-sub">வாசிப்புப் புரிதல் தேர்வு</div>
         <p>Read a Tamil passage, answer a question using a short phrase from it — like school reading comprehension. Tests whether the model can <em>read and quote</em> Tamil precisely.</p>
+        <p class="src">Data: <a href="https://huggingface.co/datasets/ai4bharat/IndicQA">IndicQA</a> by AI4Bharat (ACL 2023) — a hand-curated reading-comprehension dataset in 11 Indian languages. The Tamil split has <b>1,804 questions over 253 Wikipedia passages</b> on Indian culture and history (1,276 answerable; 528 deliberately unanswerable to catch bluffing). We grade 100 questions per model with the official SQuAD scoring. License: CC-BY-SA-4.0.</p>
         <div class="metric">Score = <b>Exact Match</b> (did you quote the exact phrase?) and <b>F1</b> (partial credit for overlapping words)</div>
       </div>
     </div>
@@ -271,14 +289,18 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <table>
         <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
         <tbody>
-          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">94.5%</td><td class="barcell"><span class="bar"><i style="width:94.5%"></i></span></td><td class="num ci">90.4–96.9</td></tr>
-          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">86.4%</td><td class="barcell"><span class="bar"><i style="width:86.4%"></i></span></td><td class="num ci">81.0–90.5</td></tr>
-          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">80.9%</td><td class="barcell"><span class="bar"><i style="width:80.9%"></i></span></td><td class="num ci">74.9–85.8</td></tr>
-          <tr><td class="rank">4</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">79.9%</td><td class="barcell"><span class="bar"><i style="width:79.9%"></i></span></td><td class="num ci">73.8–84.9</td></tr>
-          <tr><td class="rank">5</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">68.8%</td><td class="barcell"><span class="bar"><i style="width:68.8%"></i></span></td><td class="num ci">62.1–74.9</td></tr>
+          <!--ROWS:MILU:paid-->
         </tbody>
       </table>
-      <p class="note">0-shot, temperature 0, letter-parse; 199 questions stratified by subject (seed 42); CI = Wilson interval. Machine-readable: <span style="font-family:var(--mono)">results/summary.json</span>.</p>
+      <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
+      <table>
+        <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
+        <tbody>
+          <!--ROWS:MILU:value-->
+        </tbody>
+      </table>
+      <figure class="chart"><img src="assets/chart-milu.png" alt="MILU Tamil accuracy comparison chart" loading="lazy" /><figcaption>Report-card image · MILU Tamil accuracy with 95% CIs — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
+      <p class="note">0-shot, temperature 0, letter-parse; 199 questions stratified by subject (seed 42); CI = Wilson interval. Machine-readable: <span style="font-family:var(--mono)">results/summary.json</span>. “Running” rows fill in as their API sweeps finish.</p>
     </div>
   </div>
 </section>
@@ -290,13 +312,17 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <table>
         <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
         <tbody>
-          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">20.0%</td><td class="num">42.4</td><td class="barcell"><span class="bar"><i style="width:42.4%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
-          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">17.0%</td><td class="num">40.7</td><td class="barcell"><span class="bar"><i style="width:40.7%"></i></span></td><td class="num ci">10.9–25.5</td></tr>
-          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">18.0%</td><td class="num">38.9</td><td class="barcell"><span class="bar"><i style="width:38.9%"></i></span></td><td class="num ci">11.7–26.7</td></tr>
-          <tr><td class="rank">4</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">22.0%</td><td class="num">38.1</td><td class="barcell"><span class="bar"><i style="width:38.1%"></i></span></td><td class="num ci">15.0–31.1</td></tr>
-          <tr><td class="rank">5</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">19.0%</td><td class="num">36.8</td><td class="barcell"><span class="bar"><i style="width:36.8%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+          <!--ROWS:QA:paid-->
         </tbody>
       </table>
+      <div class="tierlabel">Tier B · மதிப்புத் தட்டு — value &amp; free/open-weight endpoints</div>
+      <table>
+        <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
+        <tbody>
+          <!--ROWS:QA:value-->
+        </tbody>
+      </table>
+      <figure class="chart"><img src="assets/chart-indicqa.png" alt="IndicQA Tamil EM and F1 comparison chart" loading="lazy" /><figcaption>Report-card image · IndicQA Tamil exact-match vs F1 — share freely (CC-BY-SA, attribute tamil-bench).</figcaption></figure>
       <p class="note">EM = answer matches the gold span exactly (after normalization); F1 = token overlap, 0–100. n=100 per model (seed 42).</p>
     </div>
   </div>
@@ -310,7 +336,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <li><b>Comprehension is brutally hard for everyone.</b> Exact-match peaks at just 22%. Models clearly understand the passages — F1 scores near 40 confirm it — but they paraphrase instead of quoting the exact Tamil span, and Tamil's agglutinative endings make near-misses common.</li>
       <li><b>Qwen is the interesting outlier:</b> worst on MCQs (68.8%) but the best at exact-match quoting (22.0%). Knowing facts in Tamil and quoting them verbatim are different skills.</li>
       <li><b>Rapid progress.</b> All five models beat GPT-4o's ~74% cross-language MILU average from 2024. Two years later, four of five mid-tier "flash" models cross 79% on Tamil exam MCQs — for reference, the SEA-HELM public leaderboard's Tamil topper (SEA-LION v4) sits at 68.5 on its own, differently-scored tasks.</li>
-      <li><b>Free open-weight models fail fast.</b> In smoke tests, several free-tier models (meta/muse-spark-1.3, nvidia/nemotron-3.5-lightning) errored or scored near zero on Tamil — cheap models still treat Tamil as second-class.</li>
+      <li><b>The free tier has a topper now.</b> Xiaomi's MiMo v2.5 (75.9% MCQ) beats Qwen's paid flash outright, and on comprehension it's nearly tier-blind: MiMo (F1 40.1), Gemma 4 (39.3) and Ling 3.0 (37.4) outscore three of the five paid models. But the floor is real — Poolside Laguna-S manages just 49.7% on MCQs, and smoke tests show some free endpoints error out on Tamil entirely.</li>
     </ul>
   </div>
 </section>
@@ -340,9 +366,9 @@ python3 bench.py score --task milu --file results/milu_google_gemini-3.8-flash_n
       <span>Code: <a href="https://github.com/LogicIncZo/tamil-bench">LogicIncZo/tamil-bench</a> — MIT</span>
       <span>Built on <a href="https://zo.computer">Zo Computer</a></span>
     </div>
-    <div class="smoke">
-      <span class="lbl">Smoke-tested, not ranked (n=5)</span>
-      <code>google/gemma-4-26b-a4b-it:free</code> <code>inclusionai/ling-3.0-flash-vl:free</code> <code>poolside/laguna-s-2.1:free</code> <code>nvidia/nemotron-3.5-lightning:free</code> <code>meta/muse-spark-1.3-contributor</code> — free-tier models were 5-question probes only; some errored on Tamil prompts. Scores deliberately not shown.
+    <div class="attrib">
+      <span class="lbl">தரவு நன்றி · Data credit</span>
+      <p><b>MILU</b> © AI4Bharat &amp; IBM Research India (<a href="https://arxiv.org/abs/2411.02538">arXiv:2411.02538</a>), CC-BY-4.0 — Tamil test split (6,372 MCQs), unmodified, used under its Hugging Face gate. <b>IndicQA</b> © AI4Bharat (<a href="https://aclanthology.org/2023.acl-long.693/">ACL 2023</a>), CC-BY-SA-4.0 — Tamil split (1,804 questions over 253 Wikipedia-derived articles), unmodified. This site's scores, charts and analysis: <a href="https://github.com/LogicIncZo/tamil-bench">tamil-bench</a>, CC-BY-SA with attribution.</p>
     </div>
   </div>
 </footer>

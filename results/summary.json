@@ -3,1148 +3,200 @@
   "bench": "tamil-bench",
   "tasks": {
     "milu": {
-      "dataset": "ai4bharat/MILU (Tamil, test)",
-      "metric": "accuracy, 0-shot letter-parse",
-      "sample": "stratified by subject, seed 42",
-      "results": [
-        {
-          "model": "google_gemini-3.8-flash",
+      "n_target": 199,
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
           "n": 199,
-          "accuracy": 0.945,
-          "ci95": [
-            0.904,
-            0.969
-          ],
-          "by_subject": {
-            "Agriculture": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Anthropology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Architecture and Design": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Arts and Culture": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Astronomy and Astrophysics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Biology": {
-              "correct": 10,
-              "n": 10,
-              "acc": 1.0
-            },
-            "Business and Management": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Chemistry": {
-              "correct": 11,
-              "n": 11,
-              "acc": 1.0
-            },
-            "Computer Science": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Defense and Security": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Earth Sciences": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Economics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Education": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Energy and Power": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Engineering": {
-              "correct": 13,
-              "n": 16,
-              "acc": 0.812
-            },
-            "Environmental Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Ethics and Human Rights": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Finance and Investment": {
-              "correct": 6,
-              "n": 6,
-              "acc": 1.0
-            },
-            "Food Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Geography": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Health and Medicine": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "History": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Information Technology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "International Relations": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Language Studies": {
-              "correct": 7,
-              "n": 7,
-              "acc": 1.0
-            },
-            "Law and Ethics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Literature and Linguistics": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Logical Reasoning": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Materials Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Media and Communication": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Music and Performing Arts": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Physics": {
-              "correct": 15,
-              "n": 16,
-              "acc": 0.938
-            },
-            "Politics and Governance": {
-              "correct": 7,
-              "n": 8,
-              "acc": 0.875
-            },
-            "Psychology": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Public Administration": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Religion and Spirituality": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Social Welfare and Development": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sociology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sports and Recreation": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Technology and Innovation": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Transportation and Logistics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            }
-          }
+          "n_errors": 0,
+          "accuracy": 80.9,
+          "ci": [
+            74.9,
+            85.8
+          ]
         },
-        {
-          "model": "openai_gpt-5.6-luna",
+        "google/gemini-3.8-flash": {
           "n": 199,
-          "accuracy": 0.864,
-          "ci95": [
-            0.81,
-            0.905
-          ],
-          "by_subject": {
-            "Agriculture": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Anthropology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Architecture and Design": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Arts and Culture": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Astronomy and Astrophysics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Biology": {
-              "correct": 9,
-              "n": 10,
-              "acc": 0.9
-            },
-            "Business and Management": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Chemistry": {
-              "correct": 9,
-              "n": 11,
-              "acc": 0.818
-            },
-            "Computer Science": {
-              "correct": 3,
-              "n": 5,
-              "acc": 0.6
-            },
-            "Defense and Security": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Earth Sciences": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Economics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Education": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Energy and Power": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Engineering": {
-              "correct": 12,
-              "n": 16,
-              "acc": 0.75
-            },
-            "Environmental Science": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Ethics and Human Rights": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Finance and Investment": {
-              "correct": 6,
-              "n": 6,
-              "acc": 1.0
-            },
-            "Food Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Geography": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Health and Medicine": {
-              "correct": 3,
-              "n": 4,
-              "acc": 0.75
-            },
-            "History": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Information Technology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "International Relations": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Language Studies": {
-              "correct": 6,
-              "n": 7,
-              "acc": 0.857
-            },
-            "Law and Ethics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Literature and Linguistics": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Logical Reasoning": {
-              "correct": 7,
-              "n": 8,
-              "acc": 0.875
-            },
-            "Materials Science": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Media and Communication": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Music and Performing Arts": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Physics": {
-              "correct": 15,
-              "n": 16,
-              "acc": 0.938
-            },
-            "Politics and Governance": {
-              "correct": 6,
-              "n": 8,
-              "acc": 0.75
-            },
-            "Psychology": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Public Administration": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Religion and Spirituality": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Social Welfare and Development": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sociology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sports and Recreation": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Technology and Innovation": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Transportation and Logistics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            }
-          }
+          "n_errors": 0,
+          "accuracy": 94.5,
+          "ci": [
+            90.4,
+            96.9
+          ]
         },
-        {
-          "model": "deepseek_deepseek-v4.1-flash",
+        "google/gemma-4-26b-a4b-it:free": {
           "n": 199,
-          "accuracy": 0.809,
-          "ci95": [
-            0.749,
-            0.858
-          ],
-          "by_subject": {
-            "Agriculture": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Anthropology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Architecture and Design": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Arts and Culture": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Astronomy and Astrophysics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Biology": {
-              "correct": 8,
-              "n": 10,
-              "acc": 0.8
-            },
-            "Business and Management": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Chemistry": {
-              "correct": 10,
-              "n": 11,
-              "acc": 0.909
-            },
-            "Computer Science": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Defense and Security": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Earth Sciences": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Economics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Education": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Energy and Power": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Engineering": {
-              "correct": 12,
-              "n": 16,
-              "acc": 0.75
-            },
-            "Environmental Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Ethics and Human Rights": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Finance and Investment": {
-              "correct": 6,
-              "n": 6,
-              "acc": 1.0
-            },
-            "Food Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Geography": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Health and Medicine": {
-              "correct": 2,
-              "n": 4,
-              "acc": 0.5
-            },
-            "History": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Information Technology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "International Relations": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Language Studies": {
-              "correct": 6,
-              "n": 7,
-              "acc": 0.857
-            },
-            "Law and Ethics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Literature and Linguistics": {
-              "correct": 3,
-              "n": 5,
-              "acc": 0.6
-            },
-            "Logical Reasoning": {
-              "correct": 4,
-              "n": 8,
-              "acc": 0.5
-            },
-            "Materials Science": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Media and Communication": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Music and Performing Arts": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Physics": {
-              "correct": 15,
-              "n": 16,
-              "acc": 0.938
-            },
-            "Politics and Governance": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Psychology": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Public Administration": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Religion and Spirituality": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Social Welfare and Development": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sociology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Sports and Recreation": {
-              "correct": 2,
-              "n": 5,
-              "acc": 0.4
-            },
-            "Technology and Innovation": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Transportation and Logistics": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            }
-          }
+          "n_errors": 0,
+          "accuracy": 58.3,
+          "ci": [
+            51.3,
+            64.9
+          ]
         },
-        {
-          "model": "z-ai_glm-5.3-flash",
+        "inclusionai/ling-3.0-flash-vl:free": {
           "n": 199,
-          "accuracy": 0.799,
-          "ci95": [
-            0.738,
-            0.849
-          ],
-          "by_subject": {
-            "Agriculture": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Anthropology": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Architecture and Design": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Arts and Culture": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Astronomy and Astrophysics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Biology": {
-              "correct": 9,
-              "n": 10,
-              "acc": 0.9
-            },
-            "Business and Management": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Chemistry": {
-              "correct": 11,
-              "n": 11,
-              "acc": 1.0
-            },
-            "Computer Science": {
-              "correct": 3,
-              "n": 5,
-              "acc": 0.6
-            },
-            "Defense and Security": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Earth Sciences": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Economics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Education": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Energy and Power": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Engineering": {
-              "correct": 10,
-              "n": 16,
-              "acc": 0.625
-            },
-            "Environmental Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Ethics and Human Rights": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Finance and Investment": {
-              "correct": 6,
-              "n": 6,
-              "acc": 1.0
-            },
-            "Food Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Geography": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Health and Medicine": {
-              "correct": 3,
-              "n": 4,
-              "acc": 0.75
-            },
-            "History": {
-              "correct": 7,
-              "n": 8,
-              "acc": 0.875
-            },
-            "Information Technology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "International Relations": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Language Studies": {
-              "correct": 5,
-              "n": 7,
-              "acc": 0.714
-            },
-            "Law and Ethics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Literature and Linguistics": {
-              "correct": 2,
-              "n": 5,
-              "acc": 0.4
-            },
-            "Logical Reasoning": {
-              "correct": 6,
-              "n": 8,
-              "acc": 0.75
-            },
-            "Materials Science": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Media and Communication": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Music and Performing Arts": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Physics": {
-              "correct": 13,
-              "n": 16,
-              "acc": 0.812
-            },
-            "Politics and Governance": {
-              "correct": 6,
-              "n": 8,
-              "acc": 0.75
-            },
-            "Psychology": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Public Administration": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Religion and Spirituality": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Social Welfare and Development": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Sociology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Sports and Recreation": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Technology and Innovation": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Transportation and Logistics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            }
-          }
+          "n_errors": 0,
+          "accuracy": 64.3,
+          "ci": [
+            57.5,
+            70.6
+          ]
         },
-        {
-          "model": "qwen_qwen3.8-flash",
+        "openai/gpt-5.6-luna": {
           "n": 199,
-          "accuracy": 0.688,
-          "ci95": [
-            0.621,
-            0.749
-          ],
-          "by_subject": {
-            "Agriculture": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Anthropology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Architecture and Design": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Arts and Culture": {
-              "correct": 4,
-              "n": 5,
-              "acc": 0.8
-            },
-            "Astronomy and Astrophysics": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Biology": {
-              "correct": 8,
-              "n": 10,
-              "acc": 0.8
-            },
-            "Business and Management": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Chemistry": {
-              "correct": 8,
-              "n": 11,
-              "acc": 0.727
-            },
-            "Computer Science": {
-              "correct": 3,
-              "n": 5,
-              "acc": 0.6
-            },
-            "Defense and Security": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Earth Sciences": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Economics": {
-              "correct": 2,
-              "n": 4,
-              "acc": 0.5
-            },
-            "Education": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Energy and Power": {
-              "correct": 0,
-              "n": 3,
-              "acc": 0.0
-            },
-            "Engineering": {
-              "correct": 9,
-              "n": 16,
-              "acc": 0.562
-            },
-            "Environmental Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Ethics and Human Rights": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Finance and Investment": {
-              "correct": 5,
-              "n": 6,
-              "acc": 0.833
-            },
-            "Food Science": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Geography": {
-              "correct": 5,
-              "n": 5,
-              "acc": 1.0
-            },
-            "Health and Medicine": {
-              "correct": 3,
-              "n": 4,
-              "acc": 0.75
-            },
-            "History": {
-              "correct": 8,
-              "n": 8,
-              "acc": 1.0
-            },
-            "Information Technology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "International Relations": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Language Studies": {
-              "correct": 5,
-              "n": 7,
-              "acc": 0.714
-            },
-            "Law and Ethics": {
-              "correct": 4,
-              "n": 4,
-              "acc": 1.0
-            },
-            "Literature and Linguistics": {
-              "correct": 3,
-              "n": 5,
-              "acc": 0.6
-            },
-            "Logical Reasoning": {
-              "correct": 6,
-              "n": 8,
-              "acc": 0.75
-            },
-            "Materials Science": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Media and Communication": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Music and Performing Arts": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Physics": {
-              "correct": 11,
-              "n": 16,
-              "acc": 0.688
-            },
-            "Politics and Governance": {
-              "correct": 3,
-              "n": 8,
-              "acc": 0.375
-            },
-            "Psychology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Public Administration": {
-              "correct": 1,
-              "n": 3,
-              "acc": 0.333
-            },
-            "Religion and Spirituality": {
-              "correct": 3,
-              "n": 3,
-              "acc": 1.0
-            },
-            "Social Welfare and Development": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Sociology": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Sports and Recreation": {
-              "correct": 2,
-              "n": 5,
-              "acc": 0.4
-            },
-            "Technology and Innovation": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            },
-            "Transportation and Logistics": {
-              "correct": 2,
-              "n": 3,
-              "acc": 0.667
-            }
-          }
+          "n_errors": 0,
+          "accuracy": 86.4,
+          "ci": [
+            81.0,
+            90.5
+          ]
+        },
+        "poolside/laguna-s-2.1:free": {
+          "n": 199,
+          "n_errors": 14,
+          "accuracy": 49.7,
+          "ci": [
+            42.9,
+            56.6
+          ]
+        },
+        "qwen/qwen3.8-flash": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 68.8,
+          "ci": [
+            62.1,
+            74.9
+          ]
+        },
+        "xiaomi/mimo-v2.5": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 75.9,
+          "ci": [
+            69.5,
+            81.3
+          ]
+        },
+        "z-ai/glm-5.3-flash": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 79.9,
+          "ci": [
+            73.8,
+            84.9
+          ]
         }
-      ]
+      }
     },
     "indicqa": {
-      "dataset": "ai4bharat/IndicQA (Tamil)",
-      "metric": "EM + F1 (SQuAD normalization)",
-      "sample": "random seed 42",
-      "results": [
-        {
-          "model": "google_gemini-3.8-flash",
+      "n_target": 100,
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
           "n": 100,
-          "em": 0.2,
-          "em_ci95": [
-            0.133,
-            0.289
-          ],
-          "f1": 0.424
+          "n_errors": 0,
+          "em": 18.0,
+          "f1": 38.9,
+          "em_ci": [
+            11.7,
+            26.7
+          ]
         },
-        {
-          "model": "openai_gpt-5.6-luna",
+        "google/gemini-3.8-flash": {
           "n": 100,
-          "em": 0.17,
-          "em_ci95": [
-            0.109,
-            0.255
-          ],
-          "f1": 0.407
+          "n_errors": 0,
+          "em": 20.0,
+          "f1": 42.4,
+          "em_ci": [
+            13.3,
+            28.9
+          ]
         },
-        {
-          "model": "deepseek_deepseek-v4.1-flash",
+        "google/gemma-4-26b-a4b-it:free": {
           "n": 100,
-          "em": 0.18,
-          "em_ci95": [
-            0.117,
-            0.267
-          ],
-          "f1": 0.389
+          "n_errors": 6,
+          "em": 19.0,
+          "f1": 36.9,
+          "em_ci": [
+            12.5,
+            27.8
+          ]
         },
-        {
-          "model": "qwen_qwen3.8-flash",
+        "inclusionai/ling-3.0-flash-vl:free": {
           "n": 100,
-          "em": 0.22,
-          "em_ci95": [
-            0.15,
-            0.311
-          ],
-          "f1": 0.381
+          "n_errors": 0,
+          "em": 14.0,
+          "f1": 37.4,
+          "em_ci": [
+            8.5,
+            22.1
+          ]
         },
-        {
-          "model": "z-ai_glm-5.3-flash",
+        "openai/gpt-5.6-luna": {
           "n": 100,
-          "em": 0.19,
-          "em_ci95": [
-            0.125,
-            0.278
-          ],
-          "f1": 0.368
+          "n_errors": 0,
+          "em": 17.0,
+          "f1": 40.7,
+          "em_ci": [
+            10.9,
+            25.5
+          ]
+        },
+        "poolside/laguna-s-2.1:free": {
+          "n": 100,
+          "n_errors": 9,
+          "em": 14.0,
+          "f1": 29.1,
+          "em_ci": [
+            8.5,
+            22.1
+          ]
+        },
+        "qwen/qwen3.8-flash": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 22.0,
+          "f1": 38.1,
+          "em_ci": [
+            15.0,
+            31.1
+          ]
+        },
+        "xiaomi/mimo-v2.5": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 20.0,
+          "f1": 40.1,
+          "em_ci": [
+            13.3,
+            28.9
+          ]
+        },
+        "z-ai/glm-5.3-flash": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 19.0,
+          "f1": 36.8,
+          "em_ci": [
+            12.5,
+            27.8
+          ]
         }
-      ]
+      }
     }
-  }
+  },
+  "tiers": {
+    "google/gemini-3.8-flash": "paid",
+    "openai/gpt-5.6-luna": "paid",
+    "deepseek/deepseek-v4.1-flash": "paid",
+    "z-ai/glm-5.3-flash": "paid",
+    "qwen/qwen3.8-flash": "paid",
+    "xiaomi/mimo-v2.5": "value",
+    "google/gemma-4-26b-a4b-it:free": "value",
+    "inclusionai/ling-3.0-flash-vl:free": "value",
+    "nvidia/nemotron-3.5-lightning:free": "value",
+    "poolside/laguna-s-2.1:free": "value"
+  },
+  "pending": [
+    "nvidia/nemotron-3.5-lightning:free"
+  ]
 }
