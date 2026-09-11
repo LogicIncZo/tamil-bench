@@ -247,7 +247,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <span>Benchmark Series · Sept 2026</span>
     </div>
     <h1><span class="ta">தமிழ் பெஞ்ச்</span>Tamil Bench</h1>
-    <p class="deck">AI models are graded mostly on English. This is a mark sheet for <strong>how well frontier models actually handle Tamil</strong> — two open exams, five models, every score reproducible with one command.</p>
+    <p class="deck">AI models are graded mostly on English. This is a mark sheet for <strong>how well frontier models actually handle Tamil</strong> — two open exams, nine models across two tiers, every score reproducible with one command.</p>
     <p class="byline">An open benchmark by <a href="https://cashlessconsumer.in">CashlessConsumer</a> · <a href="https://github.com/LogicIncZo/tamil-bench">github.com/LogicIncZo/tamil-bench</a></p>
   </div>
 </header>
@@ -261,7 +261,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
     </div>
     <div class="analogy">
       <span class="lbl">If you know nothing about AI</span>
-      Imagine five students who claim to know Tamil. We seat them for two papers: a multiple-choice general-knowledge exam, and a reading-comprehension test where they must underline the exact phrase in a passage that answers a question. Then we tally the marks and put the topper on the board. That's this website.
+      Imagine ten students — five paid “flash” models and five free/open-weight endpoints — all claiming to know Tamil. We seat them for two papers: a multiple-choice general-knowledge exam, and a reading-comprehension test where they must underline the exact phrase in a passage that answers a question. Then we tally the marks and put the topper on the board. That's this website.
     </div>
     <div class="twocol">
       <div class="examcard" data-max="Paper 1 · 199 Qs">
@@ -360,7 +360,7 @@ footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:
       <li><b>Comprehension is brutally hard for everyone.</b> Exact-match peaks at just 22%. Models clearly understand the passages — F1 scores near 40 confirm it — but they paraphrase instead of quoting the exact Tamil span, and Tamil's agglutinative endings make near-misses common.</li>
       <li><b>Qwen is the interesting outlier:</b> worst on MCQs (68.8%) but the best at exact-match quoting (22.0%). Knowing facts in Tamil and quoting them verbatim are different skills.</li>
       <li><b>Rapid progress.</b> All five models beat GPT-4o's ~74% cross-language MILU average from 2024. Two years later, four of five mid-tier "flash" models cross 79% on Tamil exam MCQs — for reference, the SEA-HELM public leaderboard's Tamil topper (SEA-LION v4) sits at 68.5 on its own, differently-scored tasks.</li>
-      <li><b>The free tier has a topper now.</b> Xiaomi's MiMo v2.5 (75.9% MCQ) beats Qwen's paid flash outright, and on comprehension it's nearly tier-blind: MiMo (F1 40.1), Gemma 4 (39.3) and Ling 3.0 (37.4) outscore three of the five paid models. But the floor is real — Poolside Laguna-S manages just 49.7% on MCQs, and smoke tests show some free endpoints error out on Tamil entirely.</li>
+      <li><b>The free tier has a topper now.</b> Xiaomi's MiMo v2.5 (75.9% MCQ) beats Qwen's paid flash outright, and on comprehension the gap is thin: MiMo's F1 (40.1) outscores three of the five paid models, while Gemma 4 (36.9) and Ling 3.0 (37.4) both edge past GLM 5.3 Flash (36.8). But the floor is real — Poolside Laguna-S manages just 49.7% on MCQs, and smoke tests show some free endpoints error out on Tamil entirely.</li>
     </ul>
   </div>
 </section>
