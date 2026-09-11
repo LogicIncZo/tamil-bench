@@ -1,0 +1,5 @@
+{"subject": "Agriculture", "gold": "A", "prediction": "__ERROR__: 403 Client Error: Forbidden for url: https://openrouter.ai/api/v1/chat/completions", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "__ERROR__: 403 Client Error: Forbidden for url: https://openrouter.ai/api/v1/chat/completions", "pred_letter": null, "correct": 0}
+{"subject": "Architecture and Design", "gold": "B", "prediction": "__ERROR__: 403 Client Error: Forbidden for url: https://openrouter.ai/api/v1/chat/completions", "pred_letter": null, "correct": 0}
+{"subject": "Astronomy and Astrophysics", "gold": "B", "prediction": "__ERROR__: 403 Client Error: Forbidden for url: https://openrouter.ai/api/v1/chat/completions", "pred_letter": null, "correct": 0}
+{"subject": "Anthropology", "gold": "B", "prediction": "__ERROR__: 403 Client Error: Forbidden for url: https://openrouter.ai/api/v1/chat/completions", "pred_letter": null, "correct": 0}

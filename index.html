@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tamil Bench — How well do AI models know Tamil?</title>
+<meta name="description" content="A runnable, API-only benchmark grading LLMs on Tamil: MILU exam MCQs and IndicQA reading comprehension. ELI5 + scores.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+Tamil:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6efdd;
+  --paper-deep:#efe5cc;
+  --ink:#221f18;
+  --ink-soft:#5c5546;
+  --line:#c9bda0;
+  --red:#b3222a;
+  --red-deep:#8c1a20;
+  --green:#2e6b3f;
+  --blue:#2a4d8f;
+  --serif:"Fraunces",serif;
+  --sans:"IBM Plex Sans",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+  --tamil:"Noto Serif Tamil",serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.65;
+  position:relative;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(90,75,40,.06) 1px, transparent 1px);
+  background-size:5px 5px;
+}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+/* ---------- top ruling + hall ticket header ---------- */
+.hallticket{
+  border-bottom:3px double var(--ink);
+  padding:56px 0 40px;
+  position:relative;
+}
+.hallticket .subject{
+  font-family:var(--mono);
+  font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--red-deep);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;margin-bottom:36px;
+}
+h1{
+  font-family:var(--serif);
+  font-weight:900;
+  font-size:clamp(44px,8vw,84px);
+  line-height:.98;
+  letter-spacing:-.01em;
+}
+h1 .ta{
+  display:block;
+  font-family:var(--tamil);
+  font-weight:700;
+  font-size:.42em;
+  color:var(--red);
+  margin-bottom:10px;
+  letter-spacing:0;
+}
+.deck{
+  margin-top:22px;
+  font-size:19px;
+  max-width:560px;
+  color:var(--ink);
+}
+.deck strong{font-weight:600}
+.byline{
+  margin-top:26px;
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--ink-soft);
+}
+.byline a{color:var(--blue);text-decoration:none;border-bottom:1px solid currentColor}
+
+/* ---------- exam questions ---------- */
+section{padding:54px 0;border-bottom:1px solid var(--line)}
+.qnum{
+  display:flex;align-items:baseline;gap:14px;
+  margin-bottom:22px;
+}
+.qnum .qta{
+  font-family:var(--tamil);
+  font-weight:700;color:var(--red);
+  font-size:15px;white-space:nowrap;
+}
+.qnum h2{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(24px,4vw,32px);
+  line-height:1.15;
+}
+.mark{margin-left:auto;font-family:var(--mono);font-size:12px;color:var(--ink-soft);white-space:nowrap}
+.prose p{margin-bottom:16px;max-width:640px}
+.prose .ta-inline{font-family:var(--tamil)}
+.analogy{
+  background:var(--paper-deep);
+  border:1px solid var(--line);
+  border-left:4px solid var(--red);
+  padding:18px 22px;
+  margin:20px 0;
+  max-width:640px;
+}
+.analogy .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--red-deep);display:block;margin-bottom:6px}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px;max-width:720px}
+@media(max-width:640px){.twocol{grid-template-columns:1fr}}
+.examcard{
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+  padding:20px 22px;
+  position:relative;
+}
+.examcard::after{
+  content:attr(data-max);
+  position:absolute;top:-11px;right:14px;
+  background:var(--paper);
+  padding:0 8px;
+  font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+}
+.examcard h3{font-family:var(--serif);font-size:20px;font-weight:600;margin-bottom:4px}
+.examcard .ta-sub{font-family:var(--tamil);color:var(--red);font-size:14px;margin-bottom:10px}
+.examcard p{font-size:14.5px;color:var(--ink-soft)}
+.examcard .metric{
+  margin-top:14px;font-family:var(--mono);font-size:12.5px;
+  border-top:1px dashed var(--line);padding-top:10px;color:var(--ink);
+}
+.examcard .metric b{color:var(--red-deep)}
+
+/* ---------- scoreboard ---------- */
+.board{margin-top:8px}
+.board table{width:100%;border-collapse:collapse}
+.board th{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);text-align:left;padding:10px 12px;
+  border-bottom:2px solid var(--ink);
+}
+.board th.num, .board td.num{text-align:right;font-variant-numeric:tabular-nums}
+.board td{
+  padding:14px 12px;border-bottom:1px solid var(--line);
+  vertical-align:middle;
+}
+.board td.model{
+  font-family:var(--mono);font-size:13.5px;font-weight:500;
+}
+.board td.model small{display:block;color:var(--ink-soft);font-size:11px}
+.rank{
+  font-family:var(--serif);font-weight:900;font-size:18px;
+  width:44px;color:var(--ink-soft);
+}
+tr.top .rank{color:var(--red)}
+tr.top td.model{font-weight:600}
+.barcell{width:34%;min-width:150px}
+.bar{
+  height:14px;background:var(--paper-deep);
+  border:1px solid var(--line);position:relative;
+}
+.bar i{
+  position:absolute;inset:0 auto 0 0;
+  background:var(--red);display:block;
+}
+tr.top .bar i{background:var(--red-deep)}
+.score{font-family:var(--mono);font-size:16px;font-weight:600}
+.ci{font-family:var(--mono);font-size:11px;color:var(--ink-soft);white-space:nowrap}
+.note{
+  font-size:13px;color:var(--ink-soft);margin-top:14px;
+  font-family:var(--mono);
+}
+.takeaways{margin-top:30px;max-width:680px}
+.takeaways li{
+  margin:0 0 14px 0;padding-left:26px;position:relative;list-style:none;
+}
+.takeaways li::before{
+  content:"✓";position:absolute;left:0;top:0;
+  color:var(--red);font-weight:700;font-family:var(--mono);
+}
+.takeaways b{font-weight:600}
+
+/* ---------- how it runs ---------- */
+.codebox{
+  background:#26231c;
+  color:#e8dfc8;
+  font-family:var(--mono);
+  font-size:13.5px;
+  padding:20px 22px;
+  overflow-x:auto;
+  border:1px solid var(--ink);
+  box-shadow:6px 6px 0 var(--paper-deep);
+  max-width:680px;
+}
+.codebox .c{color:#8a8168}
+.codebox .p{color:#d99a3d}
+
+/* ---------- footer ---------- */
+footer{
+  padding:50px 0 70px;
+  font-size:13.5px;color:var(--ink-soft);
+}
+footer .fin{
+  font-family:var(--serif);font-weight:900;font-size:26px;color:var(--ink);
+  margin-bottom:14px;
+}
+footer .fin span{font-family:var(--tamil);color:var(--red);font-size:.85em}
+footer a{color:var(--blue);text-decoration:none;border-bottom:1px solid currentColor}
+footer .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;margin-top:18px;max-width:700px}
+@media(max-width:640px){footer .grid{grid-template-columns:1fr}}
+.smoke{margin-top:26px;padding-top:16px;border-top:1px dashed var(--line);max-width:700px}
+.smoke .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--red-deep);display:block;margin-bottom:8px}
+.smoke code{font-family:var(--mono);font-size:12px;background:var(--paper-deep);padding:1px 5px;border:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="hallticket">
+  <div class="wrap">
+    <div class="subject">
+      <span>ThamizhKanimai · தமிழ்க் கணிமை</span>
+      <span>Benchmark Series · Sept 2026</span>
+    </div>
+    <h1><span class="ta">தமிழ் பெஞ்ச்</span>Tamil Bench</h1>
+    <p class="deck">AI models are graded mostly on English. This is a mark sheet for <strong>how well frontier models actually handle Tamil</strong> — two open exams, five models, every score reproducible with one command.</p>
+    <p class="byline">An open benchmark by <a href="https://cashlessconsumer.in">CashlessConsumer</a> · <a href="https://github.com/LogicIncZo/tamil-bench">github.com/LogicIncZo/tamil-bench</a></p>
+  </div>
+</header>
+
+<section id="eli5">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 1</span><h2>What is Tamil Bench? (ELI5)</h2><span class="mark">[10 marks]</span></div>
+    <div class="prose">
+      <p>AI chatbots are tested on English constantly, and on Chinese, and on a handful of big European languages. Tamil — spoken by ~85 million people, official language of Tamil Nadu, Singapore and Sri Lanka — usually gets one line in a table, if it appears at all.</p>
+      <p>Tamil Bench fixes the measuring stick. We give AI models two exams, entirely in Tamil script, and publish the marks. Think of it as a report card: anyone can re-run the exam on any model via its API, and every answer sheet is saved so the scores can be checked.</p>
+    </div>
+    <div class="analogy">
+      <span class="lbl">If you know nothing about AI</span>
+      Imagine five students who claim to know Tamil. We seat them for two papers: a multiple-choice general-knowledge exam, and a reading-comprehension test where they must underline the exact phrase in a passage that answers a question. Then we tally the marks and put the topper on the board. That's this website.
+    </div>
+    <div class="twocol">
+      <div class="examcard" data-max="Paper 1 · 199 Qs">
+        <h3>MILU — the MCQ exam</h3>
+        <div class="ta-sub">பொது அறிவுத் தேர்வு</div>
+        <p>Multiple-choice questions drawn from real Indian competitive exams, in Tamil. Tests whether the model <em>knows things</em> in Tamil — history, law, science, agriculture.</p>
+        <div class="metric">Score = <b>% of questions answered correctly</b>, with 95% confidence intervals</div>
+      </div>
+      <div class="examcard" data-max="Paper 2 · 100 Qs">
+        <h3>IndicQA — the comprehension exam</h3>
+        <div class="ta-sub">வாசிப்புப் புரிதல் தேர்வு</div>
+        <p>Read a Tamil passage, answer a question using a short phrase from it — like school reading comprehension. Tests whether the model can <em>read and quote</em> Tamil precisely.</p>
+        <div class="metric">Score = <b>Exact Match</b> (did you quote the exact phrase?) and <b>F1</b> (partial credit for overlapping words)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="milu">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 2</span><h2>Scoreboard · Paper 1: MILU</h2><span class="mark">[199 marks]</span></div>
+    <div class="board">
+      <table>
+        <thead><tr><th></th><th>Model</th><th class="num">Accuracy</th><th class="barcell">Bar</th><th class="num">95% CI</th></tr></thead>
+        <tbody>
+          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">94.5%</td><td class="barcell"><span class="bar"><i style="width:94.5%"></i></span></td><td class="num ci">90.4–96.9</td></tr>
+          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">86.4%</td><td class="barcell"><span class="bar"><i style="width:86.4%"></i></span></td><td class="num ci">81.0–90.5</td></tr>
+          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">80.9%</td><td class="barcell"><span class="bar"><i style="width:80.9%"></i></span></td><td class="num ci">74.9–85.8</td></tr>
+          <tr><td class="rank">4</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">79.9%</td><td class="barcell"><span class="bar"><i style="width:79.9%"></i></span></td><td class="num ci">73.8–84.9</td></tr>
+          <tr><td class="rank">5</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">68.8%</td><td class="barcell"><span class="bar"><i style="width:68.8%"></i></span></td><td class="num ci">62.1–74.9</td></tr>
+        </tbody>
+      </table>
+      <p class="note">0-shot, temperature 0, letter-parse; 199 questions stratified by subject (seed 42); CI = Wilson interval. Machine-readable: <span style="font-family:var(--mono)">results/summary.json</span>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="indicqa">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 3</span><h2>Scoreboard · Paper 2: IndicQA</h2><span class="mark">[100 marks]</span></div>
+    <div class="board">
+      <table>
+        <thead><tr><th></th><th>Model</th><th class="num">Exact Match</th><th class="num">F1</th><th class="barcell">F1 Bar</th><th class="num">EM 95% CI</th></tr></thead>
+        <tbody>
+          <tr class="top"><td class="rank">1</td><td class="model">google/gemini-3.8-flash<small>Gemini 3.8 Flash</small></td><td class="num score">20.0%</td><td class="num">42.4</td><td class="barcell"><span class="bar"><i style="width:42.4%"></i></span></td><td class="num ci">13.3–28.9</td></tr>
+          <tr><td class="rank">2</td><td class="model">openai/gpt-5.6-luna<small>GPT-5.6 Luna</small></td><td class="num score">17.0%</td><td class="num">40.7</td><td class="barcell"><span class="bar"><i style="width:40.7%"></i></span></td><td class="num ci">10.9–25.5</td></tr>
+          <tr><td class="rank">3</td><td class="model">deepseek/deepseek-v4.1-flash<small>DeepSeek V4.1 Flash</small></td><td class="num score">18.0%</td><td class="num">38.9</td><td class="barcell"><span class="bar"><i style="width:38.9%"></i></span></td><td class="num ci">11.7–26.7</td></tr>
+          <tr><td class="rank">4</td><td class="model">qwen/qwen3.8-flash<small>Qwen 3.8 Flash</small></td><td class="num score">22.0%</td><td class="num">38.1</td><td class="barcell"><span class="bar"><i style="width:38.1%"></i></span></td><td class="num ci">15.0–31.1</td></tr>
+          <tr><td class="rank">5</td><td class="model">z-ai/glm-5.3-flash<small>GLM 5.3 Flash</small></td><td class="num score">19.0%</td><td class="num">36.8</td><td class="barcell"><span class="bar"><i style="width:36.8%"></i></span></td><td class="num ci">12.5–27.8</td></tr>
+        </tbody>
+      </table>
+      <p class="note">EM = answer matches the gold span exactly (after normalization); F1 = token overlap, 0–100. n=100 per model (seed 42).</p>
+    </div>
+  </div>
+</section>
+
+<section id="findings">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 4</span><h2>What the marks tell us</h2><span class="mark">[5 × 2 = 10 marks]</span></div>
+    <ul class="takeaways">
+      <li><b>Gemini 3.8 Flash tops Tamil MCQs decisively</b> — 94.5%, with a confidence band that doesn't touch any other model. On exam-style knowledge in Tamil, it's a clear first.</li>
+      <li><b>Comprehension is brutally hard for everyone.</b> Exact-match peaks at just 22%. Models clearly understand the passages — F1 scores near 40 confirm it — but they paraphrase instead of quoting the exact Tamil span, and Tamil's agglutinative endings make near-misses common.</li>
+      <li><b>Qwen is the interesting outlier:</b> worst on MCQs (68.8%) but the best at exact-match quoting (22.0%). Knowing facts in Tamil and quoting them verbatim are different skills.</li>
+      <li><b>Rapid progress.</b> All five models beat GPT-4o's ~74% cross-language MILU average from 2024. Two years later, four of five mid-tier "flash" models cross 79% on Tamil exam MCQs — for reference, the SEA-HELM public leaderboard's Tamil topper (SEA-LION v4) sits at 68.5 on its own, differently-scored tasks.</li>
+      <li><b>Free open-weight models fail fast.</b> In smoke tests, several free-tier models (meta/muse-spark-1.3, nvidia/nemotron-3.5-lightning) errored or scored near zero on Tamil — cheap models still treat Tamil as second-class.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="run">
+  <div class="wrap">
+    <div class="qnum"><span class="qta">வினா 5</span><h2>Run it yourself</h2><span class="mark">[practical]</span></div>
+    <div class="prose">
+      <p>The whole bench is one Python file, no GPU, no fine-tuning: it calls models through an OpenAI-compatible API exactly the way a normal user would. Set <span style="font-family:var(--mono)">OPENROUTER_API_KEY</span>, then:</p>
+    </div>
+    <div class="codebox"><span class="c"># Paper 1 — MILU MCQs (auto-downloads after you accept the HF gate)</span><br>
+python3 bench.py milu --model google/gemini-3.8-flash --n 199<br><br>
+<span class="c"># Paper 2 — IndicQA reading comprehension</span><br>
+python3 bench.py indicqa --model google/gemini-3.8-flash --n 100<br><br>
+<span class="c"># Re-score any saved answer sheet</span><br>
+python3 bench.py score --task milu --file results/milu_google_gemini-3.8-flash_n199.jsonl</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fin">முற்றும் <span>· End of paper · விடைகள் மேலே</span></div>
+    <p><b>Answer sheets:</b> every raw model response is preserved in <span style="font-family:var(--mono)">results/*.jsonl</span> — verify any number on this page yourself. <b>Method:</b> 0-shot via OpenRouter API, temperature 0, deterministic letter/span parsing, SQuAD-style normalization with Unicode NFC for Tamil.</p>
+    <div class="grid">
+      <span>Datasets: <a href="https://huggingface.co/datasets/ai4bharat/MILU">ai4bharat/MILU</a> (gated) · <a href="https://huggingface.co/datasets/ai4bharat/IndicQA">ai4bharat/IndicQA</a> (CC-BY-SA-4.0)</span>
+      <span>Lineage: <a href="https://logic10.tumblr.com">logic10.tumblr.com</a> (2012–14) → ThamizhKanimai desk</span>
+      <span>Code: <a href="https://github.com/LogicIncZo/tamil-bench">LogicIncZo/tamil-bench</a> — MIT</span>
+      <span>Built on <a href="https://zo.computer">Zo Computer</a></span>
+    </div>
+    <div class="smoke">
+      <span class="lbl">Smoke-tested, not ranked (n=5)</span>
+      <code>google/gemma-4-26b-a4b-it:free</code> <code>inclusionai/ling-3.0-flash-vl:free</code> <code>poolside/laguna-s-2.1:free</code> <code>nvidia/nemotron-3.5-lightning:free</code> <code>meta/muse-spark-1.3-contributor</code> — free-tier models were 5-question probes only; some errored on Tamil prompts. Scores deliberately not shown.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

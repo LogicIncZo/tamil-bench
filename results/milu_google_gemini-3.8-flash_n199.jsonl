@@ -1,0 +1,199 @@
+{"subject": "Agriculture", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Agriculture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Arts and Culture", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Arts and Culture", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Arts and Culture", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Architecture and Design", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Anthropology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Agriculture", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Anthropology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Astronomy and Astrophysics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Architecture and Design", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Astronomy and Astrophysics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Anthropology", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Architecture and Design", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Astronomy and Astrophysics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Biology", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Biology", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Biology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Biology", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Biology", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Biology", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Biology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Biology", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Business and Management", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Business and Management", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Chemistry", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Chemistry", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Business and Management", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Chemistry", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Chemistry", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Chemistry", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Biology", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Biology", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Defense and Security", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Defense and Security", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Chemistry", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Computer Science", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Computer Science", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Earth Sciences", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Computer Science", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Computer Science", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Economics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Earth Sciences", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Economics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Computer Science", "gold": "D", "prediction": "A", "pred_letter": "A", "correct": 0}
+{"subject": "Education", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Economics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Economics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Defense and Security", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Education", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Energy and Power", "gold": "C", "prediction": "D", "pred_letter": "D", "correct": 0}
+{"subject": "Education", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Energy and Power", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Energy and Power", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Engineering", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "D", "prediction": "\"? No, \"இரண்டு இருமுனைய முழு-அலை சீராக்கி\" is", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Earth Sciences", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Engineering", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Engineering", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Engineering", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Engineering", "gold": "B", "prediction": "C", "pred_letter": "C", "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "C", "prediction": "D", "pred_letter": "D", "correct": 0}
+{"subject": "Engineering", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Engineering", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Engineering", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Environmental Science", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Environmental Science", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Environmental Science", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Engineering", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Ethics and Human Rights", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Ethics and Human Rights", "gold": "C", "prediction": "D", "pred_letter": "D", "correct": 0}
+{"subject": "Ethics and Human Rights", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Finance and Investment", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Food Science", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Food Science", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Food Science", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Geography", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Finance and Investment", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Geography", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Geography", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Geography", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Geography", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Health and Medicine", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "History", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Health and Medicine", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Health and Medicine", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Health and Medicine", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "History", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "History", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "History", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "History", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "History", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "History", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Information Technology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "History", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "International Relations", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Language Studies", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Information Technology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Language Studies", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Language Studies", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "International Relations", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "International Relations", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Language Studies", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Language Studies", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Language Studies", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Law and Ethics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Language Studies", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Law and Ethics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Law and Ethics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Law and Ethics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Literature and Linguistics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Literature and Linguistics", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Literature and Linguistics", "gold": "C", "prediction": "B", "pred_letter": "B", "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Information Technology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Media and Communication", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Materials Science", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Media and Communication", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Materials Science", "gold": "A", "prediction": "துறை எது?\"\nOptions:\nA. மருத்துவ கதிர்வீச்சு வலி நிவாரணம்", "pred_letter": "A", "correct": 1}
+{"subject": "Media and Communication", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Music and Performing Arts", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Music and Performing Arts", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Materials Science", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Music and Performing Arts", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Physics", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Physics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Physics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Physics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Physics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Physics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Physics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Physics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Physics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Physics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Physics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Literature and Linguistics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Physics", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Physics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Physics", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Politics and Governance", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Politics and Governance", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Physics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Physics", "gold": "A", "prediction": "D", "pred_letter": "D", "correct": 0}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "D", "pred_letter": "D", "correct": 0}
+{"subject": "Public Administration", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Public Administration", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Psychology", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Religion and Spirituality", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Religion and Spirituality", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Religion and Spirituality", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Psychology", "gold": "B", "prediction": "(conscious) + துயில் (sleep) = hypnotic state?\nWait, \"மு", "pred_letter": null, "correct": 0}
+{"subject": "Public Administration", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Psychology", "gold": "C", "prediction": "Wait, let's look at the given options:\nA. ம", "pred_letter": "A", "correct": 0}
+{"subject": "Social Welfare and Development", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Social Welfare and Development", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Sociology", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Sports and Recreation", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Social Welfare and Development", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Sociology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Sports and Recreation", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1}
+{"subject": "Technology and Innovation", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Technology and Innovation", "gold": "C", "prediction": "C", "pred_letter": "C", "correct": 1}
+{"subject": "Technology and Innovation", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Transportation and Logistics", "gold": "D", "prediction": "D", "pred_letter": "D", "correct": 1}
+{"subject": "Transportation and Logistics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Transportation and Logistics", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
+{"subject": "Sociology", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1}
