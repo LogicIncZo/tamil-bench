@@ -1,0 +1,199 @@
+{"subject": "Anthropology", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Agriculture", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Agriculture", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Agriculture", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Anthropology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Anthropology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Architecture and Design", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Architecture and Design", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Architecture and Design", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Astronomy and Astrophysics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Astronomy and Astrophysics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Arts and Culture", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Astronomy and Astrophysics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Business and Management", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Business and Management", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Business and Management", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Biology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Chemistry", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Computer Science", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Defense and Security", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Computer Science", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Computer Science", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Computer Science", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Computer Science", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Defense and Security", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Economics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Earth Sciences", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Earth Sciences", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Earth Sciences", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Defense and Security", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Economics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Education", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Economics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Economics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Education", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Education", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Energy and Power", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Energy and Power", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Energy and Power", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Engineering", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Environmental Science", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Environmental Science", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Environmental Science", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Ethics and Human Rights", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Ethics and Human Rights", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Ethics and Human Rights", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Finance and Investment", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Food Science", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Food Science", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Food Science", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Geography", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Geography", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Geography", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Geography", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Health and Medicine", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Geography", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Health and Medicine", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Health and Medicine", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Health and Medicine", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Information Technology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "History", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Information Technology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Information Technology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "International Relations", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "International Relations", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "International Relations", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Language Studies", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Law and Ethics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Law and Ethics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Law and Ethics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Law and Ethics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Literature and Linguistics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Logical Reasoning", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Materials Science", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Materials Science", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Materials Science", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Media and Communication", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Media and Communication", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Music and Performing Arts", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Music and Performing Arts", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Media and Communication", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Music and Performing Arts", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Physics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Politics and Governance", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Psychology", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Psychology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Psychology", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Public Administration", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Public Administration", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Public Administration", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Religion and Spirituality", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Religion and Spirituality", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Social Welfare and Development", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Religion and Spirituality", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Social Welfare and Development", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Social Welfare and Development", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sociology", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sociology", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sociology", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sports and Recreation", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sports and Recreation", "gold": "B", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Sports and Recreation", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Technology and Innovation", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Technology and Innovation", "gold": "C", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Technology and Innovation", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Transportation and Logistics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Transportation and Logistics", "gold": "D", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}
+{"subject": "Transportation and Logistics", "gold": "A", "prediction": "__ERROR__: retries exhausted", "pred_letter": null, "correct": 0}

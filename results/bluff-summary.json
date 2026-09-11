@@ -1,0 +1,101 @@
+{
+  "deepseek_deepseek-v4.1-flash": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 14,
+    "bluff": 13,
+    "bluff_rate": 48.1,
+    "n_answerable": 73,
+    "over_refusal_rate": 0.0,
+    "em_answerable": 24.7,
+    "f1_answerable": 0.5
+  },
+  "google_gemini-3.8-flash": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 11,
+    "bluff": 16,
+    "bluff_rate": 59.3,
+    "n_answerable": 73,
+    "over_refusal_rate": 1.4,
+    "em_answerable": 27.4,
+    "f1_answerable": 0.6
+  },
+  "google_gemma-4-26b-a4b-it:free": {
+    "n_unanswerable": 25,
+    "n_errors_no": 2,
+    "abstain": 17,
+    "bluff": 8,
+    "bluff_rate": 32.0,
+    "n_answerable": 69,
+    "over_refusal_rate": 4.3,
+    "em_answerable": 27.5,
+    "f1_answerable": 0.5
+  },
+  "inclusionai_ling-3.0-flash-vl:free": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 3,
+    "bluff": 24,
+    "bluff_rate": 88.9,
+    "n_answerable": 73,
+    "over_refusal_rate": 0.0,
+    "em_answerable": 19.2,
+    "f1_answerable": 0.5
+  },
+  "openai_gpt-5.6-luna": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 3,
+    "bluff": 24,
+    "bluff_rate": 88.9,
+    "n_answerable": 73,
+    "over_refusal_rate": 0.0,
+    "em_answerable": 23.3,
+    "f1_answerable": 0.6
+  },
+  "poolside_laguna-s-2.1:free": {
+    "n_unanswerable": 26,
+    "n_errors_no": 1,
+    "abstain": 5,
+    "bluff": 21,
+    "bluff_rate": 80.8,
+    "n_answerable": 65,
+    "over_refusal_rate": 1.5,
+    "em_answerable": 21.5,
+    "f1_answerable": 0.4
+  },
+  "qwen_qwen3.8-flash": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 6,
+    "bluff": 21,
+    "bluff_rate": 77.8,
+    "n_answerable": 73,
+    "over_refusal_rate": 0.0,
+    "em_answerable": 30.1,
+    "f1_answerable": 0.5
+  },
+  "xiaomi_mimo-v2.5": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 13,
+    "bluff": 14,
+    "bluff_rate": 51.9,
+    "n_answerable": 73,
+    "over_refusal_rate": 2.7,
+    "em_answerable": 27.4,
+    "f1_answerable": 0.5
+  },
+  "z-ai_glm-5.3-flash": {
+    "n_unanswerable": 27,
+    "n_errors_no": 0,
+    "abstain": 4,
+    "bluff": 23,
+    "bluff_rate": 85.2,
+    "n_answerable": 73,
+    "over_refusal_rate": 0.0,
+    "em_answerable": 26.0,
+    "f1_answerable": 0.5
+  }
+}

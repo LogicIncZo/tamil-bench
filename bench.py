@@ -5,10 +5,13 @@ Benchmarks:
   indicqa - ai4bharat/IndicQA Tamil (extractive QA, EM/F1) - open, no gate
   milu    - ai4bharat/MILU Tamil (exam MCQ, accuracy) - gated on HF; download
             data/milu_ta_test.parquet (and _dev) after accepting the gate.
+  xnli    - IndicXNLI Tamil (3-way NLI, accuracy) - data/indicxnli_ta_test.parquet
+            from AdaMLLab/indicxnli_repaired (mirror of ai4bharat/IndicXNLI test).
 
 Usage:
   python3 bench.py indicqa --model z-ai/glm-5.3-flash --n 100
   python3 bench.py milu --model deepseek/deepseek-v4.1-flash --n 200 --shots 5
+  python3 bench.py xnli --model google/gemini-3.8-flash --n 200
 """
 
 import argparse
@@ -191,6 +194,93 @@ def run_indicqa(args, key):
     print(f"EM: {em:.3f} (95% CI {lo:.3f}-{hi:.3f})   F1: {f1:.3f}")
     print(f"saved: {path}")
 
+XNLI_DATA = DATA / "indicxnli_ta_test.parquet"
+XNLI_LETTERS = ("A", "B", "C")
+XNLI_SYS = "You are a careful reasoner. Answer with the single letter A, B, or C."
+XNLI_USER = (
+    "பின்வரும் வாக்கியத்தைப் படிக்கவும்:\n\nமுன்னுரை: {premise}\n\n"
+    "கூற்று: {hypothesis}\n\n"
+    "முன்னுரையைப் பொறுத்து, கூற்று எந்த நிலையில் உள்ளது?\n"
+    "A) கண்டிப்பாக உண்மை (முன்னுரையால் உறுதிப்படுத்தப்படுகிறது)\n"
+    "B) கண்டிப்பாக தவறு (முன்னுரையுடன் முரண்படுகிறது)\n"
+    "C) முடிவு செய்ய முடியாது (முன்னுரையில் தெளிவான தகவல் இல்லை)\n\n"
+    "Reply with ONLY the single letter A, B, or C."
+)
+
+
+def load_xnli():
+    df = pd.read_parquet(XNLI_DATA)
+    df = df.sample(frac=1, random_state=SEED)
+    return df.head(200)
+
+
+def run_xnli(args, key):
+    if not XNLI_DATA.exists():
+        sys.exit(
+            f"{XNLI_DATA} missing. Download the Tamil test split from "
+            "https://huggingface.co/datasets/AdaMLLab/indicxnli_repaired "
+            "(data/ta/test-00000-of-00001.parquet) and save it at that path."
+        )
+    df = load_xnli()
+    subset = df.head(args.n)
+    print(f"IndicXNLI-Tamil: {len(subset)} items, model={args.model}")
+    label_map = {0: "A", 2: "B", 1: "C"}
+
+    def work(rec):
+        i, row = rec
+        for attempt in range(3):
+            try:
+                txt = chat(
+                    args.model,
+                    [
+                        {"role": "system", "content": XNLI_SYS},
+                        {"role": "user", "content": XNLI_USER.format(
+                            premise=row["premise"], hypothesis=row["hypothesis"])},
+                    ],
+                    key,
+                    max_tokens=1024,
+                )
+                tail = txt[-300:]
+                m = (re.search(r"answer(?:\s+is|\s*[:\-])\s*\**([ABC])\b", tail, re.I)
+                     or re.search(r"\b([ABC])\b(?!.*\b[ABC]\b)", tail, re.S)
+                     or re.search(r"\b([ABC])\b", txt, re.I))
+                pred = m.group(1).upper() if m else ""
+                gold = label_map[int(row["label"])]
+                return {
+                    "id": int(i),
+                    "premise": row["premise"],
+                    "hypothesis": row["hypothesis"],
+                    "gold": gold,
+                    "prediction": pred,
+                    "raw": txt,
+                    "correct": pred == gold,
+                }
+            except Exception as exc:
+                if attempt == 2:
+                    return {"id": int(i), "prediction": f"__ERROR__ {exc}"}
+                time.sleep(2 ** (attempt + 1))
+
+    out = {}
+    with ThreadPoolExecutor(max_workers=args.workers) as ex:
+        futs = [ex.submit(work, rec) for rec in subset.iterrows()]
+        done = 0
+        for fut in as_completed(futs):
+            r = fut.result()
+            out[r["id"]] = r
+            done += 1
+            if done % 25 == 0:
+                print(f"  {done}/{len(subset)}")
+    rows = [out[i] for i in sorted(out)]
+    slug = args.model.replace("/", "_")
+    path = RESULTS / f"xnli_{slug}_n{len(rows)}.jsonl"
+    with open(path, "w") as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + "\n")
+    k = sum(1 for r in rows if r.get("correct"))
+    p = k / len(rows) if rows else 0
+    print(f"Accuracy: {p:.3f}")
+    print(f"Wrote {path}")
+
 
 MILU_URLS = {
     "test": "https://huggingface.co/api/datasets/ai4bharat/MILU/parquet/Tamil/test/0.parquet",
@@ -341,7 +431,7 @@ def load_hf_token():
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     sub = p.add_subparsers(dest="bench", required=True)
-    for name in ("indicqa", "milu"):
+    for name in ("indicqa", "milu", "xnli"):
         sp = sub.add_parser(name)
         sp.add_argument("--model", required=True)
         sp.add_argument("--n", type=int, default=100)
@@ -352,6 +442,8 @@ def main():
     key = load_key()
     if args.bench == "indicqa":
         run_indicqa(args, key)
+    elif args.bench == "xnli":
+        run_xnli(args, key)
     else:
         run_milu(args, key)
 

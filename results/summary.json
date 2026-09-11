@@ -41,6 +41,15 @@
             70.6
           ]
         },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n": 199,
+          "n_errors": 199,
+          "accuracy": 0.0,
+          "ci": [
+            0.0,
+            1.9
+          ]
+        },
         "openai/gpt-5.6-luna": {
           "n": 199,
           "n_errors": 0,
@@ -131,6 +140,16 @@
             22.1
           ]
         },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n": 100,
+          "n_errors": 100,
+          "em": 0.0,
+          "f1": 0.0,
+          "em_ci": [
+            0.0,
+            3.7
+          ]
+        },
         "openai/gpt-5.6-luna": {
           "n": 100,
           "n_errors": 0,
@@ -182,9 +201,148 @@
           ]
         }
       }
+    },
+    "indicxnli": {
+      "n_target": 200,
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 62.0,
+          "ci": [
+            55.1,
+            68.4
+          ]
+        },
+        "google/gemini-3.8-flash": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 75.0,
+          "ci": [
+            68.6,
+            80.5
+          ]
+        },
+        "google/gemma-4-26b-a4b-it:free": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 62.5,
+          "ci": [
+            55.6,
+            68.9
+          ]
+        },
+        "inclusionai/ling-3.0-flash-vl:free": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 0.0,
+          "ci": [
+            0.0,
+            1.9
+          ]
+        },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 0.0,
+          "ci": [
+            0.0,
+            1.9
+          ]
+        },
+        "openai/gpt-5.6-luna": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 61.0,
+          "ci": [
+            54.1,
+            67.5
+          ]
+        },
+        "qwen/qwen3.8-flash": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 63.0,
+          "ci": [
+            56.1,
+            69.4
+          ]
+        },
+        "xiaomi/mimo-v2.5": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 60.5,
+          "ci": [
+            53.6,
+            67.0
+          ]
+        },
+        "z-ai/glm-5.3-flash": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 71.5,
+          "ci": [
+            64.9,
+            77.3
+          ]
+        }
+      }
+    },
+    "indicqa_bluff": {
+      "n_target": 100,
+      "models": {
+        "deepseek/deepseek-v4.1-flash": {
+          "n_traps": 27,
+          "bluff_rate": 48.1,
+          "abstain_rate": 51.9
+        },
+        "google/gemini-3.8-flash": {
+          "n_traps": 27,
+          "bluff_rate": 66.7,
+          "abstain_rate": 33.3
+        },
+        "google/gemma-4-26b-a4b-it:free": {
+          "n_traps": 27,
+          "bluff_rate": 59.3,
+          "abstain_rate": 40.7
+        },
+        "inclusionai/ling-3.0-flash-vl:free": {
+          "n_traps": 27,
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
+        },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n_traps": 27,
+          "bluff_rate": 100.0,
+          "abstain_rate": 0.0
+        },
+        "openai/gpt-5.6-luna": {
+          "n_traps": 27,
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
+        },
+        "poolside/laguna-s-2.1:free": {
+          "n_traps": 27,
+          "bluff_rate": 85.2,
+          "abstain_rate": 14.8
+        },
+        "qwen/qwen3.8-flash": {
+          "n_traps": 27,
+          "bluff_rate": 70.4,
+          "abstain_rate": 29.6
+        },
+        "xiaomi/mimo-v2.5": {
+          "n_traps": 27,
+          "bluff_rate": 74.1,
+          "abstain_rate": 25.9
+        },
+        "z-ai/glm-5.3-flash": {
+          "n_traps": 27,
+          "bluff_rate": 74.1,
+          "abstain_rate": 25.9
+        }
+      }
     }
   },
-  "pending": [
-    "nvidia/nemotron-3.5-lightning:free"
-  ]
+  "pending": []
 }

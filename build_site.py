@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 RESULTS = ROOT / "results"
-FULL_MIN = {"milu": 150, "indicqa": 90}
+FULL_MIN = {"milu": 150, "indicqa": 90, "xnli": 150}
 
 MODELS = {
     "google/gemini-3.8-flash": "Gemini 3.8 Flash",
@@ -27,7 +27,7 @@ MODELS = {
 }
 
 def parse_stem(stem):
-    for task in ("milu", "indicqa"):
+    for task in ("milu", "indicqa", "xnli"):
         if stem.startswith(task + "_"):
             rest = stem[len(task) + 1:]
             m = re.search(r"_n(\d+)$", rest)
@@ -56,7 +56,7 @@ def f1_score(pred, gold):
     return 2 * prec * rec / (prec + rec)
 
 def load():
-    out = {"milu": defaultdict(list), "indicqa": defaultdict(list)}
+    out = {"milu": defaultdict(list), "indicqa": defaultdict(list), "xnli": defaultdict(list)}
     for f in sorted(RESULTS.glob("*.jsonl")):
         p = parse_stem(f.stem)
         if not p:
@@ -69,7 +69,7 @@ def load():
     return out
 
 def compute(data):
-    scores = {"milu": {}, "indicqa": {}}
+    scores = {"milu": {}, "indicqa": {}, "xnli": {}}
     for model, runs in data["milu"].items():
         n, rows = max(runs, key=lambda r: r[0])
         k = sum(1 for r in rows if r.get("correct"))
@@ -90,12 +90,87 @@ def compute(data):
             "n": n, "n_errors": errs, "em": round(100 * em, 1), "f1": round(f1, 1),
             "em_ci": [round(100 * lo, 1), round(100 * hi, 1)],
         }
+    for model, runs in data.get("xnli", {}).items():
+        n, rows = max(runs, key=lambda r: r[0])
+        k = sum(1 for r in rows if r.get("correct"))
+        errs = sum(1 for r in rows if str(r.get("prediction", "")).startswith("__ERROR__"))
+        lo, hi = wilson(k / n, n)
+        scores["xnli"][model] = {
+            "n": n, "n_errors": errs, "accuracy": round(100 * k / n, 1),
+            "ci": [round(100 * lo, 1), round(100 * hi, 1)],
+        }
+    return scores
+
+
+ABSTAIN_RE = (
+    "தெரியலை", "தெரியாது", "தெரியவில்லை", "விடையில்லை", "விடை இல்லை",
+    "குறிப்பில் இல்லை", "குறிப்பிடப்படவில்லை", "சொல்லப்படவில்லை",
+    "கிடைக்கவில்லை", "வழங்கப்படவில்லை", "அறியப்படவில்லை", "இல்லை",
+    "no answer", "not mentioned", "not provided", "not specified",
+    "not stated", "cannot", "can\u2019t", "can't", "unable", "unknown",
+    "passage does not", "does not mention", "doesn't mention",
+)
+
+
+def is_abstention(pred):
+    p = str(pred).strip().lower()
+    if not p or p.startswith("__ERROR__"):
+        return True
+    return any(tok in p for tok in ABSTAIN_RE)
+
+
+ABSTAIN_MARKERS = (
+    "தெரியல", "தெரியாத", "தெரியவில்லை", "விடையில்லை", "விடை இல்லை", "இல்லை என",
+    "கிடைக்கவில்லை", "குறிப்பிடவில்லை", "குறிப்பிடப்படவில்லை", "பதில் இல்லை",
+    "சொல்லப்படவில்லை", "நிரூபிக்க முடியாது", "முடியாது", "சாத்தியமில்லை",
+    "no answer", "not mentioned", "not specified", "not stated", "cannot be",
+    "can't be", "unable to", "unknown", "not provided", "no information",
+    "unanswerable", "not in the passage", "passage does not", "not given",
+)
+
+def bluff_scores(data):
+    """Bluff catch: on unanswerable IndicQA traps (golds == ['']), did the model abstain?"""
+    traps = {}
+    for m, runs in data["indicqa"].items():
+        n, rows = max(runs, key=lambda r: r[0])
+        hit = [r for r in rows if [g.strip() for g in r.get("golds", [])] == [""]]
+        if len(hit) < 10:
+            continue
+        bluff = 0
+        for r in hit:
+            pred = str(r.get("prediction", "")).strip().strip('"').lower()
+            if not pred or pred.startswith("__ERROR__"):
+                continue
+            if not any(mk in pred for mk in ABSTAIN_MARKERS):
+                bluff += 1
+        traps[m] = {
+            "n_traps": len(hit), "bluff_rate": round(100 * bluff / len(hit), 1),
+            "abstain_rate": round(100 * (len(hit) - bluff) / len(hit), 1),
+        }
+    return traps
+
+def xnli_scores(data):
+    scores = {}
+    for model, runs in data.get("xnli", {}).items():
+        n, rows = max(runs, key=lambda r: r[0])
+        k = sum(1 for r in rows if r.get("correct"))
+        lo, hi = wilson(k / n, n)
+        scores[model] = {
+            "n": n, "accuracy": round(100 * k / n, 1),
+            "ci": [round(100 * lo, 1), round(100 * hi, 1)],
+        }
     return scores
 
 def row_html(task, rank, model, s):
     name = MODELS[model]
     cls = ' class="top"' if rank == 1 else ""
-    if task == "milu":
+    if task == "xnli":
+        cells = (
+            f'<td class="num score">{s["accuracy"]}%</td>'
+            f'<td class="barcell"><span class="bar"><i style="width:{s["accuracy"]}%"></i></span></td>'
+            f'<td class="num ci">{s["ci"][0]}–{s["ci"][1]}</td>'
+        )
+    elif task == "milu":
         cells = (
             f'<td class="num score">{s["accuracy"]}%</td>'
             f'<td class="barcell"><span class="bar"><i style="width:{s["accuracy"]}%"></i></span></td>'
@@ -121,21 +196,37 @@ def pending_row(model):
             f'<td class="num score" colspan="3">{label}</td></tr>')
 
 def rows(task, scores):
-    key = "accuracy" if task == "milu" else "f1"
+    key = "f1" if task == "indicqa" else "accuracy"
     have = [(m, s) for m, s in scores[task].items()]
     have.sort(key=lambda kv: -kv[1][key])
     out = [row_html(task, i + 1, m, s) for i, (m, s) in enumerate(have)]
     out += [pending_row(m) for m in MODELS if m not in scores[task]]
     return "\n          ".join(out)
 
-def patch_html(scores):
+def bluff_rows(bluff):
+    have = sorted(bluff.items(), key=lambda kv: kv[1]["bluff_rate"])
+    out = []
+    for rank, (m, s) in enumerate(have, 1):
+        cls = ' class="top"' if rank == 1 else ""
+        out.append(
+            f'<tr{cls}><td class="rank">{rank}</td>'
+            f'<td class="model">{m.replace(":free", "")}<small>{MODELS[m]}</small></td>'
+            f'<td class="num score">{s["bluff_rate"]}%</td>'
+            f'<td class="barcell"><span class="bar"><i style="width:{s["bluff_rate"]}%"></i></span></td>'
+            f'<td class="num ci">{s["n_traps"]} traps</td></tr>')
+    return "\n          ".join(out)
+
+def patch_html(scores, bluff, xnli):
     html = (ROOT / "index.html").read_text()
-    for task in ("milu", "indicqa"):
-        tag = "MILU" if task == "milu" else "QA"
+    for task, tag in (("milu", "MILU"), ("indicqa", "QA"), ("xnli", "XNLI")):
         html = re.sub(
             rf"(<!--ROWS:{tag}-->)(.*?)(<!--/ROWS:{tag}-->)",
             lambda m: m.group(1) + "\n          " + rows(task, scores) + "\n          " + m.group(3),
             html, flags=re.S)
+    html = re.sub(
+        r"(<!--ROWS:BLUFF-->)(.*?)(<!--/ROWS:BLUFF-->)",
+        lambda m: m.group(1) + "\n          " + bluff_rows(bluff) + "\n          " + m.group(3),
+        html, flags=re.S)
     (ROOT / "index.html").write_text(html)
 
 def charts(scores):
@@ -175,35 +266,36 @@ def charts(scores):
         ("MILU \u00b7 exam MCQs", "accuracy", "{:.1f}", scores["milu"]),
         ("IndicQA \u00b7 exact match", "em", "{:.0f}", scores["indicqa"]),
         ("IndicQA \u00b7 F1 (word overlap)", "f1", "{:.1f}", scores["indicqa"]),
+        ("IndicXNLI \u00b7 3-way logic", "accuracy", "{:.1f}", scores.get("xnli") or {}),
     ]
-    fig, axes = plt.subplots(1, 3, figsize=(13.2, 4.9), dpi=150)
+    fig, axes = plt.subplots(1, 4, figsize=(17.2, 4.7), dpi=150)
     today = date.today().isoformat()
     for ax, (title, key, fmt, sc) in zip(axes, panels):
-        vals = [sc[m][key] for m in ORDER]
-        ax.bar(range(len(ORDER)), vals, color=[color[m] for m in ORDER],
+        ms = [m for m in ORDER if m in sc]
+        vals = [sc[m][key] for m in ms]
+        ax.bar(range(len(ms)), vals, color=[color[m] for m in ms],
                width=.72, zorder=3)
         for x, v in enumerate(vals):
             ax.text(x, v + 2, fmt.format(v), ha="center", va="bottom",
                     fontsize=8.6, fontweight="bold", color=INK, zorder=4)
+        ax.set_xticks(range(len(ms)))
+        ax.set_xticklabels([SHORT[m] for m in ms], rotation=32,
+                           ha="right", fontsize=8.2)
         ax.set_title(title, fontsize=11.5, fontweight="bold", loc="left", pad=10)
         ax.set_ylim(0, 108)
         ax.set_yticks([0, 25, 50, 75, 100])
-        ax.set_xticks(range(len(ORDER)))
-        ax.set_xticklabels([SHORT[m] for m in ORDER], rotation=32,
-                           ha="right", fontsize=8.2)
         for side in ("top", "right", "left"):
             ax.spines[side].set_visible(False)
         ax.spines["bottom"].set_color("#d8d4c8")
         ax.tick_params(left=False, bottom=False)
         ax.grid(axis="y", color="#e7e4da", lw=.8, zorder=0)
-    fig.suptitle("Tamil Bench \u2014 how 9 AI models score on two exams written in Tamil",
+    fig.suptitle("Tamil Bench \u2014 how 9 AI models score on three exams written in Tamil",
                  x=.02, y=.99, ha="left", fontsize=15, fontweight="bold")
-    fig.text(.02, .925, "Left: % of exam questions answered correctly. "
-             "Middle/right: reading comprehension \u2014 exact-match vs partial (word-overlap) credit. "
-             "0-shot, temp 0, " + today + ".",
+    fig.text(.02, .925, "MILU: % of exam questions correct. IndicQA: exact-match vs partial (word-overlap) credit. "
+             "IndicXNLI: 3-way entailment logic (chance = 33%). 0-shot, temp 0, " + today + ".",
              ha="left", fontsize=9, color=SOFT)
-    fig.text(.02, .015, "MILU: 199 questions stratified by subject (seed 42) \u00b7 "
-             "IndicQA: 100 questions (seed 42) \u00b7 95% confidence intervals in the site tables \u00b7 "
+    fig.text(.02, .015, "MILU: 199 Qs \u00b7 IndicQA: 100 Qs \u00b7 IndicXNLI: 200 Qs (all seed 42) \u00b7 "
+             "95% confidence intervals in the site tables \u00b7 "
              "github.com/LogicIncZo/tamil-bench",
              ha="left", fontsize=8, color=SOFT)
     fig.tight_layout(rect=(0, .05, 1, .88))
@@ -217,19 +309,24 @@ def main():
     push = "--no-push" not in sys.argv
     data = load()
     scores = compute(data)
+    bluff = bluff_scores(data)
+    xnli = xnli_scores(data)
     summary = {
         "generated": date.today().isoformat(),
         "bench": "tamil-bench",
         "tasks": {
             "milu": {"n_target": 199, "models": scores["milu"]},
             "indicqa": {"n_target": 100, "models": scores["indicqa"]},
+            "indicxnli": {"n_target": 200, "models": scores.get("xnli", {})},
+            "indicqa_bluff": {"n_target": 100, "models": bluff},
         },
         "pending": [m for m in MODELS if m not in scores["milu"] or m not in scores["indicqa"]],
     }
     (RESULTS / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
-    patch_html(scores)
+    patch_html(scores, bluff, xnli)
     charts(scores)
-    print(f"milu models: {len(scores['milu'])}, indicqa models: {len(scores['indicqa'])}")
+    print(f"milu models: {len(scores['milu'])}, indicqa models: {len(scores['indicqa'])}, "
+          f"xnli models: {len(scores.get('xnli', {}))}, bluff models: {len(bluff)}")
     print(f"pending: {summary['pending']}")
     if push:
         subprocess.run(["git", "add", "-A"], cwd=ROOT, check=True)
