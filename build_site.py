@@ -14,16 +14,16 @@ RESULTS = ROOT / "results"
 FULL_MIN = {"milu": 150, "indicqa": 90}
 
 MODELS = {
-    "google/gemini-3.8-flash": ("Gemini 3.8 Flash", "paid"),
-    "openai/gpt-5.6-luna": ("GPT-5.6 Luna", "paid"),
-    "deepseek/deepseek-v4.1-flash": ("DeepSeek V4.1 Flash", "paid"),
-    "z-ai/glm-5.3-flash": ("GLM 5.3 Flash", "paid"),
-    "qwen/qwen3.8-flash": ("Qwen 3.8 Flash", "paid"),
-    "xiaomi/mimo-v2.5": ("Xiaomi MiMo v2.5", "value"),
-    "google/gemma-4-26b-a4b-it:free": ("Gemma 4 26B A4B", "value"),
-    "inclusionai/ling-3.0-flash-vl:free": ("Ling 3.0 Flash VL", "value"),
-    "nvidia/nemotron-3.5-lightning:free": ("Nemotron 3.5 Lightning", "value"),
-    "poolside/laguna-s-2.1:free": ("Poolside Laguna-S 2.1", "value"),
+    "google/gemini-3.8-flash": "Gemini 3.8 Flash",
+    "openai/gpt-5.6-luna": "GPT-5.6 Luna",
+    "deepseek/deepseek-v4.1-flash": "DeepSeek V4.1 Flash",
+    "z-ai/glm-5.3-flash": "GLM 5.3 Flash",
+    "qwen/qwen3.8-flash": "Qwen 3.8 Flash",
+    "xiaomi/mimo-v2.5": "Xiaomi MiMo v2.5",
+    "google/gemma-4-26b-a4b-it:free": "Gemma 4 26B A4B",
+    "inclusionai/ling-3.0-flash-vl:free": "Ling 3.0 Flash VL",
+    "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5 Lightning",
+    "poolside/laguna-s-2.1:free": "Poolside Laguna-S 2.1",
 }
 
 def parse_stem(stem):
@@ -93,7 +93,7 @@ def compute(data):
     return scores
 
 def row_html(task, rank, model, s):
-    name, _tier = MODELS[model]
+    name = MODELS[model]
     cls = ' class="top"' if rank == 1 else ""
     if task == "milu":
         cells = (
@@ -114,7 +114,7 @@ def row_html(task, rank, model, s):
 PARKED = {"nvidia/nemotron-3.5-lightning:free"}
 
 def pending_row(model):
-    name, _ = MODELS[model]
+    name = MODELS[model]
     label = "parked — endpoint congested" if model in PARKED else "running\u2026"
     return (f'<tr class="pending"><td class="rank">·</td>'
             f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>'

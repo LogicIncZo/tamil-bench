@@ -33,13 +33,13 @@ python3 bench.py milu --model deepseek/deepseek-v4.1-flash --n 200   # after gat
 | z-ai/glm-5.3-flash | 0.799 | 0.190 | 0.368 |
 | xiaomi/mimo-v2.5 | 0.759 | 0.200 | 0.401 |
 | qwen/qwen3.8-flash | 0.688 | **0.220** | 0.381 |
-| inclusionai/ling-3.0-flash-vl (free) | 0.643 | 0.140 | 0.374 |
-| google/gemma-4-26b-a4b-it (free) | 0.583 | 0.190 | 0.369 |
-| poolside/laguna-s-2.1 (free) | 0.497 | 0.140 | 0.291 |
+| inclusionai/ling-3.0-flash-vl | 0.643 | 0.140 | 0.374 |
+| google/gemma-4-26b-a4b-it | 0.583 | 0.190 | 0.369 |
+| poolside/laguna-s-2.1 | 0.497 | 0.140 | 0.291 |
 
-95% CIs and per-question records in `results/` (errors count as wrong, in-denominator). Nemotron 3.5 Lightning (free) parked — free-tier endpoint too congested to finish (40+ min per task, read-timeout retries).
+95% CIs and per-question records in `results/` (errors count as wrong, in-denominator). Nemotron 3.5 Lightning parked — endpoint congested + its daily quota exhausted mid-run; retry scheduled 2026-09-12 05:45 IST (post-reset, 05:30 IST).
 
-**Reading:** Gemini 3.8 Flash is the clear Tamil flash-tier leader (+8pp MILU over Luna, non-overlapping CI vs everything). GLM/DeepSeek statistically tied. MiMo v2.5 is the value pick — 5th on MILU but 2nd-best F1 (0.401) at a sixth of Gemini's price. Qwen 3.8 flash is weakest on exam MCQ but posts the best IndicQA EM. Free tier: Ling > Gemma > Laguna, all well behind paid. All nine beat GPT-4o's ~74% cross-language MILU average (2024). Qwen flagship tier exists (`qwen/qwen3.8-max-0902`, 13× price) — untested.
+**Reading:** Gemini 3.8 Flash is the clear Tamil leader (+8pp MILU over Luna, non-overlapping CI vs everything). GLM/DeepSeek statistically tied. MiMo v2.5 is a strong mid-board model — 5th on MILU but 2nd-best F1 (0.401). Qwen 3.8 flash is weakest on exam MCQ but posts the best IndicQA EM. All nine beat GPT-4o's ~74% cross-language MILU average (2024). Qwen flagship tier exists (`qwen/qwen3.8-max-0902`) — untested.
 
 ## Known gaps
 
