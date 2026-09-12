@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-11",
+  "generated": "2026-09-12",
   "bench": "tamil-bench",
   "tasks": {
     "milu": {
@@ -39,6 +39,15 @@
           "ci": [
             57.5,
             70.6
+          ]
+        },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 41.2,
+          "ci": [
+            34.6,
+            48.1
           ]
         },
         "openai/gpt-5.6-luna": {
@@ -129,6 +138,16 @@
           "em_ci": [
             8.5,
             22.1
+          ]
+        },
+        "nvidia/nemotron-3.5-lightning:free": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 0.0,
+          "f1": 0.8,
+          "em_ci": [
+            0.0,
+            3.7
           ]
         },
         "openai/gpt-5.6-luna": {
@@ -276,8 +295,8 @@
         },
         "nvidia/nemotron-3.5-lightning:free": {
           "n_traps": 27,
-          "bluff_rate": 100.0,
-          "abstain_rate": 0.0
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
         },
         "openai/gpt-5.6-luna": {
           "n_traps": 27,
@@ -307,7 +326,5 @@
       }
     }
   },
-  "pending": [
-    "nvidia/nemotron-3.5-lightning:free"
-  ]
+  "pending": []
 }

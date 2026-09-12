@@ -26,7 +26,7 @@ python3 bench.py xnli --model z-ai/glm-5.3-flash --n 200                 # needs
 - `--workers` concurrency (default 8). `--endpoint` to override (any OpenAI-compatible URL + env key).
 - Uses `OPENROUTER_API_KEY` from env. Results: JSONL per question + summary in `results/`.
 
-## Baseline (2026-09-11, OpenRouter, 0-shot, n≈200 stratified by domain)
+## Baseline (2026-09-11/12, OpenRouter, 0-shot, n≈200 stratified by domain)
 
 | Model | MILU-Tamil acc | IndicQA-Tamil EM (n=100) | F1 |
 | --- | --- | --- | --- |
@@ -39,10 +39,11 @@ python3 bench.py xnli --model z-ai/glm-5.3-flash --n 200                 # needs
 | inclusionai/ling-3.0-flash-vl | 0.643 | 0.140 | 0.374 |
 | google/gemma-4-26b-a4b-it | 0.583 | 0.190 | 0.369 |
 | poolside/laguna-s-2.1 | 0.497 | 0.140 | 0.291 |
+| nvidia/nemotron-3.5-lightning:free | 0.412 | 0.000 | 0.008 |
 
-95% CIs and per-question records in `results/` (errors count as wrong, in-denominator). Nemotron 3.5 Lightning parked — endpoint congested + its daily quota exhausted mid-run; retry scheduled 2026-09-12 05:45 IST (post-reset, 05:30 IST).
+95% CIs and per-question records in `results/` (errors count as wrong, in-denominator). Nemotron 3.5 Lightning (free tier) completed 2026-09-12 07:15 IST after the daily-quota reset: MILU 0.412 (95% CI 0.346–0.481), IndicQA EM 0.000 / F1 0.008 — 0 API errors both runs. It answers with verbose reasoning dumps instead of the extracted span, so EM collapses to zero, while exam MCQ lands last of the ten models.
 
-**Reading:** Gemini 3.8 Flash is the clear Tamil leader (+8pp MILU over Luna, non-overlapping CI vs everything). GLM/DeepSeek statistically tied. MiMo v2.5 is a strong mid-board model — 5th on MILU but 2nd-best F1 (0.401). Qwen 3.8 flash is weakest on exam MCQ but posts the best IndicQA EM. All nine beat GPT-4o's ~74% cross-language MILU average (2024). Qwen flagship tier exists (`qwen/qwen3.8-max-0902`) — untested.
+**Reading:** Gemini 3.8 Flash is the clear Tamil leader (+8pp MILU over Luna, non-overlapping CI vs everything). GLM/DeepSeek statistically tied. MiMo v2.5 is a strong mid-board model — 5th on MILU but 2nd-best F1 (0.401). Qwen 3.8 flash is weakest on exam MCQ but posts the best IndicQA EM. Nine of ten beat GPT-4o's ~74% cross-language MILU average (2024); Nemotron 3.5 Lightning (0.412) does not. Qwen flagship tier exists (`qwen/qwen3.8-max-0902`) — untested.
 
 ## IndicXNLI (2026-09-11, OpenRouter, 0-shot, n=200)
 
