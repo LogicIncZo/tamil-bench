@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ta"><head><meta charset="utf-8"><style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  body {
+    font-family: "Noto Sans", "Noto Sans Tamil", system-ui, sans-serif;
+    background:#fbf8f1;
+    color:#26221b;
+    padding:44px 52px 38px;
+    display:flex; flex-direction:column;
+  }
+  .top { display:flex; align-items:center; justify-content:space-between; margin-bottom:26px; }
+  .brand { font-size:15px; letter-spacing:2.5px; font-weight:700; color:#8d8779; text-transform:uppercase; }
+  .badge { background:#1c2b39; color:#fbf8f1; font-size:13px; font-weight:600; padding:7px 14px; border-radius:100px; letter-spacing:.5px; }
+  h1 { font-size:52px; line-height:1.1; font-weight:800; letter-spacing:-.5px; }
+  h1 .ta { display:block; font-size:40px; font-weight:700; color:#8d3b22; margin-top:6px; letter-spacing:0; }
+  .sub { font-size:18px; color:#5d5749; margin-top:14px; max-width:780px; }
+  .row { display:flex; gap:26px; margin-top:30px; flex:1; }
+  .panel { flex:1; background:#fff; border:1px solid #e7e2d4; border-radius:16px; padding:18px 20px; }
+  .panel h2 { font-size:13px; letter-spacing:1.6px; color:#8d8779; text-transform:uppercase; margin-bottom:12px; font-weight:700; }
+  .bar { display:flex; align-items:center; margin-bottom:13px; }
+  .bar .name { width:128px; font-size:13.5px; font-weight:600; color:#26221b; flex:none; }
+  .bar .track { flex:1; height:22px; background:#efeae0; border-radius:6px; margin-right:10px; overflow:hidden; }
+  .bar .fill { height:100%; border-radius:6px; }
+  .bar .val { width:34px; text-align:right; font-size:14px; font-weight:800; flex:none; }
+  .note { font-size:12.5px; color:#8d8779; margin-top:auto; display:flex; justify-content:space-between; align-items:center; }
+  .url { font-size:14.5px; font-weight:700; color:#1c2b39; letter-spacing:.3px; }
+  .gen { font-size:12.5px; color:#8d8779; }
+</style></head><body>
+  <div class="top">
+    <div class="brand">LogicIncZo &nbsp;·&nbsp; Open Tamil LLM Benchmark</div>
+    <div class="badge">9 AI models · API-only · 0-shot</div>
+  </div>
+  <h1>Tamil Bench
+    <span class="ta">தமிழ்த் திறனாய்வு</span>
+  </h1>
+  <div class="sub">How well do AI models actually know Tamil? We graded 9 models on exams written in Tamil — school &amp; civil-service style questions, reading comprehension, and 3-way logic — using the AI4Bharat MILU, IndicQA and IndicXNLI datasets.</div>
+  <div class="row">
+    <div class="panel">
+      <h2>MILU · exam MCQs (199 Qs)</h2>
+      <div class="bar"><div class="name">Gemini 3.8 Flash</div><div class="track"><div class="fill" style="width:94.5%;background:#4e79a7"></div></div><div class="val">94.5</div></div>
+      <div class="bar"><div class="name">GPT-5.6 Luna</div><div class="track"><div class="fill" style="width:86.4%;background:#f28e2b"></div></div><div class="val">86.4</div></div>
+      <div class="bar"><div class="name">DeepSeek V4.1</div><div class="track"><div class="fill" style="width:80.9%;background:#e15759"></div></div><div class="val">80.9</div></div>
+      <div class="bar"><div class="name">GLM 5.3</div><div class="track"><div class="fill" style="width:79.9%;background:#59a14f"></div></div><div class="val">79.9</div></div>
+      <div class="bar"><div class="name">MiMo v2.5</div><div class="track"><div class="fill" style="width:75.9%;background:#b07aa1"></div></div><div class="val">75.9</div></div>
+      <div class="bar"><div class="name">Qwen 3.8</div><div class="track"><div class="fill" style="width:68.8%;background:#edc948"></div></div><div class="val">68.8</div></div>
+    </div>
+    <div class="panel">
+      <h2>IndicQA · reading comprehension</h2>
+      <div class="bar"><div class="name">Exact match</div><div class="track"><div class="fill" style="width:22.0%;background:#76b7b2"></div></div><div class="val">22.0</div></div>
+      <div class="bar"><div class="name">F1 word overlap</div><div class="track"><div class="fill" style="width:42.4%;background:#76b7b2"></div></div><div class="val">42.4</div></div>
+      <div class="bar"><div class="name">Gemma 4 26B</div><div class="track"><div class="fill" style="width:20.2%;background:#8d8779"></div></div><div class="val">20.2</div></div>
+      <div class="bar"><div class="name">Gemini 3.8 Flash</div><div class="track"><div class="fill" style="width:20.0%;background:#4e79a7"></div></div><div class="val">20.0</div></div>
+      <div style="font-size:11.5px;color:#8d8779;margin-top:14px;line-height:1.5">Exact-match answers stay hard. Word-overlap F1 shows models get the gist (top F1 42.4).</div>
+    </div>
+    <div class="panel">
+      <h2>IndicXNLI · 3-way logic</h2>
+      <div class="bar"><div class="name">Gemini 3.8 Flash</div><div class="track"><div class="fill" style="width:75.8%;background:#4e79a7"></div></div><div class="val">75.8</div></div>
+      <div class="bar"><div class="name">GLM 5.3</div><div class="track"><div class="fill" style="width:71.5%;background:#59a14f"></div></div><div class="val">71.5</div></div>
+      <div class="bar"><div class="name">Gemma 4 26B</div><div class="track"><div class="fill" style="width:64.8%;background:#8d8779"></div></div><div class="val">64.8</div></div>
+      <div style="font-size:11.5px;color:#8d8779;margin-top:24px;line-height:1.5">3-way entailment logic (entail / neutral / contradict). Random guessing = 33%. Best models reach ~2× chance.</div>
+    </div>
+  </div>
+  <div class="note">
+    <span class="url">github.com/LogicIncZo/tamil-bench</span>
+    <span class="gen">MILU 199 Qs · IndicQA 100 Qs · IndicXNLI 200 Qs</span>
+  </div>
+</body></html>
