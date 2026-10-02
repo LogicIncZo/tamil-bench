@@ -418,6 +418,50 @@ def project_spend(data):
     }
 
 
+def all_sheets_spend():
+    """Every charge the project has actually recorded, across every sheet in
+    results/ -- not only the ones that qualify for the leaderboard.
+
+    project_spend() answers "what did the published scores cost", which is
+    the right basis for a per-run cost column but the wrong basis for a
+    project total: smoke tests, superseded re-runs and abandoned partial
+    sheets all spent money too. Two extra buckets come out of this scan:
+
+      free_sheets      -- `:free` endpoints reporting no charge. Genuinely
+                          $0.00, not a gap in the record.
+      unrecorded_paid  -- sheets for a commercial model that carry no usage
+                          row at all. These were billed, but the sheet does
+                          not say by how much, so the project total is a
+                          floor and these are the size of the hole in it.
+    """
+    recorded = 0.0
+    recorded_sheets = 0
+    free_sheets = 0
+    unrecorded_paid = []
+    for f in sorted(RESULTS.glob("*.jsonl")):
+        p = parse_stem(f.stem)
+        if not p:
+            continue
+        task, model, n = p
+        rows = [json.loads(l) for l in
+                f.open(encoding="utf-8", errors="replace") if l.strip()]
+        cost, covered = run_cost(rows)
+        if covered:
+            recorded += cost
+            recorded_sheets += 1
+        elif model.endswith(":free"):
+            free_sheets += 1
+        else:
+            unrecorded_paid.append({"file": f.name, "model": model, "rows": len(rows)})
+    return {
+        "recorded": round(recorded, 4),
+        "recorded_sheets": recorded_sheets,
+        "free_sheets": free_sheets,
+        "unrecorded_paid": unrecorded_paid,
+        "unrecorded_paid_calls": sum(s["rows"] for s in unrecorded_paid),
+    }
+
+
 CONTRIBUTE_CSS = """
 :root{--paper:#f3ead6;--ink:#201a10;--muted:#6b6150;--line:#d6c7a6;--red:#c22b2b;--green:#1f6b46}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
@@ -457,14 +501,22 @@ def contribute_page(data):
     spend = project_spend(data)
     total = spend["total"]
     uncosted_n = len(spend["uncosted_sheets"])
+    allc = all_sheets_spend()
+    all_recorded = allc["recorded"]
+    n_unrec = len(allc["unrecorded_paid"])
+    n_unrec_calls = allc["unrecorded_paid_calls"]
+    # Off-board spend: smoke tests, superseded re-runs and partial sheets that
+    # a real charge was recorded against but which never reach the leaderboard.
+    off_board = round(all_recorded - total, 4)
 
     # --- cost cards -------------------------------------------------------
-    if total >= 1:
-        total_str = f"${total:,.2f}"
-    elif total > 0:
-        total_str = f"${total:,.4f}"
+    if all_recorded >= 1:
+        total_str = f"${all_recorded:,.2f}"
+    elif all_recorded > 0:
+        total_str = f"${all_recorded:,.4f}"
     else:
         total_str = "$0.00"
+    all_exact = f"${all_recorded:,.4f}" if all_recorded > 0 else "$0.00"
     # Full precision for the lower-bound claim -- rounding $1.5518 to $1.55 and
     # then calling $1.55 the floor would understate what is already proven.
     total_exact = f"${total:,.4f}" if total > 0 else "$0.00"
@@ -498,10 +550,11 @@ def contribute_page(data):
     coverage = ""
     if uncosted_n:
         coverage = (
-            f"<br><br>Coverage: {n_models_costed} of {n_models_all} models on the "
-            f"board reported a charge; {uncosted_n} qualifying sheets predate usage "
-            f"accounting and record none, so the true all-time figure is at least "
-            f"{total_exact}. <a href=\"{REPO_URL}/tree/main/results\">Check the raw "
+            f"<br><br>Board coverage: {n_models_costed} of {n_models_all} models on "
+            f"the board reported a charge; {uncosted_n} qualifying sheets predate usage "
+            f"accounting and record none. Across the whole results/ directory the "
+            f"accounted total is {all_exact}, with {n_unrec} further paid-model "
+            f"sheets unaccounted. <a href=\"{REPO_URL}/tree/main/results\">Check the raw "
             f"sheets · விடைத்தாள்களைப் பார்க்கவும்</a>.")
 
     # --- model id suggestions for the request form ------------------------
@@ -537,9 +590,18 @@ appear on the board.</li>
 <section>
 <h2 style="margin-top:0">What the benchmark has cost so far<br><span class="ta">இதுவரை செலவானதன் மொத்தம்</span></h2>
 <div class="bignum">{_esc(total_str)}</div>
-<p class="sub">OpenRouter charges across every scored run, summed from the
-per-answer <code>usage.cost</code> field in the result sheets. No salaries, no
-servers, no paid datasets — just API calls.</p>
+<p class="sub">Every OpenRouter charge this project can account for, summed from
+the per-answer <code>usage.cost</code> field across all {allc["recorded_sheets"]}
+answer sheets that recorded one. No salaries, no servers, no paid datasets —
+just API calls.</p>
+<p class="sub">Of that, <strong>${total:,.4f}</strong> is the runs standing on
+the leaderboard and <strong>${off_board:,.4f}</strong> is off-board work —
+n=5 smoke tests, superseded re-runs and partial sheets that were still billed
+but never reached the board. A further <strong>{n_unrec}</strong> paid-model
+sheets covering <strong>{n_unrec_calls:,}</strong> API calls record no charge at
+all; they were certainly billed, but the sheets do not say by how much, so this
+figure is a <em>floor</em>, not a closed total. {allc["free_sheets"]} free-tier
+<code>:free</code> sheets are excluded because they genuinely cost nothing.</p>
 <div class="table-wrap"><table>
 <thead><tr><th scope="col">Test · சோதனை</th><th scope="col" class="num">Spend · செலவு</th></tr></thead>
 <tbody>{''.join(task_rows) or '<tr><td colspan="2">No charged runs yet · இதுவரை கட்டணம் இல்லை</td></tr>'}</tbody>
@@ -853,6 +915,16 @@ def main():
             "indicqa_bluff": {"n_target": 100, "models": bluff},
         },
         "pending": [m for m in MODELS if m not in scores["milu"] or m not in scores["indicqa"]],
+        "spend": {
+            "accounted_usd": project_spend(data)["total"],
+            "all_sheets_recorded_usd": all_sheets_spend()["recorded"],
+            "note": (
+                "accounted_usd covers only leaderboard-qualifying sheets. "
+                "all_sheets_recorded_usd is every usage.cost in results/, including "
+                "off-board smoke tests and superseded re-runs. Both are floors: "
+                "paid-model sheets with no usage row are billed but unrecorded."
+            ),
+        },
     }
     (RESULTS / "summary.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False) + "\n")
     patch_html(scores, bluff, xnli)

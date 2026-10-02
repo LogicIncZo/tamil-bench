@@ -731,5 +731,10 @@
     "inclusionai/ling-3.0-flash-sante:free",
     "nvidia/nemotron-3-super-120b-a12b:free",
     "x-ai/grok-4.7"
-  ]
+  ],
+  "spend": {
+    "accounted_usd": 1.5517,
+    "all_sheets_recorded_usd": 1.6613,
+    "note": "accounted_usd covers only leaderboard-qualifying sheets. all_sheets_recorded_usd is every usage.cost in results/, including off-board smoke tests and superseded re-runs. Both are floors: paid-model sheets with no usage row are billed but unrecorded."
+  }
 }
