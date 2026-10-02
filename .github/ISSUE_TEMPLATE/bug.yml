@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in a published score, or the runner itself, is wrong
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Scores are published with the raw answer sheet behind them, so most bugs
+        are traceable. Please include the sheet name.
+  - type: input
+    id: sheet
+    attributes:
+      label: Result sheet
+      placeholder: results/milu_x-ai_grok-4.7_n199.jsonl
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: The claim you believe is incorrect, and the sheet rows that contradict it.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1.
+        2.
+    validations:
+      required: false

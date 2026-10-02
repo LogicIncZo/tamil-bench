@@ -1,0 +1,47 @@
+name: New test or dataset
+description: Propose a new Tamil task for the benchmark, or contribute a dataset
+labels: [new-test]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A new test needs a task name, a source, and a scoring rule. Read
+        CONTRIBUTING.md § "Add a new test" for exactly what `build_site.py` needs
+        before any run can appear on the board.
+  - type: input
+    id: task
+    attributes:
+      label: Task key
+      description: Lowercase identifier, e.g. `morphology`. This becomes the sheet stem and the URL.
+      placeholder: morphology
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Dataset
+      description: Name, paper or URL, licence, and language split. Note that raw datasets are gitignored — only code is committed.
+    validations:
+      required: true
+  - type: textarea
+    id: scoring
+    attributes:
+      label: How should it be scored?
+      description: Accuracy, exact match, F1, pass@k — and what counts as a failure.
+    validations:
+      required: true
+  - type: textarea
+    id: n
+    attributes:
+      label: How many items?
+      description: The `FULL_MIN` gate keeps tiny sheets off the leaderboard. Say how many you can get and what the minimum should be.
+    validations:
+      required: true
+  - type: checkboxes
+    id: runnable
+    attributes:
+      label: Can you provide
+      options:
+        - label: A runnable `bench.py` subcommand
+        - label: The dataset under a licence that allows redistribution
+        - label: Just the proposal, for now

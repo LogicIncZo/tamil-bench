@@ -9,6 +9,14 @@ Guidance for AI coding agents (and humans using them) working in this repo.
 - Live site: https://logicinczo.github.io/tamil-bench/ (GitHub Pages, served from `index.html`)
 - Remote: https://github.com/LogicIncZo/tamil-bench.git
 
+## Contributing
+
+Ways in, from least to most involved: fund API runs (UPI at `logic@ybl`, or the
+contribute page), request a run for a model, improve the runner, or add a whole
+new task. `contribute.html` is the public face of all four; `CONTRIBUTING.md`
+holds the technical bar a new task has to clear. The old `sponsor.html` URL
+still resolves via a redirect stub so shared links do not 404.
+
 ## Layout
 
 | Path | What it is |

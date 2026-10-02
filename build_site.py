@@ -336,7 +336,7 @@ def test_page(task, title, title_ta, score_columns, scores):
         rows.append("<tr>" + "".join(cells) + "</tr>")
     nav = " · ".join(f'<a href="{path}">{label}</a>' for path, label in (
         ("index.html", "Home / முகப்பு"), ("milu.html", "MILU"),
-        ("indicqa.html", "IndicQA"), ("indicxnli.html", "IndicXNLI"), ("sponsor.html", "Sponsor / நிதியளிப்பு")))
+        ("indicqa.html", "IndicQA"), ("indicxnli.html", "IndicXNLI"), ("contribute.html", "Contribute / பங்களிப்பு")))
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} · Tamil Bench</title><style>
@@ -368,10 +368,12 @@ def generate_test_pages(scores):
         (ROOT / filename).write_text(test_page(task, title, title_ta, columns, scores))
 
 UPI_ID = "logic@ybl"
-UPI_INTENT = "upi://pay?pa=logic@ybl&pn=CashlessConsumer&cu=INR&tn=Tamil+Bench+sponsorship"
+UPI_INTENT = "upi://pay?pa=logic@ybl&pn=CashlessConsumer&cu=INR&tn=Tamil+Bench+contribution"
 REQUEST_MAIL = "cashlessconsumerin@gmail.com"
 REPO_URL = "https://github.com/LogicIncZo/tamil-bench"
 NEW_ISSUE_URL = REPO_URL + "/issues/new"
+CONTRIBUTING_URL = REPO_URL + "/blob/main/CONTRIBUTING.md"
+NEW_TEST_ISSUE_URL = REPO_URL + "/issues/new?template=new_test.yml"
 
 TASK_LABELS = {
     "milu": "MILU (199 exam MCQs)",
@@ -416,7 +418,7 @@ def project_spend(data):
     }
 
 
-SPONSOR_CSS = """
+CONTRIBUTE_CSS = """
 :root{--paper:#f3ead6;--ink:#201a10;--muted:#6b6150;--line:#d6c7a6;--red:#c22b2b;--green:#1f6b46}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
 main{max-width:900px;margin:auto;padding:clamp(20px,5vw,56px)}a{color:#174f72}
@@ -451,7 +453,7 @@ def _esc(s):
     return html.escape(str(s))
 
 
-def sponsor_page(data):
+def contribute_page(data):
     spend = project_spend(data)
     total = spend["total"]
     uncosted_n = len(spend["uncosted_sheets"])
@@ -508,17 +510,29 @@ def sponsor_page(data):
 
     page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sponsor Tamil Bench · நிதியளிப்பு</title>
-<meta name="description" content="Sponsor Tamil Bench, the open API-only Tamil LLM benchmark, and request a run for any model.">
-<style>{SPONSOR_CSS}</style></head><body><main>
+<title>Contribute to Tamil Bench · பங்களிப்பு</title>
+<meta name="description" content="Contribute to Tamil Bench, the open API-only Tamil LLM benchmark: fund API runs, improve the runner, or add a new test.">
+<style>{CONTRIBUTE_CSS}</style></head><body><main>
 <nav aria-label="Site pages"><a href="index.html">Home / முகப்பு</a> · <a href="milu.html">MILU</a> · <a href="indicqa.html">IndicQA</a> · <a href="indicxnli.html">IndicXNLI</a> · <a href="{REPO_URL}">GitHub</a></nav>
 
-<h1>Sponsor Tamil Bench<br><span class="ta">தமிழ் பெஞ்சை நிதியளிப்பு</span></h1>
+<h1>Contribute to Tamil Bench<br><span class="ta">தமிழ் பெஞ்சைக்கு பங்களியுங்கள்</span></h1>
 <p>Tamil Bench runs open-weight and commercial language models through the same
 three Tamil exams, and publishes every score with the raw answer sheet behind
 it. The runs are paid for out of pocket, and this page shows exactly what they
-cost. Sponsor to keep the ledger open, or request a run for a model you care
-about.</p>
+cost.</p>
+<p><strong>Money is only one of three ways in, and it is the least demanding.</strong>
+Anyone can help, none of them require you to run a single command:</p>
+<ul>
+<li><strong>Contribute money</strong> — every rupee pays for API calls that put
+new models on the board. Free and <code>:free</code> endpoints are run at zero
+cost either way.</li>
+<li><strong>Contribute code</strong> — new tasks, better scoring, Tamil
+transliteration, a dataset loader, a fix for a failing endpoint. The runner is
+MIT-licensed and small enough to read in an afternoon.</li>
+<li><strong>Add a new test</strong> — the highest-value contribution there is.
+See the section below for exactly what a new task has to satisfy before it can
+appear on the board.</li>
+</ul>
 
 <section>
 <h2 style="margin-top:0">What the benchmark has cost so far<br><span class="ta">இதுவரை செலவானதன் மொத்தம்</span></h2>
@@ -546,13 +560,75 @@ of the commercial endpoints. {coverage}</p>
 </section>
 
 <section aria-labelledby="upi-h">
-<h2 id="upi-h" style="margin-top:0">Sponsor with UPI<br><span class="ta">UPI மூலம் நிதியளிப்பு</span></h2>
+<h2 id="upi-h" style="margin-top:0">Contribute money · UPI<br><span class="ta">UPI மூலம் பங்களிப்பு</span></h2>
 <p>Scan with any UPI app (GPay, PhonePe, Paytm, BHIM) and enter whatever amount
-you want. Every rupee goes toward API calls that keep new models on the board.</p>
-<img class="qr" src="assets/upi-qr.png" alt="UPI QR code for the sponsor UPI ID logic@ybl" width="320" height="320">
+you want. Every rupee goes toward API calls that keep new models on the board.
+There is no minimum and no subscription — a one-time amount is fine.</p>
+<img class="qr" src="assets/upi-qr.png" alt="UPI QR code for the contribution UPI ID logic@ybl" width="320" height="320">
 <p style="text-align:center;margin-bottom:4px">or type the ID · அல்லது ID-ஐத் தட்டச்சு செய்யவும்</p>
 <p style="text-align:center"><span class="upi-id" id="upi-id">{UPI_ID}</span></p>
 <p class="note" style="text-align:center">A one-tap UPI link: <a id="upi-link" href="{UPI_INTENT}">{UPI_INTENT[:34]}…</a></p>
+</section>
+
+<section aria-labelledby="code-h">
+<h2 id="code-h" style="margin-top:0">Contribute code<br><span class="ta">கோடு பங்களிப்பு</span></h2>
+<p>The whole benchmark is three Python scripts and a folder of answer sheets, MIT
+licensed. <a href="{CONTRIBUTING_URL}">CONTRIBUTING.md</a> is the full guide;
+this is the short version of what is actually useful.</p>
+<ul>
+<li><strong>Add a task runner.</strong> Each test is one
+<code>run_&lt;task&gt;()</code> function in <code>bench.py</code> plus a subcommand in
+<code>main()</code>. This is the main way in.</li>
+<li><strong>Fix or extend scoring.</strong> IndicQA uses exact match and token
+F1; MILU and IndicXNLI use accuracy over valid rows. A better Tamil-aware
+normaliser or a confidence interval that reflects the real sampling is a
+genuine improvement.</li>
+<li><strong>Handle the awkward cases.</strong> Models that answer in Tamil script,
+in English, in transliteration, or in a mix of all three. A model that fails on
+format rather than knowledge is a measurement bug, and the fix belongs here.</li>
+<li><strong>Report a broken run.</strong> A dead endpoint, a sheet with fewer
+rows than expected, a score that looks wrong. <a href="{NEW_ISSUE_URL}">Open an
+issue</a> &mdash; no run needed to do this.</li>
+</ul>
+<p>Small, reviewable pull requests are easier to land than large ones. If you are
+unsure whether something is wanted, open the issue first &mdash; that costs you a
+paragraph and saves you a wasted afternoon.</p>
+</section>
+
+<section aria-labelledby="test-h">
+<h2 id="test-h" style="margin-top:0">Add a new test<br><span class="ta">புதிய சோதனை சேர்க்கவும்</span></h2>
+<p>This is the contribution with the most leverage: every test added widens what
+the board can detect. A task qualifies if it is Tamil-specific, has gold labels
+that are not guessable from the prompt alone, and is not already covered by
+MILU, IndicQA or IndicXNLI.</p>
+<ol>
+<li><strong>Propose it first.</strong> <a href="{NEW_TEST_ISSUE_URL}">Open a
+new-test issue</a> with the dataset source, licence, language, size, and what a
+good score means. Datasets that cannot be redistributed belong in
+<code>data/</code>, which is gitignored &mdash; do not commit a copy.</li>
+<li><strong>Write the runner.</strong> A <code>run_&lt;task&gt;()</code>
+function in <code>bench.py</code> that samples with
+<code>SEED = 42</code>, calls the model at temperature 0, and writes
+<code>results/&lt;task&gt;_&lt;org&gt;_&lt;model-slug&gt;_n&lt;N&gt;.jsonl</code>
+(<code>/</code> becomes <code>_</code> in the model id). Register the
+subcommand in <code>main()</code>.</li>
+<li><strong>Gate it.</strong> Add a <code>FULL_MIN</code> entry in
+<code>build_site.py</code> so a smoke-test sheet can never reach the leaderboard.
+MILU needs 150 rows, IndicQA 90, IndicXNLI 150; pick a floor at least as large as
+your real task and say why in the PR.</li>
+<li><strong>Label it.</strong> Add entries to <code>TASK_LABELS</code> (English)
+and <code>TASK_LABELS_TA</code> (Tamil), and register the page in
+<code>generate_test_pages()</code> so it gets its own sortable scoreboard.</li>
+<li><strong>Show it works.</strong> Run at least two models end to end and commit
+the two sheets. Scores computed from sheets nobody can re-derive are not
+evidence.</li>
+</ol>
+<p>Three rules are not negotiable, because breaking any of them makes the board
+quietly wrong rather than obviously broken: <strong>sampling stays at seed
+42</strong> so models stay comparable; <strong>failed API calls are never
+scored as 0%</strong> &mdash; they are counted and reported as
+<code>n_errors</code>; and <strong>result sheets are append-only evidence</strong>,
+never edited to fix a number.</p>
 </section>
 
 <section aria-labelledby="req-h">
@@ -560,7 +636,7 @@ you want. Every rupee goes toward API calls that keep new models on the board.</
 <p>Name any OpenRouter model id (or a free/open endpoint you want compared) and
 which exams to run. Runs cost roughly a few dollars each for frontier models and
 nothing for <code>:free</code> endpoints; a request does not commit you to
-anything — sponsors cover the paid ones.</p>
+anything. If nobody funds it, the run simply goes to the back of the queue.</p>
 <form id="req-form">
   <label for="model">OpenRouter model id <span class="hint">e.g. x-ai/grok-4.7</span></label>
   <input type="text" id="model" list="known-models" placeholder="vendor/model-name" required>
@@ -599,8 +675,11 @@ by line rather than estimated.</li>
 <li><strong>Free endpoints stay free.</strong> <code>:free</code> routes and
 open models are run on the free tier; they expand the board at zero cost.</li>
 <li><strong>Open source.</strong> The runner, the scoring, and every result
-sheet live in <a href="{REPO_URL}">{REPO_URL}</a> under an open licence. Sponsorship
-buys runs and compute, not secrecy.</li>
+sheet live in <a href="{REPO_URL}">{REPO_URL}</a> under an open licence.
+Contributions buy runs and compute, not secrecy.</li>
+<li><strong>Code counts as much as cash.</strong> A new test, a scoring fix, or
+a corrected sheet is worth exactly as much to this project as a rupee, and
+costs you nothing but the work.</li>
 </ul>
 <p>Prefer to wire the money differently? Email
 <a href="mailto:{REQUEST_MAIL}">{REQUEST_MAIL}</a>.</p>
@@ -655,8 +734,20 @@ buys runs and compute, not secrecy.</li>
     return page
 
 
-def generate_sponsor_page(data):
-    (ROOT / "sponsor.html").write_text(sponsor_page(data))
+REDIRECT = """<!doctype html>
+<meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=contribute.html">
+<link rel="canonical" href="contribute.html">
+<title>Contribute to Tamil Bench · பங்களிப்பு</title>
+<p>This page moved to <a href="contribute.html">Contribute / பங்களிப்பு</a>.</p>
+"""
+
+
+def generate_contribute_page(data):
+    (ROOT / "contribute.html").write_text(contribute_page(data))
+    # The page used to be sponsor.html; keep the old URL alive so shared links
+    # do not 404, and point search engines at the new one.
+    (ROOT / "sponsor.html").write_text(REDIRECT)
 
 
 def charts(scores):
@@ -751,7 +842,7 @@ def main():
     bluff = bluff_scores(data)
     xnli = xnli_scores(data)
     generate_test_pages(scores)
-    generate_sponsor_page(data)
+    generate_contribute_page(data)
     summary = {
         "generated": date.today().isoformat(),
         "bench": "tamil-bench",
