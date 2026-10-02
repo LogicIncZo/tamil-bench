@@ -278,12 +278,15 @@ def test_page(task, title, title_ta, score_columns, scores):
     rows = []
     for model, score in scores[task].items():
         ci = score.get("ci", score.get("em_ci"))
-        values = [model, score["tested_on"], score["n"], score["n_errors"]]
+        values = [score["tested_on"], score["n"], score["n_errors"]]
         values.extend(score[key] for key, _ in score_columns)
         values.append(f"{ci[0]:.1f}–{ci[1]:.1f}%")
-        cells = []
-        for index, value in enumerate(values):
-            kind = "number" if index >= 2 and index < len(values) - 1 else ("date" if index == 1 else "text")
+        cells = [
+            f'<td class="model" data-sort="{html.escape(MODELS[model], quote=True)}" data-type="text">'
+            f'<strong>{html.escape(MODELS[model])}</strong><small>{html.escape(model.replace(":free", ""))}</small></td>'
+        ]
+        for index, value in enumerate(values, start=1):
+            kind = "number" if 2 <= index < len(values) else ("date" if index == 1 else "text")
             cells.append(f'<td data-sort="{html.escape(str(value), quote=True)}" data-type="{kind}">{html.escape(str(value))}</td>')
         rows.append("<tr>" + "".join(cells) + "</tr>")
     nav = " · ".join(f'<a href="{path}">{label}</a>' for path, label in (
@@ -299,6 +302,7 @@ h1{{font: bold clamp(2rem,6vw,3.6rem)/1.05 Georgia,serif;margin:.2em 0}}.ta{{fon
 .table-wrap{{overflow-x:auto;margin-top:24px;border:1px solid var(--line);background:#fbf7ee}}table{{border-collapse:collapse;width:100%;min-width:760px}}
 th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}th{{background:#ece0c4;cursor:pointer;user-select:none}}
 th:hover,th:focus{{background:#e3d4b2}}tbody tr:hover{{background:var(--paper)}}td[data-type="number"]{{text-align:right;font-variant-numeric:tabular-nums}}
+td.model strong{{display:block}}td.model small{{display:block;color:var(--muted);font-size:.72em;letter-spacing:.02em}}
 .note{{font-size:.9rem;margin-top:14px}}@media(max-width:600px){{main{{padding:22px 14px}}}}
 </style></head><body><main><nav aria-label="Test pages">{nav}</nav>
 <h1>{title}<br><span class="ta">{title_ta}</span></h1>
