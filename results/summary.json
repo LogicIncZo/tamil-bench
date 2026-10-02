@@ -145,6 +145,16 @@
           ],
           "tested_on": "2026-09-11"
         },
+        "stealth/space-bunny-alpha": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 60.8,
+          "ci": [
+            53.9,
+            67.3
+          ],
+          "tested_on": "Unknown"
+        },
         "xiaomi/mimo-v2.5": {
           "n": 199,
           "n_errors": 0,
@@ -313,6 +323,17 @@
           ],
           "tested_on": "2026-09-11"
         },
+        "stealth/space-bunny-alpha": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 21.0,
+          "f1": 39.6,
+          "em_ci": [
+            14.2,
+            30.0
+          ],
+          "tested_on": "Unknown"
+        },
         "xiaomi/mimo-v2.5": {
           "n": 100,
           "n_errors": 0,
@@ -440,6 +461,16 @@
           ],
           "tested_on": "2026-09-11"
         },
+        "stealth/space-bunny-alpha": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 62.0,
+          "ci": [
+            55.1,
+            68.4
+          ],
+          "tested_on": "Unknown"
+        },
         "xiaomi/mimo-v2.5": {
           "n": 200,
           "n_errors": 0,
@@ -540,6 +571,11 @@
           "bluff_rate": 70.4,
           "abstain_rate": 29.6
         },
+        "stealth/space-bunny-alpha": {
+          "n_traps": 27,
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
+        },
         "xiaomi/mimo-v2.5": {
           "n_traps": 27,
           "bluff_rate": 74.1,
@@ -555,6 +591,7 @@
   },
   "pending": [
     "inclusionai/ling-3.0-flash-sante:free",
-    "nvidia/nemotron-3-super-120b-a12b:free"
+    "nvidia/nemotron-3-super-120b-a12b:free",
+    "x-ai/grok-4.7"
   ]
 }

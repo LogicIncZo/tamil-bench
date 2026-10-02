@@ -32,6 +32,8 @@ MODELS = {
     "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super 120B A12B",
     "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra 550B A55B",
     "anthropic/claude-sonnet-5.5": "Claude Sonnet 5.5",
+    "x-ai/grok-4.7": "Grok 4.7",
+    "stealth/space-bunny-alpha": "Space Bunny Alpha",
 }
 
 def parse_stem(stem):
@@ -344,6 +346,8 @@ def charts(scores):
         "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super",
         "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra",
         "anthropic/claude-sonnet-5.5": "Sonnet 5.5",
+        "x-ai/grok-4.7": "Grok 4.7",
+        "stealth/space-bunny-alpha": "Space Bunny",
     }
     PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
                "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#a0cbe8"]

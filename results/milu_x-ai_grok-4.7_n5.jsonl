@@ -1,0 +1,5 @@
+{"subject": "Astronomy and Astrophysics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 1339, "completion_tokens": 192, "cost": 0.002102}}
+{"subject": "Anthropology", "gold": "B", "prediction": "B.", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 1340, "completion_tokens": 252, "cost": 0.002464}}
+{"subject": "Arts and Culture", "gold": "A", "prediction": "A. பரதநாட்டியம்", "pred_letter": "A", "correct": 1, "usage": {"prompt_tokens": 1422, "completion_tokens": 278, "cost": 0.002784}}
+{"subject": "Agriculture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1, "usage": {"prompt_tokens": 1384, "completion_tokens": 441, "cost": 0.003686}}
+{"subject": "Architecture and Design", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 1333, "completion_tokens": 476, "cost": 0.003794}}
