@@ -85,6 +85,19 @@ def sheet_date(filename):
         cwd=ROOT, capture_output=True, text=True)
     return result.stdout.strip() or "Unknown"
 
+def run_cost(rows):
+    """Total OpenRouter cost recorded for a sheet, and how many of its rows
+    carried a cost at all. Sheets written before usage accounting was enabled
+    report nothing, so the coverage count is what makes a total trustworthy."""
+    total = 0.0
+    covered = 0
+    for r in rows:
+        usage = r.get("usage")
+        if isinstance(usage, dict) and usage.get("cost") is not None:
+            total += float(usage["cost"])
+            covered += 1
+    return round(total, 4), covered
+
 def valid_rows(rows):
     """Rows with an actual model answer -- drops API failures so they never
     masquerade as 0% accuracy."""
@@ -106,9 +119,11 @@ def compute(data):
         m = len(valid)
         k = sum(1 for r in valid if r.get("correct"))
         lo, hi = wilson(k / m, m)
+        cost, cost_covered = run_cost(rows)
         scores["milu"][model] = {
             "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
+            "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
     for model, runs in data["indicqa"].items():
         n, rows, filename = max(runs, key=lambda r: r[0])
@@ -119,9 +134,11 @@ def compute(data):
         em = sum(float(r["em"]) for r in valid) / m
         f1 = 100 * sum(float(r["f1"]) for r in valid) / m
         lo, hi = wilson(em, m)
+        cost, cost_covered = run_cost(rows)
         scores["indicqa"][model] = {
             "n": m, "n_errors": len(rows) - m, "em": round(100 * em, 1), "f1": round(f1, 1),
             "em_ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
+            "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
     for model, runs in data.get("xnli", {}).items():
         n, rows, filename = max(runs, key=lambda r: r[0])
@@ -131,11 +148,31 @@ def compute(data):
         m = len(valid)
         k = sum(1 for r in valid if r.get("correct"))
         lo, hi = wilson(k / m, m)
+        cost, cost_covered = run_cost(rows)
         scores["xnli"][model] = {
             "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
+            "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
     return scores
+
+
+COST_UNRECORDED = 1e6
+
+
+def cost_display(score):
+    """(sort key, label) for one run's cost. Sheets written before OpenRouter
+    usage accounting carried no charge at all, so a blank is reported as
+    "not recorded" and pushed to the end of a numeric sort rather than
+    silently reading as free."""
+    cost = score.get("cost")
+    covered = score.get("cost_covered", 0)
+    if cost is None or covered == 0:
+        return COST_UNRECORDED, "not recorded"
+    label = f"${cost:.4f}"
+    if covered < score.get("cost_rows", 0):
+        label += "*"
+    return cost, label
 
 
 ABSTAIN_RE = (
@@ -224,26 +261,32 @@ def row_html(task, rank, model, s):
             f'<td class="num ci">{s["em_ci"][0]}–{s["em_ci"][1]}</td>'
         )
     return (f'<tr{cls}><td class="rank">{rank}</td>'
-            f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>{cells}</tr>')
+            f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>{cells}'
+            f'<td class="num cost">{cost_display(s)[1]}</td></tr>')
 
 PARKED = {
     "nvidia/nemotron-3.5-lightning:free",
     "inclusionai/ling-3.0-flash-vl:free",
 }
 
-def pending_row(model):
+# Columns left over after rank+model, now that every scored table also carries
+# a run-cost column. indicqa is widest: EM, F1, bar, CI, cost.
+PENDING_SPAN = {"milu": 4, "indicqa": 5, "xnli": 4}
+
+
+def pending_row(model, task):
     name = MODELS[model]
     label = "parked — endpoint congested" if model in PARKED else "running\u2026"
     return (f'<tr class="pending"><td class="rank">·</td>'
             f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>'
-            f'<td class="num score" colspan="3">{label}</td></tr>')
+            f'<td class="num score" colspan="{PENDING_SPAN[task]}">{label}</td></tr>')
 
 def rows(task, scores):
     key = "f1" if task == "indicqa" else "accuracy"
     have = [(m, s) for m, s in scores[task].items()]
     have.sort(key=lambda kv: -kv[1][key])
     out = [row_html(task, i + 1, m, s) for i, (m, s) in enumerate(have)]
-    out += [pending_row(m) for m in MODELS if m not in scores[task]]
+    out += [pending_row(m, task) for m in MODELS if m not in scores[task]]
     return "\n          ".join(out)
 
 def bluff_rows(bluff):
@@ -273,7 +316,7 @@ def patch_html(scores, bluff, xnli):
     (ROOT / "index.html").write_text(html)
 
 def test_page(task, title, title_ta, score_columns, scores):
-    headers = ["Model · மாதிரி", "Tested date · சோதனை தேதி", "Valid n · சரியான விடைகள்", "Errors · பிழைகள்"] + [label for _, label in score_columns] + ["95% CI · நம்பிக்கை வரம்பு"]
+    headers = ["Model · மாதிரி", "Tested date · சோதனை தேதி", "Valid n · சரியான விடைகள்", "Errors · பிழைகள்"] + [label for _, label in score_columns] + ["95% CI · நம்பிக்கை வரம்பு", "Cost USD · செலவு"]
     header_html = "".join(f'<th scope="col" tabindex="0" aria-sort="none">{label} ↕</th>' for label in headers)
     rows = []
     for model, score in scores[task].items():
@@ -288,6 +331,8 @@ def test_page(task, title, title_ta, score_columns, scores):
         for index, value in enumerate(values, start=1):
             kind = "number" if 2 <= index < len(values) else ("date" if index == 1 else "text")
             cells.append(f'<td data-sort="{html.escape(str(value), quote=True)}" data-type="{kind}">{html.escape(str(value))}</td>')
+        cost_key, cost_label = cost_display(score)
+        cells.append(f'<td data-sort="{cost_key:g}" data-type="number">{html.escape(cost_label)}</td>')
         rows.append("<tr>" + "".join(cells) + "</tr>")
     nav = " · ".join(f'<a href="{path}">{label}</a>' for path, label in (
         ("index.html", "Home / முகப்பு"), ("milu.html", "MILU"),
@@ -300,15 +345,15 @@ def test_page(task, title, title_ta, score_columns, scores):
 main{{max-width:1100px;margin:auto;padding:clamp(20px,5vw,56px)}}a{{color:#174f72}}nav{{margin-bottom:36px}}nav a{{margin-right:12px;white-space:nowrap}}
 h1{{font: bold clamp(2rem,6vw,3.6rem)/1.05 Georgia,serif;margin:.2em 0}}.ta{{font-size:.65em;color:var(--red)}}p{{color:var(--muted)}}
 .table-wrap{{overflow-x:auto;margin-top:24px;border:1px solid var(--line);background:#fbf7ee}}table{{border-collapse:collapse;width:100%;min-width:760px}}
-th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}th{{background:#ece0c4;cursor:pointer;user-select:none}}
+th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}th{{white-space:normal;background:#ece0c4;cursor:pointer;user-select:none}}
 th:hover,th:focus{{background:#e3d4b2}}tbody tr:hover{{background:var(--paper)}}td[data-type="number"]{{text-align:right;font-variant-numeric:tabular-nums}}
 td.model strong{{display:block}}td.model small{{display:block;color:var(--muted);font-size:.72em;letter-spacing:.02em}}
 .note{{font-size:.9rem;margin-top:14px}}@media(max-width:600px){{main{{padding:22px 14px}}}}
 </style></head><body><main><nav aria-label="Test pages">{nav}</nav>
 <h1>{title}<br><span class="ta">{title_ta}</span></h1>
-<p>Sortable results · மாதிரி, சோதனை தேதி, மாதிரி அளவு, பிழைகள், மதிப்பெண் ஆகியவற்றை வரிசைப்படுத்தலாம். Click a column heading to sort.</p>
+<p>Sortable results · மாதிரி, சோதனை தேதி, மாதிரி அளவு, பிழைகள், மதிப்பெண், செலவு ஆகியவற்றை வரிசைப்படுத்தலாம். Click a column heading to sort.</p>
 <div class="table-wrap"><table><thead><tr>{header_html}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>
-<p class="note">Tested date is the result sheet's repository record date; older sheets do not contain a run timestamp. Scores use each model's latest qualifying sheet. சோதனைத் தேதி என்பது விடைத்தாள் களஞ்சியத்தில் பதிவான தேதி; பழைய விடைத்தாள்களில் இயக்க நேரமுத்திரை இல்லை. <a href="https://github.com/LogicIncZo/tamil-bench/tree/main/results">View answer sheets · விடைத்தாள்கள்</a>.</p>
+<p class="note">Tested date is the result sheet's repository record date; older sheets do not contain a run timestamp. Scores use each model's latest qualifying sheet. Run cost is the total charge OpenRouter recorded in that sheet's own answer rows — the price of one run of this test. * marks a sheet where only some calls reported a charge, and “not recorded” means the sheet predates usage accounting. செலவு என்பது விடைத்தாள் வரிசைகளில் பதிவான கட்டணத்தின் தொகை; * என்பது சில வரிசைகளில் மட்டும் கட்டணம் பதிவானதைக் குறிக்கிறது. சோதனைத் தேதி என்பது விடைத்தாள் களஞ்சியத்தில் பதிவான தேதி; பழைய விடைத்தாள்களில் இயக்க நேரமுத்திரை இல்லை. <a href="https://github.com/LogicIncZo/tamil-bench/tree/main/results">View answer sheets · விடைத்தாள்கள்</a>.</p>
 </main><script>
 document.querySelectorAll('th').forEach((header,column)=>{{const sort=()=>{{const body=header.closest('table').tBodies[0];const ascending=header.getAttribute('aria-sort')!=='ascending';const type=body.rows[0]?.cells[column]?.dataset.type||'text';const rows=Array.from(body.rows);rows.sort((left,right)=>{{const a=left.cells[column].dataset.sort||left.cells[column].textContent;const b=right.cells[column].dataset.sort||right.cells[column].textContent;const result=type==='number'?Number(a)-Number(b):a.localeCompare(b,undefined,{{numeric:true,sensitivity:'base'}});return (ascending?1:-1)*result}});rows.forEach(row=>body.appendChild(row));header.closest('tr').querySelectorAll('th').forEach(cell=>cell.setAttribute('aria-sort','none'));header.setAttribute('aria-sort',ascending?'ascending':'descending')}};header.addEventListener('click',sort);header.addEventListener('keydown',event=>{{if(event.key==='Enter'||event.key===' '){{event.preventDefault();sort()}}}})}});
 </script></body></html>'''

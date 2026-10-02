@@ -13,7 +13,10 @@
             84.4,
             93.0
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.3773,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "deepseek/deepseek-v4.1-flash": {
           "n": 199,
@@ -23,7 +26,10 @@
             74.9,
             85.8
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "google/gemini-3.8-flash": {
           "n": 199,
@@ -33,7 +39,10 @@
             90.4,
             96.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "google/gemma-4-26b-a4b-it:free": {
           "n": 199,
@@ -43,7 +52,10 @@
             51.3,
             64.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "inclusionai/ling-3.0-flash-vl:free": {
           "n": 199,
@@ -53,7 +65,10 @@
             57.5,
             70.6
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "nex-agi/nex-n2.5-mini": {
           "n": 199,
@@ -63,7 +78,10 @@
             60.5,
             73.5
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0019,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "nvidia/nemotron-3-super-120b-a12b:free": {
           "n": 187,
@@ -73,7 +91,10 @@
             62.6,
             75.7
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 187,
+          "cost_rows": 199
         },
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 199,
@@ -83,7 +104,10 @@
             62.6,
             75.3
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 199,
@@ -93,7 +117,10 @@
             37.0,
             50.7
           ],
-          "tested_on": "2026-09-17"
+          "tested_on": "2026-09-17",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "openai/gpt-5.6-luna": {
           "n": 199,
@@ -103,7 +130,10 @@
             81.0,
             90.5
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "openai/gpt-6-luna": {
           "n": 197,
@@ -113,7 +143,10 @@
             82.5,
             91.7
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0122,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "openai/gpt-oss-20b": {
           "n": 199,
@@ -123,7 +156,10 @@
             54.9,
             68.3
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0057,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "poolside/laguna-s-2.1:free": {
           "n": 185,
@@ -133,7 +169,10 @@
             46.3,
             60.6
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "qwen/qwen3.8-flash": {
           "n": 199,
@@ -143,7 +182,10 @@
             62.1,
             74.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "stealth/space-bunny-alpha": {
           "n": 199,
@@ -153,7 +195,10 @@
             53.9,
             67.3
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 199,
+          "cost_rows": 199
         },
         "xiaomi/mimo-v2.5": {
           "n": 199,
@@ -163,7 +208,10 @@
             69.5,
             81.3
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         },
         "z-ai/glm-5.3-flash": {
           "n": 199,
@@ -173,7 +221,10 @@
             73.8,
             84.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 199
         }
       }
     },
@@ -189,7 +240,10 @@
             15.0,
             31.1
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.5078,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "deepseek/deepseek-v4.1-flash": {
           "n": 100,
@@ -200,7 +254,10 @@
             11.7,
             26.7
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "google/gemini-3.8-flash": {
           "n": 100,
@@ -211,7 +268,10 @@
             13.3,
             28.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "google/gemma-4-26b-a4b-it:free": {
           "n": 94,
@@ -222,7 +282,10 @@
             13.3,
             29.4
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "inclusionai/ling-3.0-flash-vl:free": {
           "n": 100,
@@ -233,7 +296,10 @@
             8.5,
             22.1
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "nex-agi/nex-n2.5-mini": {
           "n": 100,
@@ -244,7 +310,10 @@
             8.5,
             22.1
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0041,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 100,
@@ -255,7 +324,10 @@
             10.9,
             25.5
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 100,
@@ -266,7 +338,10 @@
             0.2,
             5.4
           ],
-          "tested_on": "2026-09-17"
+          "tested_on": "2026-09-17",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "openai/gpt-5.6-luna": {
           "n": 100,
@@ -277,7 +352,10 @@
             10.9,
             25.5
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "openai/gpt-6-luna": {
           "n": 100,
@@ -288,7 +366,10 @@
             10.1,
             24.4
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0145,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "openai/gpt-oss-20b": {
           "n": 100,
@@ -299,7 +380,10 @@
             13.3,
             28.9
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0042,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "poolside/laguna-s-2.1:free": {
           "n": 91,
@@ -310,7 +394,10 @@
             9.4,
             24.2
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "qwen/qwen3.8-flash": {
           "n": 100,
@@ -321,7 +408,10 @@
             15.0,
             31.1
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "stealth/space-bunny-alpha": {
           "n": 100,
@@ -332,7 +422,10 @@
             14.2,
             30.0
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 100,
+          "cost_rows": 100
         },
         "xiaomi/mimo-v2.5": {
           "n": 100,
@@ -343,7 +436,10 @@
             13.3,
             28.9
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         },
         "z-ai/glm-5.3-flash": {
           "n": 100,
@@ -354,7 +450,10 @@
             12.5,
             27.8
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 100
         }
       }
     },
@@ -369,7 +468,10 @@
             69.1,
             80.9
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.5979,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "deepseek/deepseek-v4.1-flash": {
           "n": 200,
@@ -379,7 +481,10 @@
             55.1,
             68.4
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "google/gemini-3.8-flash": {
           "n": 198,
@@ -389,7 +494,10 @@
             69.3,
             81.2
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "google/gemma-4-26b-a4b-it:free": {
           "n": 193,
@@ -399,7 +507,10 @@
             57.8,
             71.2
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "nex-agi/nex-n2.5-mini": {
           "n": 200,
@@ -409,7 +520,10 @@
             57.7,
             70.8
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.006,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 200,
@@ -419,7 +533,10 @@
             63.3,
             75.9
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "openai/gpt-5.6-luna": {
           "n": 200,
@@ -429,7 +546,10 @@
             54.1,
             67.5
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "openai/gpt-6-luna": {
           "n": 200,
@@ -439,7 +559,10 @@
             58.2,
             71.3
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0131,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "openai/gpt-oss-20b": {
           "n": 200,
@@ -449,7 +572,10 @@
             55.1,
             68.4
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.007,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "qwen/qwen3.8-flash": {
           "n": 200,
@@ -459,7 +585,10 @@
             56.1,
             69.4
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "stealth/space-bunny-alpha": {
           "n": 200,
@@ -469,7 +598,10 @@
             55.1,
             68.4
           ],
-          "tested_on": "2026-10-02"
+          "tested_on": "2026-10-02",
+          "cost": 0.0,
+          "cost_covered": 200,
+          "cost_rows": 200
         },
         "xiaomi/mimo-v2.5": {
           "n": 200,
@@ -479,7 +611,10 @@
             53.6,
             67.0
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         },
         "z-ai/glm-5.3-flash": {
           "n": 200,
@@ -489,7 +624,10 @@
             64.9,
             77.3
           ],
-          "tested_on": "2026-09-11"
+          "tested_on": "2026-09-11",
+          "cost": 0.0,
+          "cost_covered": 0,
+          "cost_rows": 200
         }
       }
     },

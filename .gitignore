@@ -3,3 +3,4 @@ data/*.json
 data/*.parquet
 *.pyc
 *.log
+results/_failed/

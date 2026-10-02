@@ -103,7 +103,8 @@ def main():
         sys.exit("no indicqa sheets found")
     print(f"{'model':44s} {'bluff%':>7s} {'abstain':>8s} {'n_unans':>8s} {'EM_ans':>7s} {'F1_ans':>7s} {'over-ref%':>10s}")
     for m, s in sorted(out.items(), key=lambda kv: (kv[1]["bluff_rate"] or 0)):
-        print(f"{m:44s} {s['bluff_rate']:>7} {s['abstain']:>8} {s['n_unanswerable']:>8} "
+        bluff = f"{s['bluff_rate']:>7}" if s["bluff_rate"] is not None else f"{'-':>7}"
+        print(f"{m:44s} {bluff} {s['abstain']:>8} {s['n_unanswerable']:>8} "
               f"{s['em_answerable'] or 0:>7} {s['f1_answerable'] or 0:>7} "
               f"{s['over_refusal_rate'] if s['over_refusal_rate'] is not None else '-':>10}")
     if args.json:
