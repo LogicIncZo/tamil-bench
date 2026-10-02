@@ -35,6 +35,19 @@ SEED = 42
 
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# Reasoning-style models emit a long chain-of-thought before the answer. The
+# 512-token default truncates them mid-thought, and the truncated text still
+# contains a stray "A"/"B" that parse_letter would scrape out of the reasoning
+# and score as if it were a deliberate answer. Give those models room to finish.
+MODEL_MAX_TOKENS = {
+    "liquid/lfm-2.5-2.6b:free": 4096,
+}
+DEFAULT_MAX_TOKENS = 512
+
+
+def max_tokens_for(model):
+    return MODEL_MAX_TOKENS.get(model, DEFAULT_MAX_TOKENS)
+
 
 def load_key():
     import os
@@ -44,7 +57,9 @@ def load_key():
     return key
 
 
-def chat(model, messages, key, max_tokens=512, max_retries=6):
+def chat(model, messages, key, max_tokens=None, max_retries=6):
+    if max_tokens is None:
+        max_tokens = max_tokens_for(model)
     for attempt in range(max_retries):
         try:
             r = requests.post(
@@ -64,13 +79,17 @@ def chat(model, messages, key, max_tokens=512, max_retries=6):
                 continue
             r.raise_for_status()
             data = r.json()
-            msg = data["choices"][0]["message"]
+            choice = data["choices"][0]
+            msg = choice["message"]
             text = msg.get("content") or msg.get("reasoning") or ""
             u = data.get("usage") or {}
             return text.strip(), {
                 "prompt_tokens": u.get("prompt_tokens"),
                 "completion_tokens": u.get("completion_tokens"),
                 "cost": u.get("cost"),
+                "finish_reason": choice.get("finish_reason"),
+                "truncated": choice.get("finish_reason") == "length",
+                "max_tokens": max_tokens,
             }
         except (requests.RequestException, KeyError, IndexError) as e:
             if attempt == max_retries - 1:
@@ -79,12 +98,22 @@ def chat(model, messages, key, max_tokens=512, max_retries=6):
     return "__ERROR__: retries exhausted", None
 
 
-def parse_letter(text):
+def parse_letter(text, strict=False):
+    """Extract the chosen option letter.
+
+    strict=True is for rows the provider truncated: the text then ends
+    mid-thought, and the first bare "A"/"B" in it is a word fragment scraped
+    out of the reasoning, not a deliberate answer. Scoring those would hand
+    the model a free guess. In strict mode only an explicit "answer is /
+    answer: X" counts; anything else scores wrong.
+    """
     if text.startswith("__ERROR__"):
         return None
     m = re.search(r"answer(?:\s+is|\s*[:\-])\s*\**([ABCD])\b", text, re.I)
     if m:
         return m.group(1).upper()
+    if strict:
+        return None
     m = re.search(r"\b([ABCD])\b", text)
     if m:
         return m.group(1).upper()
@@ -247,10 +276,12 @@ def run_xnli(args, key):
                     key,
                     max_tokens=1024,
                 )
+                truncated = bool((usage or {}).get("truncated"))
                 tail = txt[-300:]
-                m = (re.search(r"answer(?:\s+is|\s*[:\-])\s*\**([ABC])\b", tail, re.I)
-                     or re.search(r"\b([ABC])\b(?!.*\b[ABC]\b)", tail, re.S)
-                     or re.search(r"\b([ABC])\b", txt, re.I))
+                m = re.search(r"answer(?:\s+is|\s*[:\-])\s*\**([ABC])\b", tail, re.I)
+                if not m and not truncated:
+                    m = (re.search(r"\b([ABC])\b(?!.*\b[ABC]\b)", tail, re.S)
+                         or re.search(r"\b([ABC])\b", txt, re.I))
                 pred = m.group(1).upper() if m else ""
                 gold = label_map[int(row["label"])]
                 return {
@@ -261,6 +292,7 @@ def run_xnli(args, key):
                     "prediction": pred,
                     "raw": txt,
                     "correct": pred == gold,
+                    "truncated": truncated,
                     "usage": usage,
                 }
             except Exception as exc:
@@ -392,7 +424,8 @@ def run_milu(args, key):
             ],
             key,
         )
-        pred = parse_letter(text)
+        truncated = bool((usage or {}).get("truncated"))
+        pred = parse_letter(text, strict=truncated)
         gold = answer_of(item)
         return {
             "subject": str(item[subj]) if subj else "",
@@ -400,6 +433,7 @@ def run_milu(args, key):
             "prediction": text,
             "pred_letter": pred,
             "correct": int(pred == gold) if pred and gold else 0,
+            "truncated": truncated,
             "usage": usage,
         }
 

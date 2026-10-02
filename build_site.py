@@ -32,6 +32,7 @@ MODELS = {
     "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra 550B A55B",
     "anthropic/claude-sonnet-5.5": "Claude Sonnet 5.5",
     "stealth/space-bunny-alpha": "Space Bunny Alpha",
+    "liquid/lfm-2.5-2.6b:free": "Liquid LFM2.5 2.6B",
 }
 
 def parse_stem(stem):
@@ -107,6 +108,13 @@ def valid_rows(rows):
         out.append(r)
     return out
 
+def trunc_count(rows):
+    """Valid rows whose generation hit the token ceiling -- the model rambled
+    past the budget and never committed to an answer, so it scores 0. Counted
+    in the denominator (it is a real failure), but surfaced so a reader can
+    tell "answered wrong" apart from "could not stop thinking"."""
+    return sum(1 for r in rows if r.get("truncated"))
+
 def compute(data):
     scores = {"milu": {}, "indicqa": {}, "xnli": {}}
     for model, runs in data["milu"].items():
@@ -119,7 +127,7 @@ def compute(data):
         lo, hi = wilson(k / m, m)
         cost, cost_covered = run_cost(rows)
         scores["milu"][model] = {
-            "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
+            "n": m, "n_errors": len(rows) - m, "n_truncated": trunc_count(valid), "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
             "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
@@ -134,7 +142,7 @@ def compute(data):
         lo, hi = wilson(em, m)
         cost, cost_covered = run_cost(rows)
         scores["indicqa"][model] = {
-            "n": m, "n_errors": len(rows) - m, "em": round(100 * em, 1), "f1": round(f1, 1),
+            "n": m, "n_errors": len(rows) - m, "n_truncated": trunc_count(valid), "em": round(100 * em, 1), "f1": round(f1, 1),
             "em_ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
             "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
@@ -148,7 +156,7 @@ def compute(data):
         lo, hi = wilson(k / m, m)
         cost, cost_covered = run_cost(rows)
         scores["xnli"][model] = {
-            "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
+            "n": m, "n_errors": len(rows) - m, "n_truncated": trunc_count(valid), "accuracy": round(100 * k / m, 1),
             "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
             "cost": cost, "cost_covered": cost_covered, "cost_rows": len(rows),
         }
@@ -236,6 +244,21 @@ def xnli_scores(data):
         }
     return scores
 
+def trunc_mark(s):
+    t = s.get("n_truncated") or 0
+    if not t:
+        return ""
+    return (f'<td class="num trunc" title="{t} of {s["n"]} valid rows ran out of '
+            f'token budget mid-thought and scored 0">\u26a0 {t}</td>')
+
+def trunc_always(s):
+    """Same cell, but rendered for every row so tables keep a stable column count."""
+    t = s.get("n_truncated") or 0
+    tip = (f"{t} of {s['n']} valid rows ran out of token budget mid-thought "
+           "and scored 0" if t else "no truncated rows")
+    return f'<td class="num trunc" title="{tip}">\u26a0 {t}</td>' 
+
+
 def row_html(task, rank, model, s):
     name = MODELS[model]
     cls = ' class="top"' if rank == 1 else ""
@@ -260,7 +283,7 @@ def row_html(task, rank, model, s):
         )
     return (f'<tr{cls}><td class="rank">{rank}</td>'
             f'<td class="model">{model.replace(":free", "")}<small>{name}</small></td>{cells}'
-            f'<td class="num cost">{cost_display(s)[1]}</td></tr>')
+            f'<td class="num cost">{cost_display(s)[1]}</td>{trunc_always(s)}</tr>')
 
 PARKED = {
     "nvidia/nemotron-3.5-lightning:free",
@@ -315,12 +338,12 @@ def patch_html(scores, bluff, xnli):
     (ROOT / "index.html").write_text(html)
 
 def test_page(task, title, title_ta, score_columns, scores):
-    headers = ["Model · மாதிரி", "Tested date · சோதனை தேதி", "Valid n · சரியான விடைகள்", "Errors · பிழைகள்"] + [label for _, label in score_columns] + ["95% CI · நம்பிக்கை வரம்பு", "Cost USD · செலவு"]
+    headers = ["Model · மாதிரி", "Tested date · சோதனை தேதி", "Valid n · சரியான விடைகள்", "Errors · பிழைகள்", "Truncated · துண்டிபட்ட"] + [label for _, label in score_columns] + ["95% CI · நம்பிக்கை வரம்பு", "Cost USD · செலவு"]
     header_html = "".join(f'<th scope="col" tabindex="0" aria-sort="none">{label} ↕</th>' for label in headers)
     rows = []
     for model, score in scores[task].items():
         ci = score.get("ci", score.get("em_ci"))
-        values = [score["tested_on"], score["n"], score["n_errors"]]
+        values = [score["tested_on"], score["n"], score["n_errors"], score.get("n_truncated", 0)]
         values.extend(score[key] for key, _ in score_columns)
         values.append(f"{ci[0]:.1f}–{ci[1]:.1f}%")
         cells = [
@@ -839,6 +862,7 @@ def charts(scores):
         "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra",
         "anthropic/claude-sonnet-5.5": "Sonnet 5.5",
         "stealth/space-bunny-alpha": "Space Bunny",
+        "liquid/lfm-2.5-2.6b:free": "LFM2.5 2.6B",
     }
     PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
                "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#a0cbe8"]

@@ -8,6 +8,7 @@
         "anthropic/claude-sonnet-5.5": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 89.4,
           "ci": [
             84.4,
@@ -21,6 +22,7 @@
         "deepseek/deepseek-v4.1-flash": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 80.9,
           "ci": [
             74.9,
@@ -34,6 +36,7 @@
         "google/gemini-3.8-flash": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 94.5,
           "ci": [
             90.4,
@@ -47,6 +50,7 @@
         "google/gemma-4-26b-a4b-it:free": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 58.3,
           "ci": [
             51.3,
@@ -60,6 +64,7 @@
         "inclusionai/ling-3.0-flash-vl:free": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 64.3,
           "ci": [
             57.5,
@@ -70,9 +75,24 @@
           "cost_covered": 0,
           "cost_rows": 199
         },
+        "liquid/lfm-2.5-2.6b:free": {
+          "n": 199,
+          "n_errors": 0,
+          "n_truncated": 37,
+          "accuracy": 47.2,
+          "ci": [
+            40.4,
+            54.2
+          ],
+          "tested_on": "Unknown",
+          "cost": 0.0,
+          "cost_covered": 199,
+          "cost_rows": 199
+        },
         "nex-agi/nex-n2.5-mini": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 67.3,
           "ci": [
             60.5,
@@ -86,6 +106,7 @@
         "nvidia/nemotron-3-super-120b-a12b:free": {
           "n": 187,
           "n_errors": 12,
+          "n_truncated": 0,
           "accuracy": 69.5,
           "ci": [
             62.6,
@@ -99,6 +120,7 @@
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 69.3,
           "ci": [
             62.6,
@@ -112,6 +134,7 @@
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 43.7,
           "ci": [
             37.0,
@@ -125,6 +148,7 @@
         "openai/gpt-5.6-luna": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 86.4,
           "ci": [
             81.0,
@@ -138,6 +162,7 @@
         "openai/gpt-6-luna": {
           "n": 197,
           "n_errors": 2,
+          "n_truncated": 0,
           "accuracy": 87.8,
           "ci": [
             82.5,
@@ -151,6 +176,7 @@
         "openai/gpt-oss-20b": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 61.8,
           "ci": [
             54.9,
@@ -164,6 +190,7 @@
         "poolside/laguna-s-2.1:free": {
           "n": 185,
           "n_errors": 14,
+          "n_truncated": 0,
           "accuracy": 53.5,
           "ci": [
             46.3,
@@ -177,6 +204,7 @@
         "qwen/qwen3.8-flash": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 68.8,
           "ci": [
             62.1,
@@ -190,6 +218,7 @@
         "stealth/space-bunny-alpha": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 60.8,
           "ci": [
             53.9,
@@ -203,6 +232,7 @@
         "xiaomi/mimo-v2.5": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 75.9,
           "ci": [
             69.5,
@@ -216,6 +246,7 @@
         "z-ai/glm-5.3-flash": {
           "n": 199,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 79.9,
           "ci": [
             73.8,
@@ -234,6 +265,7 @@
         "anthropic/claude-sonnet-5.5": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 22.0,
           "f1": 43.1,
           "em_ci": [
@@ -248,6 +280,7 @@
         "deepseek/deepseek-v4.1-flash": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 18.0,
           "f1": 38.9,
           "em_ci": [
@@ -262,6 +295,7 @@
         "google/gemini-3.8-flash": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 20.0,
           "f1": 42.4,
           "em_ci": [
@@ -276,6 +310,7 @@
         "google/gemma-4-26b-a4b-it:free": {
           "n": 94,
           "n_errors": 6,
+          "n_truncated": 0,
           "em": 20.2,
           "f1": 39.3,
           "em_ci": [
@@ -290,6 +325,7 @@
         "inclusionai/ling-3.0-flash-vl:free": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 14.0,
           "f1": 37.4,
           "em_ci": [
@@ -301,9 +337,25 @@
           "cost_covered": 0,
           "cost_rows": 100
         },
+        "liquid/lfm-2.5-2.6b:free": {
+          "n": 100,
+          "n_errors": 0,
+          "n_truncated": 0,
+          "em": 18.0,
+          "f1": 35.3,
+          "em_ci": [
+            11.7,
+            26.7
+          ],
+          "tested_on": "Unknown",
+          "cost": 0.0,
+          "cost_covered": 100,
+          "cost_rows": 100
+        },
         "nex-agi/nex-n2.5-mini": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 14.0,
           "f1": 35.3,
           "em_ci": [
@@ -318,6 +370,7 @@
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 17.0,
           "f1": 34.9,
           "em_ci": [
@@ -332,6 +385,7 @@
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 1.0,
           "f1": 3.5,
           "em_ci": [
@@ -346,6 +400,7 @@
         "openai/gpt-5.6-luna": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 17.0,
           "f1": 40.7,
           "em_ci": [
@@ -360,6 +415,7 @@
         "openai/gpt-6-luna": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 16.0,
           "f1": 40.5,
           "em_ci": [
@@ -374,6 +430,7 @@
         "openai/gpt-oss-20b": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 20.0,
           "f1": 40.7,
           "em_ci": [
@@ -388,6 +445,7 @@
         "poolside/laguna-s-2.1:free": {
           "n": 91,
           "n_errors": 9,
+          "n_truncated": 0,
           "em": 15.4,
           "f1": 32.0,
           "em_ci": [
@@ -402,6 +460,7 @@
         "qwen/qwen3.8-flash": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 22.0,
           "f1": 38.1,
           "em_ci": [
@@ -416,6 +475,7 @@
         "stealth/space-bunny-alpha": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 21.0,
           "f1": 39.6,
           "em_ci": [
@@ -430,6 +490,7 @@
         "xiaomi/mimo-v2.5": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 20.0,
           "f1": 40.1,
           "em_ci": [
@@ -444,6 +505,7 @@
         "z-ai/glm-5.3-flash": {
           "n": 100,
           "n_errors": 0,
+          "n_truncated": 0,
           "em": 19.0,
           "f1": 36.8,
           "em_ci": [
@@ -463,6 +525,7 @@
         "anthropic/claude-sonnet-5.5": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 75.5,
           "ci": [
             69.1,
@@ -476,6 +539,7 @@
         "deepseek/deepseek-v4.1-flash": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 62.0,
           "ci": [
             55.1,
@@ -489,6 +553,7 @@
         "google/gemini-3.8-flash": {
           "n": 198,
           "n_errors": 2,
+          "n_truncated": 0,
           "accuracy": 75.8,
           "ci": [
             69.3,
@@ -502,6 +567,7 @@
         "google/gemma-4-26b-a4b-it:free": {
           "n": 193,
           "n_errors": 7,
+          "n_truncated": 0,
           "accuracy": 64.8,
           "ci": [
             57.8,
@@ -512,9 +578,24 @@
           "cost_covered": 0,
           "cost_rows": 200
         },
+        "liquid/lfm-2.5-2.6b:free": {
+          "n": 158,
+          "n_errors": 42,
+          "n_truncated": 5,
+          "accuracy": 64.6,
+          "ci": [
+            56.8,
+            71.6
+          ],
+          "tested_on": "Unknown",
+          "cost": 0.0,
+          "cost_covered": 200,
+          "cost_rows": 200
+        },
         "nex-agi/nex-n2.5-mini": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 64.5,
           "ci": [
             57.7,
@@ -528,6 +609,7 @@
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 70.0,
           "ci": [
             63.3,
@@ -541,6 +623,7 @@
         "openai/gpt-5.6-luna": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 61.0,
           "ci": [
             54.1,
@@ -554,6 +637,7 @@
         "openai/gpt-6-luna": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 65.0,
           "ci": [
             58.2,
@@ -567,6 +651,7 @@
         "openai/gpt-oss-20b": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 62.0,
           "ci": [
             55.1,
@@ -580,6 +665,7 @@
         "qwen/qwen3.8-flash": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 63.0,
           "ci": [
             56.1,
@@ -593,6 +679,7 @@
         "stealth/space-bunny-alpha": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 62.0,
           "ci": [
             55.1,
@@ -606,6 +693,7 @@
         "xiaomi/mimo-v2.5": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 60.5,
           "ci": [
             53.6,
@@ -619,6 +707,7 @@
         "z-ai/glm-5.3-flash": {
           "n": 200,
           "n_errors": 0,
+          "n_truncated": 0,
           "accuracy": 71.5,
           "ci": [
             64.9,
@@ -655,6 +744,11 @@
           "abstain_rate": 40.7
         },
         "inclusionai/ling-3.0-flash-vl:free": {
+          "n_traps": 27,
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
+        },
+        "liquid/lfm-2.5-2.6b:free": {
           "n_traps": 27,
           "bluff_rate": 88.9,
           "abstain_rate": 11.1
