@@ -26,13 +26,11 @@ MODELS = {
     "inclusionai/ling-3.0-flash-vl:free": "Ling 3.0 Flash VL",
     "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5 Lightning",
     "poolside/laguna-s-2.1:free": "Poolside Laguna-S 2.1",
-    "inclusionai/ling-3.0-flash-sante:free": "Ling 3.0 Flash Sante",
     "nex-agi/nex-n2.5-mini": "Nex N2.5 Mini",
     "openai/gpt-oss-20b": "GPT-OSS 20B",
     "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super 120B A12B",
     "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra 550B A55B",
     "anthropic/claude-sonnet-5.5": "Claude Sonnet 5.5",
-    "x-ai/grok-4.7": "Grok 4.7",
     "stealth/space-bunny-alpha": "Space Bunny Alpha",
 }
 
@@ -267,6 +265,7 @@ def row_html(task, rank, model, s):
 PARKED = {
     "nvidia/nemotron-3.5-lightning:free",
     "inclusionai/ling-3.0-flash-vl:free",
+    "nvidia/nemotron-3-super-120b-a12b:free",
 }
 
 # Columns left over after rank+model, now that every scored table also carries
@@ -700,7 +699,7 @@ which exams to run. Runs cost roughly a few dollars each for frontier models and
 nothing for <code>:free</code> endpoints; a request does not commit you to
 anything. If nobody funds it, the run simply goes to the back of the queue.</p>
 <form id="req-form">
-  <label for="model">OpenRouter model id <span class="hint">e.g. x-ai/grok-4.7</span></label>
+  <label for="model">OpenRouter model id <span class="hint">e.g. google/gemma-4-26b-a4b-it:free</span></label>
   <input type="text" id="model" list="known-models" placeholder="vendor/model-name" required>
   <datalist id="known-models">{datalist}</datalist>
 
@@ -834,13 +833,11 @@ def charts(scores):
         "google/gemma-4-26b-a4b-it:free": "Gemma 4 26B",
         "poolside/laguna-s-2.1:free": "Laguna-S 2.1",
         "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5",
-        "inclusionai/ling-3.0-flash-sante:free": "Ling 3.0 Sante",
         "nex-agi/nex-n2.5-mini": "Nex N2.5",
         "openai/gpt-oss-20b": "GPT-OSS 20B",
         "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super",
         "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra",
         "anthropic/claude-sonnet-5.5": "Sonnet 5.5",
-        "x-ai/grok-4.7": "Grok 4.7",
         "stealth/space-bunny-alpha": "Space Bunny",
     }
     PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",

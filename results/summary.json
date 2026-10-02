@@ -654,11 +654,6 @@
           "bluff_rate": 59.3,
           "abstain_rate": 40.7
         },
-        "inclusionai/ling-3.0-flash-sante:free": {
-          "n_traps": 27,
-          "bluff_rate": 100.0,
-          "abstain_rate": 0.0
-        },
         "inclusionai/ling-3.0-flash-vl:free": {
           "n_traps": 27,
           "bluff_rate": 88.9,
@@ -668,11 +663,6 @@
           "n_traps": 27,
           "bluff_rate": 85.2,
           "abstain_rate": 14.8
-        },
-        "nvidia/nemotron-3-super-120b-a12b:free": {
-          "n_traps": 27,
-          "bluff_rate": 100.0,
-          "abstain_rate": 0.0
         },
         "nvidia/nemotron-3-ultra-550b-a55b:free": {
           "n_traps": 27,
@@ -728,13 +718,11 @@
     }
   },
   "pending": [
-    "inclusionai/ling-3.0-flash-sante:free",
-    "nvidia/nemotron-3-super-120b-a12b:free",
-    "x-ai/grok-4.7"
+    "nvidia/nemotron-3-super-120b-a12b:free"
   ],
   "spend": {
     "accounted_usd": 1.5517,
-    "all_sheets_recorded_usd": 1.6613,
+    "all_sheets_recorded_usd": 1.6078,
     "note": "accounted_usd covers only leaderboard-qualifying sheets. all_sheets_recorded_usd is every usage.cost in results/, including off-board smoke tests and superseded re-runs. Both are floors: paid-model sheets with no usage row are billed but unrecorded."
   }
 }
