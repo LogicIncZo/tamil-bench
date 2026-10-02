@@ -4,7 +4,8 @@
 Usage: python3 build_site.py [--no-push]
 Idempotent — safe to re-run after each new results file lands.
 """
-import json, math, re, subprocess, sys
+import html, json, math, re, subprocess, sys
+from functools import lru_cache
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
@@ -72,8 +73,15 @@ def load():
         rows = [json.loads(l) for l in f.open() if l.strip()]
         if len(rows) < FULL_MIN[task]:
             continue
-        out[task][model].append((n, rows))
+        out[task][model].append((n, rows, f.name))
     return out
+
+@lru_cache(maxsize=None)
+def sheet_date(filename):
+    result = subprocess.run(
+        ["git", "log", "-1", "--format=%cs", "--", f"results/{filename}"],
+        cwd=ROOT, capture_output=True, text=True)
+    return result.stdout.strip() or "Unknown"
 
 def valid_rows(rows):
     """Rows with an actual model answer -- drops API failures so they never
@@ -89,7 +97,7 @@ def valid_rows(rows):
 def compute(data):
     scores = {"milu": {}, "indicqa": {}, "xnli": {}}
     for model, runs in data["milu"].items():
-        n, rows = max(runs, key=lambda r: r[0])
+        n, rows, filename = max(runs, key=lambda r: r[0])
         valid = valid_rows(rows)
         if not valid:
             continue
@@ -98,10 +106,10 @@ def compute(data):
         lo, hi = wilson(k / m, m)
         scores["milu"][model] = {
             "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
-            "ci": [round(100 * lo, 1), round(100 * hi, 1)],
+            "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
         }
     for model, runs in data["indicqa"].items():
-        n, rows = max(runs, key=lambda r: r[0])
+        n, rows, filename = max(runs, key=lambda r: r[0])
         valid = valid_rows(rows)
         if not valid:
             continue
@@ -111,10 +119,10 @@ def compute(data):
         lo, hi = wilson(em, m)
         scores["indicqa"][model] = {
             "n": m, "n_errors": len(rows) - m, "em": round(100 * em, 1), "f1": round(f1, 1),
-            "em_ci": [round(100 * lo, 1), round(100 * hi, 1)],
+            "em_ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
         }
     for model, runs in data.get("xnli", {}).items():
-        n, rows = max(runs, key=lambda r: r[0])
+        n, rows, filename = max(runs, key=lambda r: r[0])
         valid = valid_rows(rows)
         if not valid:
             continue
@@ -123,7 +131,7 @@ def compute(data):
         lo, hi = wilson(k / m, m)
         scores["xnli"][model] = {
             "n": m, "n_errors": len(rows) - m, "accuracy": round(100 * k / m, 1),
-            "ci": [round(100 * lo, 1), round(100 * hi, 1)],
+            "ci": [round(100 * lo, 1), round(100 * hi, 1)], "tested_on": sheet_date(filename),
         }
     return scores
 
@@ -158,7 +166,7 @@ def bluff_scores(data):
     """Bluff catch: on unanswerable IndicQA traps (golds == ['']), did the model abstain?"""
     traps = {}
     for m, runs in data["indicqa"].items():
-        n, rows = max(runs, key=lambda r: r[0])
+        n, rows, _ = max(runs, key=lambda r: r[0])
         hit = [r for r in rows if [g.strip() for g in r.get("golds", [])] == [""]]
         if len(hit) < 10:
             continue
@@ -178,7 +186,7 @@ def bluff_scores(data):
 def xnli_scores(data):
     scores = {}
     for model, runs in data.get("xnli", {}).items():
-        n, rows = max(runs, key=lambda r: r[0])
+        n, rows, _ = max(runs, key=lambda r: r[0])
         valid = valid_rows(rows)
         if not valid:
             continue
@@ -261,6 +269,52 @@ def patch_html(scores, bluff, xnli):
         lambda m: m.group(1) + "\n          " + bluff_rows(bluff) + "\n          " + m.group(3),
         html, flags=re.S)
     (ROOT / "index.html").write_text(html)
+
+def test_page(task, title, title_ta, score_columns, scores):
+    headers = ["Model · மாதிரி", "Tested date · சோதனை தேதி", "Valid n · சரியான விடைகள்", "Errors · பிழைகள்"] + [label for _, label in score_columns] + ["95% CI · நம்பிக்கை வரம்பு"]
+    header_html = "".join(f'<th scope="col" tabindex="0" aria-sort="none">{label} ↕</th>' for label in headers)
+    rows = []
+    for model, score in scores[task].items():
+        ci = score.get("ci", score.get("em_ci"))
+        values = [model, score["tested_on"], score["n"], score["n_errors"]]
+        values.extend(score[key] for key, _ in score_columns)
+        values.append(f"{ci[0]:.1f}–{ci[1]:.1f}%")
+        cells = []
+        for index, value in enumerate(values):
+            kind = "number" if index >= 2 and index < len(values) - 1 else ("date" if index == 1 else "text")
+            cells.append(f'<td data-sort="{html.escape(str(value), quote=True)}" data-type="{kind}">{html.escape(str(value))}</td>')
+        rows.append("<tr>" + "".join(cells) + "</tr>")
+    nav = " · ".join(f'<a href="{path}">{label}</a>' for path, label in (
+        ("index.html", "Home / முகப்பு"), ("milu.html", "MILU"),
+        ("indicqa.html", "IndicQA"), ("indicxnli.html", "IndicXNLI")))
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{title} · Tamil Bench</title><style>
+:root{{--paper:#f3ead6;--ink:#201a10;--muted:#6b6150;--line:#d6c7a6;--red:#c22b2b}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}}
+main{{max-width:1100px;margin:auto;padding:clamp(20px,5vw,56px)}}a{{color:#174f72}}nav{{margin-bottom:36px}}nav a{{margin-right:12px;white-space:nowrap}}
+h1{{font: bold clamp(2rem,6vw,3.6rem)/1.05 Georgia,serif;margin:.2em 0}}.ta{{font-size:.65em;color:var(--red)}}p{{color:var(--muted)}}
+.table-wrap{{overflow-x:auto;margin-top:24px;border:1px solid var(--line);background:#fbf7ee}}table{{border-collapse:collapse;width:100%;min-width:760px}}
+th,td{{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}}th{{background:#ece0c4;cursor:pointer;user-select:none}}
+th:hover,th:focus{{background:#e3d4b2}}tbody tr:hover{{background:var(--paper)}}td[data-type="number"]{{text-align:right;font-variant-numeric:tabular-nums}}
+.note{{font-size:.9rem;margin-top:14px}}@media(max-width:600px){{main{{padding:22px 14px}}}}
+</style></head><body><main><nav aria-label="Test pages">{nav}</nav>
+<h1>{title}<br><span class="ta">{title_ta}</span></h1>
+<p>Sortable results · மாதிரி, சோதனை தேதி, மாதிரி அளவு, பிழைகள், மதிப்பெண் ஆகியவற்றை வரிசைப்படுத்தலாம். Click a column heading to sort.</p>
+<div class="table-wrap"><table><thead><tr>{header_html}</tr></thead><tbody>{''.join(rows)}</tbody></table></div>
+<p class="note">Tested date is the result sheet's repository record date; older sheets do not contain a run timestamp. Scores use each model's latest qualifying sheet. சோதனைத் தேதி என்பது விடைத்தாள் களஞ்சியத்தில் பதிவான தேதி; பழைய விடைத்தாள்களில் இயக்க நேரமுத்திரை இல்லை. <a href="https://github.com/LogicIncZo/tamil-bench/tree/main/results">View answer sheets · விடைத்தாள்கள்</a>.</p>
+</main><script>
+document.querySelectorAll('th').forEach((header,column)=>{{const sort=()=>{{const body=header.closest('table').tBodies[0];const ascending=header.getAttribute('aria-sort')!=='ascending';const type=body.rows[0]?.cells[column]?.dataset.type||'text';const rows=Array.from(body.rows);rows.sort((left,right)=>{{const a=left.cells[column].dataset.sort||left.cells[column].textContent;const b=right.cells[column].dataset.sort||right.cells[column].textContent;const result=type==='number'?Number(a)-Number(b):a.localeCompare(b,undefined,{{numeric:true,sensitivity:'base'}});return (ascending?1:-1)*result}});rows.forEach(row=>body.appendChild(row));header.closest('tr').querySelectorAll('th').forEach(cell=>cell.setAttribute('aria-sort','none'));header.setAttribute('aria-sort',ascending?'ascending':'descending')}};header.addEventListener('click',sort);header.addEventListener('keydown',event=>{{if(event.key==='Enter'||event.key===' '){{event.preventDefault();sort()}}}})}});
+</script></body></html>'''
+
+def generate_test_pages(scores):
+    pages = (
+        ("milu.html", "milu", "MILU · Exam MCQs", "MILU · பல்தேர்வு", [("accuracy", "Accuracy % · துல்லியம் %")]),
+        ("indicqa.html", "indicqa", "IndicQA · Reading Comprehension", "IndicQA · வாசிப்புப் புரிதல்", [("em", "Exact Match % · முழுப் பொருத்தம் %"), ("f1", "F1 % · சொல் ஒற்றுமை %")]),
+        ("indicxnli.html", "xnli", "IndicXNLI · Three-way Inference", "IndicXNLI · மும்முனை அனுமானம்", [("accuracy", "Accuracy % · துல்லியம் %")]),
+    )
+    for filename, task, title, title_ta, columns in pages:
+        (ROOT / filename).write_text(test_page(task, title, title_ta, columns, scores))
 
 def charts(scores):
     """Reference-style small-multiples comparison chart: one panel per metric,
@@ -351,6 +405,7 @@ def main():
     scores = compute(data)
     bluff = bluff_scores(data)
     xnli = xnli_scores(data)
+    generate_test_pages(scores)
     summary = {
         "generated": date.today().isoformat(),
         "bench": "tamil-bench",

@@ -12,6 +12,8 @@ Zero-setup generative eval runner for OpenAI-compatible chat endpoints (OpenRout
 | `indicqa` | ai4bharat/IndicQA Tamil (SQuAD-style, 1,804 questions) | EM + F1 (official SQuAD normalization) | open |
 | `xnli` | AdaMLLab/indicxnli_repaired Tamil test split (3-way entailment) | accuracy (0-shot, A/B/C parse; 3-way chance = 33%) | open |
 
+Individual sortable score tables are published at [`milu.html`](https://logicinczo.github.io/tamil-bench/milu.html), [`indicqa.html`](https://logicinczo.github.io/tamil-bench/indicqa.html), and [`indicxnli.html`](https://logicinczo.github.io/tamil-bench/indicxnli.html). Each shows the latest qualifying score per model, result-sheet date, valid sample count, errors, and confidence interval.
+
 ## Usage
 
 ```bash
