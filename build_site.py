@@ -336,7 +336,7 @@ def test_page(task, title, title_ta, score_columns, scores):
         rows.append("<tr>" + "".join(cells) + "</tr>")
     nav = " · ".join(f'<a href="{path}">{label}</a>' for path, label in (
         ("index.html", "Home / முகப்பு"), ("milu.html", "MILU"),
-        ("indicqa.html", "IndicQA"), ("indicxnli.html", "IndicXNLI")))
+        ("indicqa.html", "IndicQA"), ("indicxnli.html", "IndicXNLI"), ("sponsor.html", "Sponsor / நிதியளிப்பு")))
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title} · Tamil Bench</title><style>
@@ -366,6 +366,298 @@ def generate_test_pages(scores):
     )
     for filename, task, title, title_ta, columns in pages:
         (ROOT / filename).write_text(test_page(task, title, title_ta, columns, scores))
+
+UPI_ID = "logic@ybl"
+UPI_INTENT = "upi://pay?pa=logic@ybl&pn=CashlessConsumer&cu=INR&tn=Tamil+Bench+sponsorship"
+REQUEST_MAIL = "cashlessconsumerin@gmail.com"
+REPO_URL = "https://github.com/LogicIncZo/tamil-bench"
+NEW_ISSUE_URL = REPO_URL + "/issues/new"
+
+TASK_LABELS = {
+    "milu": "MILU (199 exam MCQs)",
+    "indicqa": "IndicQA (100 reading questions)",
+    "xnli": "IndicXNLI (200 three-way logic items)",
+}
+TASK_LABELS_TA = {
+    "milu": "MILU (199 பல்தேர்வு வினாக்கள்)",
+    "indicqa": "IndicQA (100 வாசிப்பு வினாக்கள்)",
+    "xnli": "IndicXNLI (200 மும்முனை அனுமான வினாக்கள்)",
+}
+
+
+def project_spend(data):
+    """Total OpenRouter charge behind the published scoreboard.
+
+    Only the max-n qualifying sheet per (task, model) is summed -- the same
+    sheet the scores come from -- so re-runs and n=5 smoke tests do not inflate
+    the bill. Sheets written before usage accounting was enabled carry no
+    charge at all, so `uncosted_sheets` is what stops a partial sum from
+    reading as the whole bill.
+    """
+    per_task = defaultdict(float)
+    per_model = defaultdict(float)
+    uncosted = []
+    total = 0.0
+    for task, models in data.items():
+        for model, runs in models.items():
+            n, rows, filename = max(runs, key=lambda r: r[0])
+            cost, covered = run_cost(rows)
+            if covered == 0:
+                uncosted.append(filename)
+                continue
+            per_task[task] += cost
+            per_model[model] += cost
+            total += cost
+    return {
+        "total": round(total, 4),
+        "per_task": {t: round(v, 4) for t, v in per_task.items()},
+        "per_model": {m: round(v, 4) for m, v in per_model.items()},
+        "uncosted_sheets": sorted(uncosted),
+    }
+
+
+SPONSOR_CSS = """
+:root{--paper:#f3ead6;--ink:#201a10;--muted:#6b6150;--line:#d6c7a6;--red:#c22b2b;--green:#1f6b46}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+main{max-width:900px;margin:auto;padding:clamp(20px,5vw,56px)}a{color:#174f72}
+nav{margin-bottom:36px}nav a{margin-right:12px;white-space:nowrap}
+h1{font:bold clamp(2rem,6vw,3.4rem)/1.05 Georgia,serif;margin:.2em 0}
+.ta{font-size:.62em;color:var(--red)}h2{font:bold 1.5rem/1.2 Georgia,serif;margin:2.2em 0 .2em}
+p{color:var(--muted)}section{background:#fbf7ee;border:1px solid var(--line);padding:clamp(18px,3vw,32px);margin:26px 0}
+.bignum{font:bold clamp(2.6rem,9vw,4.6rem)/1 Georgia,serif;color:var(--ink);letter-spacing:-.02em}
+.sub{font-size:.95rem;color:var(--muted);margin-top:.4em}
+table{border-collapse:collapse;width:100%;margin-top:14px;min-width:420px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:#ece0c4;font-size:.85rem;letter-spacing:.03em;text-transform:uppercase}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.table-wrap{overflow-x:auto}
+.qr{display:block;width:min(320px,72vw);height:auto;margin:0 auto;border:6px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.upi-id{font:bold 1.5rem/1.2 ui-monospace,Menlo,Consolas,monospace;background:#fff;border:1px dashed var(--line);padding:12px 16px;display:inline-block;margin:14px 0}
+button,.btn{font:inherit;cursor:pointer;border-radius:6px;padding:12px 18px;border:1px solid var(--ink);background:var(--ink);color:#fbf7ee;text-decoration:none;display:inline-block}
+button.secondary,.btn.secondary{background:transparent;color:var(--ink)}
+label{display:block;font-weight:600;margin:16px 0 4px}
+input[type=text],textarea{width:100%;padding:10px 12px;font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink)}
+.hint{font-size:.85rem;color:var(--muted);font-weight:400;margin-top:2px}
+fieldset{border:1px solid var(--line);margin:16px 0;padding:12px 16px}legend{font-weight:600;padding:0 6px}
+.checks{display:flex;flex-wrap:wrap;gap:14px}checks{display:flex;gap:8px;align-items:center}
+.checks label{font-weight:400;display:flex;gap:6px;align-items:center;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+#req-preview{white-space:pre-wrap;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;background:#fff;border:1px solid var(--line);padding:12px;margin-top:18px;max-height:260px;overflow:auto}
+.note{font-size:.88rem}.ok{color:var(--green)}@media(max-width:600px){main{padding:22px 14px}}
+"""
+
+
+def _esc(s):
+    return html.escape(str(s))
+
+
+def sponsor_page(data):
+    spend = project_spend(data)
+    total = spend["total"]
+    uncosted_n = len(spend["uncosted_sheets"])
+
+    # --- cost cards -------------------------------------------------------
+    if total >= 1:
+        total_str = f"${total:,.2f}"
+    elif total > 0:
+        total_str = f"${total:,.4f}"
+    else:
+        total_str = "$0.00"
+    # Full precision for the lower-bound claim -- rounding $1.5518 to $1.55 and
+    # then calling $1.55 the floor would understate what is already proven.
+    total_exact = f"${total:,.4f}" if total > 0 else "$0.00"
+
+    # per-task rows, biggest first
+    task_rows = []
+    for task in ("milu", "indicqa", "xnli"):
+        v = spend["per_task"].get(task)
+        if v is None:
+            continue
+        task_rows.append(
+            f"<tr><td><strong>{_esc(TASK_LABELS[task])}</strong>"
+            f"<br><small>{_esc(TASK_LABELS_TA[task])}</small></td>"
+            f'<td class="num">${v:,.4f}</td></tr>')
+
+    # per-model rows, biggest first
+    model_rows = []
+    for model, v in sorted(spend["per_model"].items(), key=lambda kv: -kv[1]):
+        model_rows.append(
+            f'<tr><td><strong>{_esc(MODELS.get(model, model))}</strong>'
+            f"<br><small>{_esc(model.replace(':free', ''))}</small></td>"
+            f'<td class="num">${v:,.4f}</td></tr>')
+
+    n_models_all = len({m for task in data for m in data[task]})
+    n_models_costed = len(spend["per_model"])
+    n_free = sum(1 for m in spend["per_model"] if m.endswith(":free"))
+    n_paid = sum(1 for v in spend["per_model"].values() if v > 0)
+
+    # Kept as a fragment, not a <p>: it is appended inside another <p> and a
+    # nested <p> would close the parent early in the browser's parser.
+    coverage = ""
+    if uncosted_n:
+        coverage = (
+            f"<br><br>Coverage: {n_models_costed} of {n_models_all} models on the "
+            f"board reported a charge; {uncosted_n} qualifying sheets predate usage "
+            f"accounting and record none, so the true all-time figure is at least "
+            f"{total_exact}. <a href=\"{REPO_URL}/tree/main/results\">Check the raw "
+            f"sheets · விடைத்தாள்களைப் பார்க்கவும்</a>.")
+
+    # --- model id suggestions for the request form ------------------------
+    known = sorted(MODELS, key=lambda m: MODELS[m])
+    datalist = "".join(f'<option value="{_esc(m)}"></option>' for m in known)
+
+    page = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sponsor Tamil Bench · நிதியளிப்பு</title>
+<meta name="description" content="Sponsor Tamil Bench, the open API-only Tamil LLM benchmark, and request a run for any model.">
+<style>{SPONSOR_CSS}</style></head><body><main>
+<nav aria-label="Site pages"><a href="index.html">Home / முகப்பு</a> · <a href="milu.html">MILU</a> · <a href="indicqa.html">IndicQA</a> · <a href="indicxnli.html">IndicXNLI</a> · <a href="{REPO_URL}">GitHub</a></nav>
+
+<h1>Sponsor Tamil Bench<br><span class="ta">தமிழ் பெஞ்சை நிதியளிப்பு</span></h1>
+<p>Tamil Bench runs open-weight and commercial language models through the same
+three Tamil exams, and publishes every score with the raw answer sheet behind
+it. The runs are paid for out of pocket, and this page shows exactly what they
+cost. Sponsor to keep the ledger open, or request a run for a model you care
+about.</p>
+
+<section>
+<h2 style="margin-top:0">What the benchmark has cost so far<br><span class="ta">இதுவரை செலவானதன் மொத்தம்</span></h2>
+<div class="bignum">{_esc(total_str)}</div>
+<p class="sub">OpenRouter charges across every scored run, summed from the
+per-answer <code>usage.cost</code> field in the result sheets. No salaries, no
+servers, no paid datasets — just API calls.</p>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Test · சோதனை</th><th scope="col" class="num">Spend · செலவு</th></tr></thead>
+<tbody>{''.join(task_rows) or '<tr><td colspan="2">No charged runs yet · இதுவரை கட்டணம் இல்லை</td></tr>'}</tbody>
+</table></div>
+<p class="note">{n_models_costed} of {n_models_all} board models reported a charge,
+but only {n_paid} of those were actually billed -- the other {n_models_costed - n_paid}
+recorded $0.00 ({n_free} of them were free-tier `:free` endpoints, which are $0.00
+by definition). Machines marked *free* cost nothing to run; the bill is made up
+of the commercial endpoints. {coverage}</p>
+</section>
+
+<section>
+<h2 style="margin-top:0">Per-model spend<br><span class="ta">மாதிரி வாரியான செலவு</span></h2>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">Model · மாதிரி</th><th scope="col" class="num">Spend · செலவு</th></tr></thead>
+<tbody>{''.join(model_rows) or '<tr><td colspan="2">No charged runs yet · இதுவரை கட்டணம் இல்லை</td></tr>'}</tbody>
+</table></div>
+</section>
+
+<section aria-labelledby="upi-h">
+<h2 id="upi-h" style="margin-top:0">Sponsor with UPI<br><span class="ta">UPI மூலம் நிதியளிப்பு</span></h2>
+<p>Scan with any UPI app (GPay, PhonePe, Paytm, BHIM) and enter whatever amount
+you want. Every rupee goes toward API calls that keep new models on the board.</p>
+<img class="qr" src="assets/upi-qr.png" alt="UPI QR code for the sponsor UPI ID logic@ybl" width="320" height="320">
+<p style="text-align:center;margin-bottom:4px">or type the ID · அல்லது ID-ஐத் தட்டச்சு செய்யவும்</p>
+<p style="text-align:center"><span class="upi-id" id="upi-id">{UPI_ID}</span></p>
+<p class="note" style="text-align:center">A one-tap UPI link: <a id="upi-link" href="{UPI_INTENT}">{UPI_INTENT[:34]}…</a></p>
+</section>
+
+<section aria-labelledby="req-h">
+<h2 id="req-h" style="margin-top:0">Request a run for any model<br><span class="ta">ஏதேனும் மாதிரிக்கான ஓட்டைக் கோரவும்</span></h2>
+<p>Name any OpenRouter model id (or a free/open endpoint you want compared) and
+which exams to run. Runs cost roughly a few dollars each for frontier models and
+nothing for <code>:free</code> endpoints; a request does not commit you to
+anything — sponsors cover the paid ones.</p>
+<form id="req-form">
+  <label for="model">OpenRouter model id <span class="hint">e.g. x-ai/grok-4.7</span></label>
+  <input type="text" id="model" list="known-models" placeholder="vendor/model-name" required>
+  <datalist id="known-models">{datalist}</datalist>
+
+  <fieldset><legend>Which tests? · எந்த சோதனைகள்?</legend>
+  <div class="checks">
+    <label><input type="checkbox" name="task" value="milu" checked> MILU</label>
+    <label><input type="checkbox" name="task" value="indicqa" checked> IndicQA</label>
+    <label><input type="checkbox" name="task" value="xnli" checked> IndicXNLI</label>
+  </div>
+  </fieldset>
+
+  <label for="who">Your name / handle <span class="hint">optional — for credit in the changelog</span></label>
+  <input type="text" id="who" placeholder="@you or your name">
+
+  <label for="note">Anything else? <span class="hint">optional</span></label>
+  <textarea id="note" rows="3" placeholder="Reason for the request, deadline, or a specific endpoint variant."></textarea>
+
+  <div class="actions">
+    <button type="submit">Send request · கோரிக்கை அனுப்பு</button>
+    <button type="button" class="secondary" id="copy-btn">Copy request text · நகலெடு</button>
+    <a class="btn secondary" id="gh-link" href="{NEW_ISSUE_URL}">Open on GitHub · GitHub-ல் திற</a>
+  </div>
+</form>
+<pre id="req-preview" aria-live="polite"></pre>
+<p class="note" id="req-status"></p>
+</section>
+
+<section class="note">
+<h2 style="margin-top:0">Where the money goes<br><span class="ta">பணம் எங்கே செல்கிறது</span></h2>
+<ul>
+<li><strong>API calls.</strong> Every paid run is metered through OpenRouter and
+each answer sheet stores its own charge, so the totals above are auditable line
+by line rather than estimated.</li>
+<li><strong>Free endpoints stay free.</strong> <code>:free</code> routes and
+open models are run on the free tier; they expand the board at zero cost.</li>
+<li><strong>Open source.</strong> The runner, the scoring, and every result
+sheet live in <a href="{REPO_URL}">{REPO_URL}</a> under an open licence. Sponsorship
+buys runs and compute, not secrecy.</li>
+</ul>
+<p>Prefer to wire the money differently? Email
+<a href="mailto:{REQUEST_MAIL}">{REQUEST_MAIL}</a>.</p>
+</section>
+</main>
+<script>
+(function(){{
+  var form=document.getElementById('req-form');
+  var model=document.getElementById('model');
+  var who=document.getElementById('who');
+  var note=document.getElementById('note');
+  var preview=document.getElementById('req-preview');
+  var status=document.getElementById('req-status');
+  var gh=document.getElementById('gh-link');
+
+  function selected(){{return Array.prototype.slice.call(form.querySelectorAll('input[name=task]:checked')).map(function(c){{return c.value;}});}}
+  function compose(){{
+    var id=model.value.trim();
+    var tasks=selected();
+    var lines=['### Benchmark run request','','**Model:** '+ (id||'(not set)'),'**Tests:** '+(tasks.length?tasks.join(', '):'(none selected)')];
+    if(who.value.trim()) lines.push('**Requested by:** '+who.value.trim());
+    if(note.value.trim()) lines.push('','**Notes:**\\n'+note.value.trim());
+    return lines.join('\\n');
+  }}
+  function refresh(){{
+    var body=compose();
+    preview.textContent=body;
+    gh.href='{NEW_ISSUE_URL}?title='+encodeURIComponent('Run request: '+(model.value.trim()||'model'))+'&body='+encodeURIComponent(body);
+    return body;
+  }}
+  form.addEventListener('input',refresh);
+  form.addEventListener('submit',function(e){{
+    e.preventDefault();
+    if(!model.value.trim()){{status.textContent='Please enter a model id first. · முதலில் மாதிரி ID-ஐ உள்ளிடவும்.';return;}}
+    var body=refresh();
+    var subj='Tamil Bench run request: '+model.value.trim();
+    window.location.href='mailto:{REQUEST_MAIL}?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(body);
+    status.innerHTML='Opening your mail app… if nothing happens, use “Copy request text” and email it to <a href="mailto:{REQUEST_MAIL}">{REQUEST_MAIL}</a> or open the GitHub link. · உங்கள் மின்னஞ்சல் திறக்கிறது…';
+    status.className='note ok';
+  }});
+  document.getElementById('copy-btn').addEventListener('click',function(){{
+    var body=refresh();
+    (navigator.clipboard?navigator.clipboard.writeText(body):Promise.reject()).then(function(){{
+      status.textContent='Request text copied. · நகலெடுக்கப்பட்டது.';status.className='note ok';
+    }}).catch(function(){{
+      status.textContent='Select the text above and copy it manually. · மேலே உள்ள உரையைத் தேர்ந்தெடுத்து நகலெடுங்கள்.';status.className='note';
+    }});
+  }});
+  refresh();
+}})();
+</script></body></html>'''
+    return page
+
+
+def generate_sponsor_page(data):
+    (ROOT / "sponsor.html").write_text(sponsor_page(data))
+
 
 def charts(scores):
     """Reference-style small-multiples comparison chart: one panel per metric,
@@ -459,6 +751,7 @@ def main():
     bluff = bluff_scores(data)
     xnli = xnli_scores(data)
     generate_test_pages(scores)
+    generate_sponsor_page(data)
     summary = {
         "generated": date.today().isoformat(),
         "bench": "tamil-bench",
