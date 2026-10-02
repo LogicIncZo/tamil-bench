@@ -153,7 +153,7 @@
             53.9,
             67.3
           ],
-          "tested_on": "Unknown"
+          "tested_on": "2026-10-02"
         },
         "xiaomi/mimo-v2.5": {
           "n": 199,
@@ -332,7 +332,7 @@
             14.2,
             30.0
           ],
-          "tested_on": "Unknown"
+          "tested_on": "2026-10-02"
         },
         "xiaomi/mimo-v2.5": {
           "n": 100,
@@ -469,7 +469,7 @@
             55.1,
             68.4
           ],
-          "tested_on": "Unknown"
+          "tested_on": "2026-10-02"
         },
         "xiaomi/mimo-v2.5": {
           "n": 200,

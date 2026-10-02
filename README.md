@@ -21,6 +21,7 @@ cd /home/workspace/ThamizhKanimai/nlp/tamil-bench
 python3 bench.py indicqa --model z-ai/glm-5.3-flash --n 100
 python3 bench.py milu --model deepseek/deepseek-v4.1-flash --n 200   # after gate accept
 python3 bench.py xnli --model google/gemini-3.8-flash --n 200
+python3 bench.py indicqa --model x-ai/grok-4.7 --n 5  # smoke-test before a full run
 python3 bench.py xnli --model z-ai/glm-5.3-flash --n 200                 # needs data/ta/test-00000-of-00001.parquet
 ```
 
