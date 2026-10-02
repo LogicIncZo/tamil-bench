@@ -1,0 +1,5 @@
+{"subject": "Arts and Culture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1, "usage": {"prompt_tokens": 186, "completion_tokens": 295, "cost": 0}}
+{"subject": "Anthropology", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 118, "completion_tokens": 285, "cost": 0}}
+{"subject": "Astronomy and Astrophysics", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 108, "completion_tokens": 135, "cost": 0}}
+{"subject": "Architecture and Design", "gold": "B", "prediction": "B", "pred_letter": "B", "correct": 1, "usage": {"prompt_tokens": 103, "completion_tokens": 232, "cost": 0}}
+{"subject": "Agriculture", "gold": "A", "prediction": "A", "pred_letter": "A", "correct": 1, "usage": {"prompt_tokens": 151, "completion_tokens": 311, "cost": 0}}

@@ -16,6 +16,7 @@ FULL_MIN = {"milu": 150, "indicqa": 90, "xnli": 150}
 MODELS = {
     "google/gemini-3.8-flash": "Gemini 3.8 Flash",
     "openai/gpt-5.6-luna": "GPT-5.6 Luna",
+    "openai/gpt-6-luna": "GPT-6 Luna",
     "deepseek/deepseek-v4.1-flash": "DeepSeek V4.1 Flash",
     "z-ai/glm-5.3-flash": "GLM 5.3 Flash",
     "qwen/qwen3.8-flash": "Qwen 3.8 Flash",
@@ -24,6 +25,11 @@ MODELS = {
     "inclusionai/ling-3.0-flash-vl:free": "Ling 3.0 Flash VL",
     "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5 Lightning",
     "poolside/laguna-s-2.1:free": "Poolside Laguna-S 2.1",
+    "inclusionai/ling-3.0-flash-sante:free": "Ling 3.0 Flash Sante",
+    "nex-agi/nex-n2.5-mini": "Nex N2.5 Mini",
+    "openai/gpt-oss-20b": "GPT-OSS 20B",
+    "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super 120B A12B",
+    "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra 550B A55B",
 }
 
 def parse_stem(stem):
@@ -268,6 +274,7 @@ def charts(scores):
     SHORT = {
         "google/gemini-3.8-flash": "Gemini 3.8",
         "openai/gpt-5.6-luna": "GPT-5.6 Luna",
+        "openai/gpt-6-luna": "GPT-6 Luna",
         "deepseek/deepseek-v4.1-flash": "DeepSeek V4.1",
         "z-ai/glm-5.3-flash": "GLM 5.3",
         "xiaomi/mimo-v2.5": "MiMo v2.5",
@@ -276,6 +283,11 @@ def charts(scores):
         "google/gemma-4-26b-a4b-it:free": "Gemma 4 26B",
         "poolside/laguna-s-2.1:free": "Laguna-S 2.1",
         "nvidia/nemotron-3.5-lightning:free": "Nemotron 3.5",
+        "inclusionai/ling-3.0-flash-sante:free": "Ling 3.0 Sante",
+        "nex-agi/nex-n2.5-mini": "Nex N2.5",
+        "openai/gpt-oss-20b": "GPT-OSS 20B",
+        "nvidia/nemotron-3-super-120b-a12b:free": "Nemotron 3 Super",
+        "nvidia/nemotron-3-ultra-550b-a55b:free": "Nemotron 3 Ultra",
     }
     PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f",
                "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#a0cbe8"]
@@ -315,7 +327,7 @@ def charts(scores):
         ax.spines["bottom"].set_color("#d8d4c8")
         ax.tick_params(left=False, bottom=False)
         ax.grid(axis="y", color="#e7e4da", lw=.8, zorder=0)
-    fig.suptitle("Tamil Bench \u2014 how 9 AI models score on three exams written in Tamil",
+    fig.suptitle(f"Tamil Bench \u2014 how {len(ORDER)} AI models score on three exams written in Tamil",
                  x=.02, y=.99, ha="left", fontsize=15, fontweight="bold")
     fig.text(.02, .925, "MILU: % of exam questions correct. IndicQA: exact-match vs partial (word-overlap) credit. "
              "IndicXNLI: 3-way entailment logic (chance = 33%). 0-shot, temp 0, " + today + ".",

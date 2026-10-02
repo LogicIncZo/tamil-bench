@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-17",
+  "generated": "2026-10-02",
   "bench": "tamil-bench",
   "tasks": {
     "milu": {
@@ -41,6 +41,33 @@
             70.6
           ]
         },
+        "nex-agi/nex-n2.5-mini": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 67.3,
+          "ci": [
+            60.5,
+            73.5
+          ]
+        },
+        "nvidia/nemotron-3-super-120b-a12b:free": {
+          "n": 187,
+          "n_errors": 12,
+          "accuracy": 69.5,
+          "ci": [
+            62.6,
+            75.7
+          ]
+        },
+        "nvidia/nemotron-3-ultra-550b-a55b:free": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 69.3,
+          "ci": [
+            62.6,
+            75.3
+          ]
+        },
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 199,
           "n_errors": 0,
@@ -57,6 +84,24 @@
           "ci": [
             81.0,
             90.5
+          ]
+        },
+        "openai/gpt-6-luna": {
+          "n": 197,
+          "n_errors": 2,
+          "accuracy": 87.8,
+          "ci": [
+            82.5,
+            91.7
+          ]
+        },
+        "openai/gpt-oss-20b": {
+          "n": 199,
+          "n_errors": 0,
+          "accuracy": 61.8,
+          "ci": [
+            54.9,
+            68.3
           ]
         },
         "poolside/laguna-s-2.1:free": {
@@ -140,6 +185,26 @@
             22.1
           ]
         },
+        "nex-agi/nex-n2.5-mini": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 14.0,
+          "f1": 35.3,
+          "em_ci": [
+            8.5,
+            22.1
+          ]
+        },
+        "nvidia/nemotron-3-ultra-550b-a55b:free": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 17.0,
+          "f1": 34.9,
+          "em_ci": [
+            10.9,
+            25.5
+          ]
+        },
         "nvidia/nemotron-3.5-lightning:free": {
           "n": 100,
           "n_errors": 0,
@@ -158,6 +223,26 @@
           "em_ci": [
             10.9,
             25.5
+          ]
+        },
+        "openai/gpt-6-luna": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 16.0,
+          "f1": 40.5,
+          "em_ci": [
+            10.1,
+            24.4
+          ]
+        },
+        "openai/gpt-oss-20b": {
+          "n": 100,
+          "n_errors": 0,
+          "em": 20.0,
+          "f1": 40.7,
+          "em_ci": [
+            13.3,
+            28.9
           ]
         },
         "poolside/laguna-s-2.1:free": {
@@ -232,6 +317,24 @@
             71.2
           ]
         },
+        "nex-agi/nex-n2.5-mini": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 64.5,
+          "ci": [
+            57.7,
+            70.8
+          ]
+        },
+        "nvidia/nemotron-3-ultra-550b-a55b:free": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 70.0,
+          "ci": [
+            63.3,
+            75.9
+          ]
+        },
         "openai/gpt-5.6-luna": {
           "n": 200,
           "n_errors": 0,
@@ -239,6 +342,24 @@
           "ci": [
             54.1,
             67.5
+          ]
+        },
+        "openai/gpt-6-luna": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 65.0,
+          "ci": [
+            58.2,
+            71.3
+          ]
+        },
+        "openai/gpt-oss-20b": {
+          "n": 200,
+          "n_errors": 0,
+          "accuracy": 62.0,
+          "ci": [
+            55.1,
+            68.4
           ]
         },
         "qwen/qwen3.8-flash": {
@@ -288,10 +409,30 @@
           "bluff_rate": 59.3,
           "abstain_rate": 40.7
         },
+        "inclusionai/ling-3.0-flash-sante:free": {
+          "n_traps": 27,
+          "bluff_rate": 100.0,
+          "abstain_rate": 0.0
+        },
         "inclusionai/ling-3.0-flash-vl:free": {
           "n_traps": 27,
           "bluff_rate": 88.9,
           "abstain_rate": 11.1
+        },
+        "nex-agi/nex-n2.5-mini": {
+          "n_traps": 27,
+          "bluff_rate": 85.2,
+          "abstain_rate": 14.8
+        },
+        "nvidia/nemotron-3-super-120b-a12b:free": {
+          "n_traps": 27,
+          "bluff_rate": 100.0,
+          "abstain_rate": 0.0
+        },
+        "nvidia/nemotron-3-ultra-550b-a55b:free": {
+          "n_traps": 27,
+          "bluff_rate": 40.7,
+          "abstain_rate": 59.3
         },
         "nvidia/nemotron-3.5-lightning:free": {
           "n_traps": 27,
@@ -302,6 +443,16 @@
           "n_traps": 27,
           "bluff_rate": 88.9,
           "abstain_rate": 11.1
+        },
+        "openai/gpt-6-luna": {
+          "n_traps": 27,
+          "bluff_rate": 88.9,
+          "abstain_rate": 11.1
+        },
+        "openai/gpt-oss-20b": {
+          "n_traps": 27,
+          "bluff_rate": 70.4,
+          "abstain_rate": 29.6
         },
         "poolside/laguna-s-2.1:free": {
           "n_traps": 27,
@@ -326,5 +477,8 @@
       }
     }
   },
-  "pending": []
+  "pending": [
+    "inclusionai/ling-3.0-flash-sante:free",
+    "nvidia/nemotron-3-super-120b-a12b:free"
+  ]
 }

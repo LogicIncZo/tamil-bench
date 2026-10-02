@@ -55,6 +55,7 @@ def chat(model, messages, key, max_tokens=512, max_retries=6):
                     "messages": messages,
                     "temperature": 0,
                     "max_tokens": max_tokens,
+                    "usage": {"include": True},
                 },
                 timeout=180,
             )
@@ -62,14 +63,20 @@ def chat(model, messages, key, max_tokens=512, max_retries=6):
                 time.sleep(2 ** attempt * 2)
                 continue
             r.raise_for_status()
-            msg = r.json()["choices"][0]["message"]
+            data = r.json()
+            msg = data["choices"][0]["message"]
             text = msg.get("content") or msg.get("reasoning") or ""
-            return text.strip()
+            u = data.get("usage") or {}
+            return text.strip(), {
+                "prompt_tokens": u.get("prompt_tokens"),
+                "completion_tokens": u.get("completion_tokens"),
+                "cost": u.get("cost"),
+            }
         except (requests.RequestException, KeyError, IndexError) as e:
             if attempt == max_retries - 1:
-                return f"__ERROR__: {e}"
+                return f"__ERROR__: {e}", None
             time.sleep(2 ** attempt * 2)
-    return "__ERROR__: retries exhausted"
+    return "__ERROR__: retries exhausted", None
 
 
 def parse_letter(text):
@@ -154,7 +161,7 @@ def run_indicqa(args, key):
     print(f"IndicQA-Tamil: {len(subset)} questions, model={args.model}")
 
     def work(item):
-        text = chat(
+        text, usage = chat(
             args.model,
             [
                 {"role": "system", "content": QA_SYS},
@@ -169,7 +176,7 @@ def run_indicqa(args, key):
         )
         em, f1 = em_f1(text, item["golds"][0])
         best_f1 = max(f1, *(em_f1(text, g)[1] for g in item["golds"][1:])) if len(item["golds"]) > 1 else f1
-        return {**item, "prediction": text, "em": em, "f1": best_f1}
+        return {**item, "prediction": text, "em": em, "f1": best_f1, "usage": usage}
 
     out = []
     with ThreadPoolExecutor(max_workers=args.workers) as ex:
@@ -230,7 +237,7 @@ def run_xnli(args, key):
         i, row = rec
         for attempt in range(3):
             try:
-                txt = chat(
+                txt, usage = chat(
                     args.model,
                     [
                         {"role": "system", "content": XNLI_SYS},
@@ -254,6 +261,7 @@ def run_xnli(args, key):
                     "prediction": pred,
                     "raw": txt,
                     "correct": pred == gold,
+                    "usage": usage,
                 }
             except Exception as exc:
                 if attempt == 2:
@@ -370,7 +378,7 @@ def run_milu(args, key):
 
     def work(item):
         block = f"{item[q]}\n" + "\n".join(f"{k}. {item[opts[k]]}" for k in letters)
-        text = chat(
+        text, usage = chat(
             args.model,
             [
                 {
@@ -392,6 +400,7 @@ def run_milu(args, key):
             "prediction": text,
             "pred_letter": pred,
             "correct": int(pred == gold) if pred and gold else 0,
+            "usage": usage,
         }
 
     out = []
