@@ -77,7 +77,8 @@ python3 build_site.py --no-push
 
 ## Gotchas
 
-- `bench.py`'s XNLI "file missing" message mentions `data/ta/test-00000-of-00001.parquet`, but the path the code actually loads is `data/indicxnli_ta_test.parquet` (which is what exists in the repo). Trust the code path.
+- **MILU-1.5 exists** (issues #1, #2): the NVIDIA/AI4Bharat Indic-LLM-Eval-Suite report audited MILU and shipped a cleaned, ungated replacement (`ai4bharat/MILU-1.5`, Tamil test 6,098 rows + validation split, CC-BY-4.0). All current MILU-Tamil scores predate it. See `ThamizhKanimai/notes/2026-10-17-milu-15-tamilbench.md` for the full analysis.
+- `__pycache__/` is gitignored build cruft; ignore it.- `bench.py`'s XNLI "file missing" message mentions `data/ta/test-00000-of-00001.parquet`, but the path the code actually loads is `data/indicxnli_ta_test.parquet` (which is what exists in the repo). Trust the code path.
 - The MILU dev split is not available via the parquet API, so few-shot (`--shots`) only works if `data/milu_ta_dev.parquet` exists locally; runs are 0-shot otherwise.
 - IndicQA sheets include the unanswerable traps (empty golds). `bench.py` scores only answerable questions; `bluff.py` and `build_site.py` use the traps for the bluff metric. Empty-gold rows are intentional.
 - `__pycache__/` is gitignored build cruft; ignore it.
